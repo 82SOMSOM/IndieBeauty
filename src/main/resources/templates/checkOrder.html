@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>Karl - Fashion Ecommerce Template | Cart</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{img/core-img/favicon.ico}">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" th:href="@{css/core-style.css}">
+    <link rel="stylesheet" th:href="style.css">
+
+    <!-- Responsive CSS -->
+    <link href="@{css/responsive.css}" rel="stylesheet">
+
+</head>
+
+<body>
+	<div th:insert="~{index::side-menu}"></div>
+
+    <div id="wrapper">
+
+        <!-- ****** Header Area Start ****** -->
+ 		<header th:insert="~{index::header-area}"></header>
+        <!-- ****** Header Area End ****** -->
+
+        <!-- ****** Top Discount Area Start ****** -->
+        <section th:insert="~{index::top-discount-area}"></section>
+        <!-- ****** Top Discount Area End ****** -->
+
+        <!-- ****** Cart Area Start ****** -->
+        <div class="cart_area section_padding_100 clearfix">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="cart-table clearfix">
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="cart_product_img d-flex align-items-center">
+                                            <a href="#"><img th:src="@{img/product-img/product-9.jpg}" alt="Product"></a>
+                                            <h6>Yellow Cocktail Dress</h6>
+                                        </td>
+                                        <td class="price"><span>$49.88</span></td>
+                                        <td class="qty">
+                                            <div class="quantity">
+                                                1
+                                            </div>
+                                        </td>
+                                        <td class="total_price"><span>$49.88</span></td>
+                                        <td class="review"><a href="./reviewForm.html"><img th:src="@{img/review_button.png}"></a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="cart-total-area mt-70">
+                            <div class="cart-page-heading">
+                                <h5>Order total</h5>
+                                <p>Final info</p>
+                            </div>
+
+                            <ul class="cart-total-chart">
+                                <li><span><strong>Total</strong></span> <span><strong>$59.90</strong></span></li>
+                            </ul>
+                            <a href="checkout.html" class="btn karl-checkout-btn">Cancel Order</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ****** Cart Area End ****** -->
+
+        <!-- ****** Footer Area Start ****** -->
+        <footer th:insert="~{index::footer-area}"></footer>
+        <!-- ****** Footer Area End ****** -->
+    </div>
+    <!-- /.wrapper end -->
+
+    <!-- jQuery (Necessary for All JavaScript Plugins) -->
+    <script th:src="@{js/jquery/jquery-2.2.4.min.js}"></script>
+    <!-- Popper js -->
+    <script th:src="@{js/popper.min.js}"></script>
+    <!-- Bootstrap js -->
+    <script th:src="@{js/bootstrap.min.js}"></script>
+    <!-- Plugins js -->
+    <script th:src="@{js/plugins.js}"></script>
+    <!-- Active js -->
+    <script th:src="@{js/active.js}"></script>
+
+</body>
+
+</html>
