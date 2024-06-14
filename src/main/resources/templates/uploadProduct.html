@@ -9,14 +9,14 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Karl - Fashion Ecommerce Template | Checkout</title>
+    <title>상품 업로드</title>
 
     <!-- Favicon  -->
     <link rel="icon" th:href="@{img/core-img/favicon.ico}">
 
     <!-- Core Style CSS -->
     <link rel="stylesheet" th:href="@{css/core-style.css}">
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
 
     <!-- Responsive CSS -->
     <link th:href="@{css/responsive.css}" rel="stylesheet">
@@ -33,7 +33,6 @@
         <!-- ****** Header Area End ****** -->
 
        <section th:insert="~{index::top-discount-area}"></section>
-
         <!-- ****** Checkout Area Start ****** -->
         <div class="checkout_area section_padding_100">
             <div class="container">
@@ -47,52 +46,44 @@
                                 <p>Enter your product information</p>
                             </div>
 
-                            <form action="#" method="post">
+                            <form method="post" th:action="@{/upload-product}" enctype="multipart/form-data" th:object="${uploadProduct}">
                                 <div class="row">
                             <div class="col-12 mb-3">
-                                        <label for="street_address">Product Name <span>*</span></label>
-                                        <input type="text" class="form-control mb-3" id="street_address" value="">
-                                    
+                                <label for="name">Product Name <span>*</span></label>
+                                <input type="text" class="form-control mb-3" id="name" th:field="*{name}">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="category">Category<span>*</span></label>
+                                <select class="custom-select d-block w-100" id="category" th:field="*{categoryId}">
+	                               <option th:each="category : ${session.categoryList}"
+	                               		th:value="${category.categoryId}"
+	                               		th:text="${category.name}">
+	                               </option>
+                            	</select>
+                            </div>
+                            <div class="col-12 mb-3">
+                              <label for="titleImage">Product Main Image<span>*</span></label><br>
+                                        <input type="file" class="form-control" accept="image/*" id="titleImage" required th:field="*{titleImage}">
                                     </div>
                                     <div class="col-12 mb-3">
-                                        <label for="country">Category <span>*</span></label>
-                                        <select class="custom-select d-block w-100" id="country">
-                                        <option value="usa">make up</option>
-                                        <option value="uk">skin care</option>
-                                        <option value="ger">beauty tools</option>
-                                    </select>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                              <label for="last_name">Product Main Image<span>*</span></label><br>
-                                        <input type="file" class="real-upload" accept="image/*" required multiple>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                              <label for="last_name">Product Detail Image 1<span>*</span></label><br>
-                                        <input type="file" class="real-upload" accept="image/*" required multiple>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                              <label for="last_name">Product Detail Image 2<span>*</span></label><br>
-                                        <input type="file" class="real-upload" accept="image/*" required multiple>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                              <label for="last_name">Product Detail Image 3<span>*</span></label><br>
-                                        <input type="file" class="real-upload" accept="image/*" required multiple>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                              <label for="last_name">Product Detail Image 4<span>*</span></label><br>
-                                        <input type="file" class="real-upload" accept="image/*" required multiple>
-                                    </div>
+                              <label for="detailImageList">Please upload four images for detail.<span>*</span></label><br>
+                                    <input type="file" class="form-control" accept="image/*" id="detailImageList" required multiple th:field="*{detailImageList}">
+                           </div>
                            <div class="col-12 mb-3"> <!-- col-md-9로 수정 -->
-                               <label for="street_address">Description <span>*</span></label>
-                               <input type="text" class="form-control" id="adress" value="">
+                               <label for="description">Description <span>*</span></label>
+                               <input type="text" class="form-control" id="description" value="" th:field="*{description}">
                            </div>
                                     <div class="col-12 mb-3">
-                                        <label for="postcode">Price <span>*</span></label>
-                                        <input type="text" class="form-control" id="postcode" value="">
+                                        <label for="price">Price <span>*</span></label>
+                                        <input type="text" class="form-control" id="price" value="" th:field="*{price}">
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="stock">Stock <span>*</span></label>
+                                        <input type="text" class="form-control" id="stock" value="" th:field="*{stock}">
                                     </div>
                                     
                                     <div class="col-12">
-                                        <a href="#" class="btn karl-checkout-btn">Register a product</a>
+                                        <button type="submit" class="btn karl-checkout-btn">Register a product</button>
                                     </div>
                                 </div>
                             </form>
