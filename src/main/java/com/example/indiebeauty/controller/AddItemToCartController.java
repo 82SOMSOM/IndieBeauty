@@ -1,6 +1,9 @@
 package com.example.indiebeauty.controller;
 
 import com.example.indiebeauty.repository.CartItemRepository;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import com.example.indiebeauty.domain.Cart;
 import com.example.indiebeauty.domain.CartItem;
 import com.example.indiebeauty.domain.Item;
@@ -13,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @Controller
