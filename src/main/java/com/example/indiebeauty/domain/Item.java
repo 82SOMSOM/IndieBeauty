@@ -29,10 +29,10 @@ public class Item implements Serializable{
 	@Id
 	@SequenceGenerator(name = "item_seq_gen", sequenceName = "item_seq", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_seq_gen")
-	@Column(name = "item_id")
+	@Column(name = "itemid")
 	private int itemId;
 
-	@Column(name = "product_id")
+	@Column(name = "productid")
 	private int productId;
 
 	private int price;
@@ -40,6 +40,6 @@ public class Item implements Serializable{
 	private int quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    @JoinColumn(name = "orderid", referencedColumnName = "orderid")
     private Orders order;
 }
