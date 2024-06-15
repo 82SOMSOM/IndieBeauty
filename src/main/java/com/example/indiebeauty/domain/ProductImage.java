@@ -20,12 +20,13 @@ public class ProductImage {
 	@SequenceGenerator(name="productimage_seq_gen", 
 			sequenceName="productimage_seq", initialValue=1, allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="productimage_seq_gen")
+	@Column(name="imageid")
 	private int imageId;
-	@Column(name="product_id")
+	@Column(name="productid")
 	private int productId;
-	@Column(name="image_url")
+	@Column(name="imageurl")
 	private String imageUrl;
-	@Column(name="is_title_img")
+	@Column(name="istitleimg")
 	private int isTitleImg;
 
 	public ProductImage() {
