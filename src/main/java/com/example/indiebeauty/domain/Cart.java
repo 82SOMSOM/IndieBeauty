@@ -29,8 +29,8 @@ public class Cart implements Serializable {
 
   /* Public Methods */
 
-  public boolean containsItemId(String itemId) {
-    return itemMap.containsKey(itemId);
+  public boolean containsItemId(int workingItemId) {
+    return itemMap.containsKey(workingItemId);
   }
 
   //public void addItem(Item item, boolean isInStock) {
@@ -55,7 +55,7 @@ public class Cart implements Serializable {
   }
   
   //public Item removeItemById(String itemId) {
-  public CartItem removeItemById(String itemId) {
+  public CartItem removeItemById(int itemId) {
     CartItem cartItem = itemMap.remove(itemId);
     if (cartItem == null) {
       return null;
@@ -68,21 +68,21 @@ public class Cart implements Serializable {
   }
 
   //public void incrementQuantityByItemId(String itemId) {
-  public CartItem incrementQuantityByItemId(String itemId) {  
-	CartItem cartItem = itemMap.get(itemId);
+  public CartItem incrementQuantityByItemId(int workingItemId) {  
+	CartItem cartItem = itemMap.get(workingItemId);
     cartItem.incrementQuantity();
     return cartItem;
   }
 
   //public void setQuantityByItemId(String itemId, int quantity) {
-  public CartItem setQuantityByItemId(String itemId, int quantity) {  
+  public CartItem setQuantityByItemId(int itemId, int quantity) {  
     CartItem cartItem = itemMap.get(itemId);
     cartItem.setQuantity(quantity);    
     return cartItem;
   }
 
   //////////// added  /////////////////
-  public void increaseQuantityByItemId(String itemId, int qty) {
+  public void increaseQuantityByItemId(int itemId, int qty) {
     CartItem cartItem = itemMap.get(itemId);
     cartItem.increaseQuantity(qty);
   }
