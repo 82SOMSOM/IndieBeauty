@@ -10,23 +10,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.indiebeauty.domain.Cart;
 import com.example.indiebeauty.domain.CartItem;
-import com.example.indiebeauty.service.PetStoreFacade;
+import com.example.indiebeauty.service.IndiebeautyFacade;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-/**
- * @author Juergen Hoeller
- * @since 30.11.2003
- * @modified-by Changsup Park
- */
 @Controller
 @SessionAttributes("sessionCart")
 public class UpdateCartQuantitiesController { 
-	private PetStoreFacade petStore;
+	private IndiebeautyFacade indieBeauty;
 
 	@Autowired
-	public void setPetStore(PetStoreFacade petStore) {
-		this.petStore = petStore;
+	public void setIndieBeauty(IndiebeautyFacade indieBeauty) {
+		this.indieBeauty = indieBeauty;
 	}
 	
 	@RequestMapping("/shop/updateCartQuantities.do")
@@ -50,10 +45,10 @@ public class UpdateCartQuantitiesController {
 				UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
 				if (userSession != null) {  // logged-in            
 				    if (quantity < 1) {
-	                    petStore.deleteCartItem(ci);
+				    	indieBeauty.deleteCartItem(ci);
 	                }
 	                else {
-	                    petStore.updateCartItem(ci);
+	                	indieBeauty.updateCartItem(ci);
 	                }    
 				}
 				//////////////////////////////////////////////

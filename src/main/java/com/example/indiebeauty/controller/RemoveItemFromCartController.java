@@ -10,21 +10,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.indiebeauty.domain.Cart;
 import com.example.indiebeauty.domain.CartItem;
-import com.example.indiebeauty.service.PetStoreFacade;
+import com.example.indiebeauty.service.IndiebeautyFacade;
 
-/**
- * @author Juergen Hoeller
- * @since 30.11.2003
- * @modified-by Changsup Park
- */
 @Controller
 @SessionAttributes("sessionCart")
 public class RemoveItemFromCartController { 
-	private PetStoreFacade petStore;
+	private IndiebeautyFacade indieBeauty;
 
 	@Autowired
-	public void setPetStore(PetStoreFacade petStore) {
-		this.petStore = petStore;
+	public void setPetStore(IndiebeautyFacade indieBeauty) {
+		this.indieBeauty = indieBeauty;
 	}
 	
 	@RequestMapping("/shop/removeItemFromCart.do")
@@ -35,7 +30,7 @@ public class RemoveItemFromCartController {
 		
 		//////////////////////////////////////////////
 		CartItem ci = cart.removeItemById(workingItemId);
-		if (ci != null) petStore.deleteCartItem(ci);
+		if (ci != null) indieBeauty.deleteCartItem(ci);
 		//////////////////////////////////////////////
 		
 		return new ModelAndView("Cart", "cart", cart);

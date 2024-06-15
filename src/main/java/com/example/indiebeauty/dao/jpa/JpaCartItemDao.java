@@ -12,9 +12,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 
-/**
- * @author Changsup Park
- */
 @Repository
 public class JpaCartItemDao implements CartItemDao {
 
