@@ -32,7 +32,7 @@ public class AddItemToCartController {
 	
 	@RequestMapping("/shop/addItemToCart.do")
 	public ModelAndView handleRequest(
-			@RequestParam("workingItemId") String workingItemId,
+			@RequestParam("workingItemId") int workingItemId,
 			@ModelAttribute("sessionCart") Cart cart, HttpServletRequest request 
 			) throws Exception {
 		if (cart.containsItemId(workingItemId)) {

@@ -17,9 +17,9 @@ public interface IndiebeautyFacade {
 
 	// Cart
 	void updateCartItem(CartItem ci);
-	boolean isItemInStock(String workingItemId);
+	boolean isItemInStock(int workingItemId);
 	void insertCartItem(CartItem ci);
 	void deleteCartItem(CartItem ci);
 
-	Item getItem(String workingItemId);
+	Item getItem(int workingItemId);
 }
