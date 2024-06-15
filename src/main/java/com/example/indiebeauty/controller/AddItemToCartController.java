@@ -10,24 +10,19 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.indiebeauty.domain.Cart;
 import com.example.indiebeauty.domain.CartItem;
 import com.example.indiebeauty.domain.Item;
-import com.example.indiebeauty.service.PetStoreFacade;
+import com.example.indiebeauty.service.IndiebeautyFacade;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-/**
- * @author Juergen Hoeller
- * @since 30.11.2003
- * @modified-by Changsup Park
- */
 @Controller
 @SessionAttributes("sessionCart")
 public class AddItemToCartController { 
 
-	private PetStoreFacade petStore;
+	private IndiebeautyFacade indieBeauty;
 
 	@Autowired
-	public void setPetStore(PetStoreFacade petStore) {
-		this.petStore = petStore;
+	public void setIndieBeauty(IndiebeautyFacade indieBeauty) {
+		this.indieBeauty = indieBeauty;
 	}
 
 	@ModelAttribute("sessionCart")
@@ -43,14 +38,14 @@ public class AddItemToCartController {
 		if (cart.containsItemId(workingItemId)) {
 			//////////////////////////////////////////////
 			CartItem ci = cart.incrementQuantityByItemId(workingItemId);
-			petStore.updateCartItem(ci);
+			indieBeauty.updateCartItem(ci);
 		}
 		else {
 			// isInStock is a "real-time" property that must be updated
 			// every time an item is added to the cart, even if other
 			// item details are cached.
-			boolean isInStock = this.petStore.isItemInStock(workingItemId);
-			Item item = this.petStore.getItem(workingItemId);
+			boolean isInStock = this.indieBeauty.isItemInStock(workingItemId);
+			Item item = this.indieBeauty.getItem(workingItemId);
 			
 			//////////////////////////////////////////////
 			CartItem ci = cart.addItem(item, isInStock);
@@ -59,9 +54,9 @@ public class AddItemToCartController {
 			if (userSession != null) {	// logged-in 			
 				ci.setUserId(userSession.getAccount().getUsername());
 				if (ci.getQuantity() == 1)
-					petStore.insertCartItem(ci);
+					indieBeauty.insertCartItem(ci);
 				else 
-					petStore.updateCartItem(ci);
+					indieBeauty.updateCartItem(ci);
 			//////////////////////////////////////////////
 			}
 		}
