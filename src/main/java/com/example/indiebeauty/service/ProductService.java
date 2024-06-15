@@ -110,7 +110,7 @@ public class ProductService {
 
 		List<ProductImage> productImageList = new ArrayList<ProductImage>();
 		for (MultipartFile image : uploadProduct.getDetailImageList()) {
-			String imageFileName = saveImage(uploadProduct.getTitleImage());
+			String imageFileName = saveImage(image);
 			ProductImage productIamge = new ProductImage(0, newProductId, imageFileName, 0);
 			productImageList.add(productIamge);
 		}
