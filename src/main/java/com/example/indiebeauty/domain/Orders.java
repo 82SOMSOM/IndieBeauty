@@ -33,23 +33,23 @@ public class Orders implements Serializable{
 	@Id
 	@SequenceGenerator(name = "order_seq_gen", sequenceName = "order_seq", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq_gen")
-	@Column(name = "order_id")
+	@Column(name = "orderid")
 	private Long orderId;
 
-	@Column(name = "user_id")
+	@Column(name = "userid")
 	private String userId;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "order_date")
+	@Column(name = "orderdate")
 	private Date date;
 
-	@Column(name = "total_price")
+	@Column(name = "totalprice")
 	private int totalPrice;
 
-	@Column(name = "is_order_paid")
+	@Column(name = "isorderpaid")
 	private int isOrderPaid;
 
-	@Column(name = "account_number")
+	@Column(name = "accountnumber")
 	private int accountNumber;
 
 	private String address;
