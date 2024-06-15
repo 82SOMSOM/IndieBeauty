@@ -13,17 +13,17 @@
 <title>Karl - Fashion Ecommerce Template | Checkout</title>
 
 <!-- Favicon  -->
-<link rel="icon" th:href="@{img/core-img/favicon.ico}">
+<link rel="icon" th:href="@{/img/core-img/favicon.ico}">
 
 <!-- 부트스트랩 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 <!-- Core Style CSS -->
-<link rel="stylesheet" th:href="@{css/core-style.css}">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" th:href="@{/css/core-style.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
 
 <!-- Responsive CSS -->
-<link th:href="../css/responsive.css" rel="stylesheet">
+<link th:href="@{/css/responsive.css}" rel="stylesheet">
 
 </head>
 
@@ -55,7 +55,7 @@
 								<div class="row">
 									<div class="col-12 mb-3">
 										<label for="last_name">Ordered Products <span>*</span></label><br>
-										<img th:src="@{img/product-img/product-10.jpg}" alt=""> <br>
+										<img th:src="@{/img/product-img/product-10.jpg}" alt=""> <br>
 										<br> <input type="text" class="form-control"
 											id="postcode" value="Nature skin care" readonly>
 									</div>
@@ -99,15 +99,15 @@
 	<!-- /.wrapper end -->
 
 	<!-- jQuery (Necessary for All JavaScript Plugins) -->
-    <script th:src="@{js/jquery/jquery-2.2.4.min.js}"></script>
+    <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
     <!-- Popper js -->
-    <script th:src="@{js/popper.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
     <!-- Bootstrap js -->
-    <script th:src="@{js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
     <!-- Plugins js -->
-    <script th:src="@{js/plugins.js}"></script>
+    <script th:src="@{/js/plugins.js}"></script>
     <!-- Active js -->
-    <script th:src="@{js/active.js}"></script>
+    <script th:src="@{/js/active.js}"></script>
 
 </body>
 
