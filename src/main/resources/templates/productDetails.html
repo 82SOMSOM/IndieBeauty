@@ -9,7 +9,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Karl - Fashion Ecommerce Template | Product Details</title>
+    <title>상품 상세보기</title>
 
     <!-- Favicon  -->
     <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
@@ -40,12 +40,9 @@
                 <div class="row">
                     <div class="col-12">
                         <ol class="breadcrumb d-flex align-items-center">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">Dresses</a></li>
-                            <li class="breadcrumb-item active">Long Dress</li>
+                        	<li class="breadcrumb-item"><a=href="#" th:text="${product.category.name}"></a></li>
                         </ol>
-                        <!-- btn -->
-                        <a href="#" class="backToHome d-block"><i class="fa fa-angle-double-left"></i> Back to Category</a>
+                        <a th:href="@{'/shop/category/' + ${product.category.categoryId} + '?pageNum=1'}" class="backToHome d-block"><i class="fa fa-angle-double-left"></i> Go to Category</a>
                     </div>
                 </div>
             </div>
@@ -54,59 +51,48 @@
 
         <!-- <<<<<<<<<<<<<<<<<<<< Single Product Details Area Start >>>>>>>>>>>>>>>>>>>>>>>>> -->
         <section class="single_product_details_area section_padding_0_100">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-12 col-md-6">
-                        <div class="single_product_thumb">
-                            <div id="product_details_slider" class="carousel slide" data-ride="carousel">
-
-                                <ol class="carousel-indicators">
-								    <li class="active" data-target="#product_details_slider" data-slide-to="0" th:style="|background-image: url('@{/img/product-img/product-9.jpg}');|"></li>
-								    <li data-target="#product_details_slider" data-slide-to="1" th:style="|background-image: url('@{/img/product-img/product-2.jpg}');|"></li>
-								    <li data-target="#product_details_slider" data-slide-to="2" th:style="|background-image: url('@{/img/product-img/product-3.jpg}');|"></li>
-								    <li data-target="#product_details_slider" data-slide-to="3" th:style="|background-image: url('@{/img/product-img/product-4.jpg}');|"></li>
-								</ol>
-
-
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <a class="gallery_img" th:href="@{/img/product-img/product-9.jpg}">
-                                        <img class="d-block w-100" th:src="@{/img/product-img/product-9.jpg}" alt="First slide">
-                                    </a>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <a class="gallery_img" th:href="@{/img/product-img/product-2.jpg}">
-                                        <img class="d-block w-100" th:src="@{/img/product-img/product-2.jpg}" alt="Second slide">
-                                    </a>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <a class="gallery_img" th:href="@{/img/product-img/product-3.jpg}">
-                                        <img class="d-block w-100" th:src="@{/img/product-img/product-3.jpg}" alt="Third slide">
-                                    </a>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <a class="gallery_img" th:href="@{/img/product-img/product-4.jpg}">
-                                        <img class="d-block w-100" th:src="@{/img/product-img/product-4.jpg}" alt="Fourth slide">
-                                    </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-md-6">
-                        <div class="single_product_desc">
-
-                            <h4 class="title"><a href="#">Long Yellow Dress</a></h4>
-
-                            <h4 class="price">$ 39.99</h4>
-
-                            <p class="available">Available: <span class="text-muted">In Stock</span></p>
-
-                            <div class="single_product_ratings mb-15">
-                                4.8점
-
+        	<div class="container">
+        		<div class="row">
+        			<div class="col-12 col-md-6">
+        				<div class="single_product_thumb">
+        					<div id="product_details_slider" class="carousel slide" data-ride="carousel">
+        						<ol class="carousel-indicators">
+        							<!-- Index와 이미지 URL을 사용하여 슬라이더 인디케이터를 동적으로 생성 -->
+						       		<li th:each="img, stat : ${product.imageList}"
+						           		th:classappend="${stat.index == 0} ? 'active'"
+						           		th:data-slide-to="${stat.index}"
+						           		data-target="#product_details_slider"
+						           		th:style="'background-image: url(' +  @{'/img/product-img/' + ${img.imageUrl}} + ');'">
+						       		</li>
+        						</ol>
+        						<div class="carousel-inner">
+        							<div th:each="img, stat : ${product.imageList}"
+				             			th:classappend="'carousel-item ' + (${stat.index == 0} ? ' active' : '')">
+				            			<a class="gallery_img" th:href="@{'/img/product-img/' + ${img.imageUrl}}">
+				                			<img class="d-block w-100" th:src="@{'/img/product-img/' + ${img.imageUrl}}" th:alt="'Slide ' + (${stat.index + 1})">
+				            			</a>
+				        			</div>
+        						</div>
+        					</div>
+        				</div>
+        			</div>
+        			<div class="col-12 col-md-6">
+        				<div class="single_product_desc">
+        					<h4 class="title"><a href="#" th:text="${product.name}"></a></h4>
+                            <h4 class="price" th:text="${product.price} + '원'">가격</h4>
+                            <p class="available">
+							  Available: 
+							  <span class="text-muted">
+							    <span th:if="${product.stock <= 0}">Out of Stock</span>
+							    <span th:if="${product.stock > 0}">In Stock</span>
+							  </span>
+							</p>
+							<!-- 통계 수정 필요 -->
+							<div class="single_product_ratings mb-15">
+								<h6 class="mb-0">
+									4.8점
+								</h6>
+							</div>
                             <!-- Add to Cart Form -->
                             <form class="cart clearfix mb-50 d-flex" method="post">
                                 <div class="quantity">
@@ -116,7 +102,6 @@
                                 </div>
                                 <button type="submit" name="addtocart" value="5" class="btn cart-submit d-block">Add to cart</button>
                             </form>
-
                             <div id="accordion" role="tablist">
                                 <div class="card">
                                     <div class="card-header" role="tab" id="headingOne">
@@ -127,9 +112,7 @@
 
                                     <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
                                         <div class="card-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integ er bibendum sodales arcu id te mpus. Ut consectetur lacus.</p>
-                                            <p>Approx length 66cm/26" (Based on a UK size 8 sample) Mixed fibres</p>
-                                            <p>The Model wears a UK size 8/ EU size 36/ US size 4 and her height is 5'8"</p>
+                                            <p th:text="${product.description}"></p>
                                         </div>
                                     </div>
                                 </div>
@@ -147,11 +130,10 @@
                                     </div>
                                 </div>
                             </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+        				</div>
+        			</div>
+        		</div>
+        	</div>
         </section>
         <!-- <<<<<<<<<<<<<<<<<<<< Single Product Details Area End >>>>>>>>>>>>>>>>>>>>>>>>> -->
 
