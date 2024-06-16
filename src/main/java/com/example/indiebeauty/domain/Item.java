@@ -32,8 +32,9 @@ public class Item implements Serializable{
 	@Column(name = "itemid")
 	private int itemId;
 
-	@Column(name = "productid")
-	private int productId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="productid")
+	private Product product;
 
 	private int price;
 
