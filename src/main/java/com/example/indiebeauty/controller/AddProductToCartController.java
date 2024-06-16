@@ -18,7 +18,7 @@ public class AddProductToCartController {
 	private IndiebeautyFacade indiebeauty;
 
 	@Autowired
-	public void setPetStore(IndiebeautyFacade indiebeauty) {
+	public void setIndiebeauty(IndiebeautyFacade indiebeauty) {
 		this.indiebeauty = indiebeauty;
 	}
 
