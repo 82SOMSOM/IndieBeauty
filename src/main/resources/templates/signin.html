@@ -64,8 +64,8 @@
     				<input type="text" th:field="*{userInfo.address}" class="form-control" id="address" required>
                 </div>
                 <div class="col-12 mb-3">
-                    <label for="phone">Phone No <span>*</span></label>
-    				<input type="text" th:field="*{userInfo.phone}" class="form-control" id="phone" required>
+                    <label for="phone">Phone No <span>*</span> ( - 제외 11자리 입력)</label>
+    				<input type="number" th:field="*{userInfo.phone}" class="form-control" id="phone" required>
                 </div>
                 <div class="col-12 mb-4">
                     <label for="email">Email Address <span>*</span></label>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="col-12">
                     <!--<a href="#" class="btn karl-checkout-btn">SIGN IN</a>-->
-                    <button type="submit" class="btn karl-checkout-btn">가입하기</button>
+                    <button type="submit" class="btn karl-checkout-btn">SIGN IN</button>
                 </div>
             </div>
         </form>
