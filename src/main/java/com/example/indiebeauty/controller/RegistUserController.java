@@ -100,13 +100,5 @@ public class RegistUserController {
             return "editUserInfo";
         }
     }
-    
-	@RequestMapping("/logout")
-	public String logoutUser(HttpSession session) throws Exception{
-		session.removeAttribute("userSession");
-		session.invalidate();
-		logger.info("logout 성공");
-		return "redirect:shop";
-	}
 	 	
 }
