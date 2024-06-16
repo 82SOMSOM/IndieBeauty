@@ -30,6 +30,7 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 	public void updateUserInfo(UserInfo userinfo) {
 		userRepository.save(userinfo);
 	}
+
 	@Override
 	public boolean isProductInStock(int workingProductId) {
 //		return productRepository.existsByItemIdAndQuantityGreaterThan(itemId, 0);

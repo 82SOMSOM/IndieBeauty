@@ -1,12 +1,12 @@
 package com.example.indiebeauty.controller;
 
 import java.io.Serializable;
-
 import org.springframework.beans.support.PagedListHolder;
 
 import com.example.indiebeauty.domain.CartItem;
 import com.example.indiebeauty.domain.UserInfo;
 import com.example.indiebeauty.domain.Product;
+import com.example.indiebeauty.domain.UserInfo;
 
 @SuppressWarnings("serial")
 public class UserSession implements Serializable{
