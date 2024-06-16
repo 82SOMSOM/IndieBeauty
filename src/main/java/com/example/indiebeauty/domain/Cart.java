@@ -13,66 +13,66 @@ public class Cart implements Serializable {
 
   /* Private Fields */
 
-  private final Map<Integer, CartItem> itemMap = Collections.synchronizedMap(new HashMap<Integer, CartItem>());
+  private final Map<Integer, CartProduct> productMap = Collections.synchronizedMap(new HashMap<Integer, CartProduct>());
 	
-  private final PagedListHolder<CartItem> itemList = new PagedListHolder<CartItem>();
+  private final PagedListHolder<CartProduct> productList = new PagedListHolder<CartProduct>();
 
   /* JavaBeans Properties */
 
   public Cart() {
-	this.itemList.setPageSize(4);
+	this.productList.setPageSize(4);
   }
 
-  public Iterator<CartItem> getAllCartItems() { return itemList.getSource().iterator(); }
-  public PagedListHolder<CartItem> getCartItemList() { return itemList; }
-  public int getNumberOfItems() { return itemList.getSource().size(); }
+  public Iterator<CartProduct> getAllCartProducts() { return productList.getSource().iterator(); }
+  public PagedListHolder<CartProduct> getCartProductList() { return productList; }
+  public int getNumberOfProducts() { return productList.getSource().size(); }
 
   /* Public Methods */
 
   public boolean containsProductId(int workingProductId) {
-    return itemMap.containsKey(workingProductId);
+    return productMap.containsKey(workingProductId);
   }
 
   public void addProduct(Product product, boolean isInStock) {
-    CartItem cartItem = itemMap.get(product.getProductId());
+    CartProduct cartItem = productMap.get(product.getProductId());
     if (cartItem == null) {
-      cartItem = new CartItem();
+      cartItem = new CartProduct();
       cartItem.setProduct(product);
       cartItem.setQuantity(0);
       cartItem.setInStock(isInStock);
-      itemMap.put(product.getProductId(), cartItem);
-      itemList.getSource().add(cartItem);
+      productMap.put(product.getProductId(), cartItem);
+      productList.getSource().add(cartItem);
     }
     cartItem.incrementQuantity();
   }
 
 
   public Product removeProductById(String productId) {
-    CartItem cartItem = itemMap.remove(productId);
-    if (cartItem == null) {
+    CartProduct cartProduct = productMap.remove(productId);
+    if (cartProduct == null) {
       return null;
     }
 	else {
-      itemList.getSource().remove(cartItem);
-      return cartItem.getProduct();
+		productList.getSource().remove(cartProduct);
+      return cartProduct.getProduct();
     }
   }
 
   public void incrementQuantityByProductId(int productId) {
-    CartItem cartItem = itemMap.get(productId);
-    cartItem.incrementQuantity();
+    CartProduct cartProduct = productMap.get(productId);
+    cartProduct.incrementQuantity();
   }
 
   public void setQuantityByProductId(int productId, int quantity) {
-    CartItem cartItem = itemMap.get(productId);
-    cartItem.setQuantity(quantity);
+    CartProduct cartProduct = productMap.get(productId);
+    cartProduct.setQuantity(quantity);
   }
 
   public double getSubTotal() {
     double subTotal = 0;
-    Iterator<CartItem> items = getAllCartItems();
+    Iterator<CartProduct> items = getAllCartProducts();
     while (items.hasNext()) {
-      CartItem cartItem = (CartItem) items.next();
+      CartProduct cartItem = (CartProduct) items.next();
       Product product = cartItem.getProduct();
 //      double listPrice = product.getListPrice();
       double listPrice = product.getPrice();

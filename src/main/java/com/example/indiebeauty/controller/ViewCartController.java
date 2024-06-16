@@ -59,10 +59,10 @@ public class ViewCartController {
 			}
 		}
 		if ("nextCart".equals(page)) {
-			cart.getCartItemList().nextPage();
+			cart.getCartProductList().nextPage();
 		}
 		else if ("previousCart".equals(page)) {
-			cart.getCartItemList().previousPage();
+			cart.getCartProductList().previousPage();
 		}
 	}
 }

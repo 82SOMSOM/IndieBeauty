@@ -37,6 +37,7 @@
         <!-- ****** Top Discount Area End ****** -->
 
         <!-- ****** Cart Area Start ****** -->
+		<form th:action="@{/shop/updateCartQuantities.do}" method="post">
          <div class="cart_area section_padding_100 clearfix">
             <div class="container">
                 <div class="row">
@@ -53,21 +54,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+									<tr th:if="${cart.numberOfProducts == 0}">
+										<td><b>Your cart is empty.</b></td>
+									</tr>
+
+                                    <tr th:each="cartProduct : ${cart.cartProductList.pageList}">
                                         <td class="cart_product_img d-flex align-items-center">
                                             <a href="#"><img th:src="@{/img/product-img/product-9.jpg}" alt="Product"></a>
-                                            <h6>Yellow Cocktail Dress</h6>
+                                            <h6 th:text="cartProduct.product.name"></h6>
                                         </td>
-                                        <td class="price"><span>$49.88</span></td>
+                                        <td class="price"><span th:text="${cartProduct.product.price}"></span></td>
                                         <td class="qty">
                                             <div class="quantity">
                                                 <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) && qty > 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                <input type="number" class="qty-text" id="qty" step="1" min="1" max="99" name="quantity" value="1">
+                                                <input type="number" class="qty-text" id="qty" step="1" min="1" max="99" name="${cartProduct.product.productId}" th:value="${cartProduct.quantity}">
                                                 <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                             </div>
                                         </td>
-                                        <td class="total_price"><span>$49.88</span></td>
-                                        <td><img th:src="@{/img/remove_button.png}"></td>
+                                        <td class="total_price"><span th:text="${cartProduct.totalPrice}"></span></td>
+                                        <td>
+											<a th:href="@{'/shop/removeProductFromCart?workingProductId=' + ${cartProduct.product.productId}}">
+												<img th:src="@{/img/remove_button.png}">
+											</a>
+										</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -75,13 +84,12 @@
 
                         <div class="cart-footer d-flex mt-30">
                             <div class="back-to-shop w-50">
-                                <a href="shop-grid-left-sidebar.html">Continue shooping</a>
+                                <a href="" th:href="@{/}">Continue shopping</a>
                             </div>
                             <div class="update-checkout w-50 text-right">
-                                <a href="#">Update cart</a>
+                                <button type="submit" class="btn karl-checkout-btn w-50">UPDATE CART</button>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -98,9 +106,9 @@
                             </div>
 
                             <ul class="cart-total-chart">
-                                <li><span>Subtotal</span> <span>$59.90</span></li>
+                                <li><span>Subtotal</span> <span th:text="${#numbers.formatDecimal(cart.subTotal, 1, 'COMMA', 2, 'POINT')}"></span></li>
                                 <li><span>Shipping</span> <span>Free</span></li>
-                                <li><span><strong>Total</strong></span> <span><strong>$59.90</strong></span></li>
+                                <li><span><strong>Total</strong></span> <span th:text="${#numbers.formatDecimal(cart.subTotal, 1, 'COMMA', 2, 'POINT')}"><strong></strong></span></li>
                             </ul>
                             <a href="createOrder.html" class="btn karl-checkout-btn">Proceed to checkout</a>
                         </div>
@@ -108,6 +116,7 @@
                 </div>
             </div>
         </div>
+		</form>
         <!-- ****** Cart Area End ****** -->
 
         <!-- ****** Footer Area Start ****** -->
