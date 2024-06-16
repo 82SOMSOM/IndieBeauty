@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.indiebeauty.domain.Cart;
-import com.example.indiebeauty.domain.CartItem;
+import com.example.indiebeauty.domain.CartProduct;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -20,9 +20,9 @@ public class UpdateCartQuantitiesController {
 	public ModelAndView handleRequest(
 			HttpServletRequest request,	
 			@ModelAttribute("sessionCart") Cart cart) throws Exception {
-		Iterator<CartItem> cartItems = cart.getAllCartItems();
+		Iterator<CartProduct> cartItems = cart.getAllCartProducts();
 		while (cartItems.hasNext()) {
-			CartItem cartItem = (CartItem) cartItems.next();
+			CartProduct cartItem = (CartProduct) cartItems.next();
 			int productId = cartItem.getProduct().getProductId();
 			String parameterName = Integer.toString(productId); // int 타입의 productid를 String 타입으로 변환
 			try {

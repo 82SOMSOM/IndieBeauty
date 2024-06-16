@@ -3,7 +3,7 @@ package com.example.indiebeauty.domain;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class CartItem implements Serializable {
+public class CartProduct implements Serializable {
 
   /* Private Fields */
 
