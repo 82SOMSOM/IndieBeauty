@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.indiebeauty.domain.Item;
+import com.example.indiebeauty.domain.Product;
 import com.example.indiebeauty.domain.UserInfo;
 import com.example.indiebeauty.repository.UserRepository;
 
@@ -27,6 +29,17 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 	}
 	public void updateUserInfo(UserInfo userinfo) {
 		userRepository.save(userinfo);
+	}
+
+	@Override
+	public boolean isProductInStock(int workingProductId) {
+//		return productRepository.existsByItemIdAndQuantityGreaterThan(itemId, 0);
+		return false;
+	}
+	@Override
+	public Product getProduct(int workingProductId) {
+//		return productRepository.getReferenceById(itemId);
+		return null;
 	}
 	
 //	public List<String> getUserIdList(){

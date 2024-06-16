@@ -3,6 +3,7 @@ package com.example.indiebeauty.service;
 import java.util.List;
 
 import com.example.indiebeauty.domain.Item;
+import com.example.indiebeauty.domain.Product;
 import com.example.indiebeauty.domain.UserInfo;
 
 public interface IndiebeautyFacade {
@@ -13,4 +14,8 @@ public interface IndiebeautyFacade {
 	void insertUserInfo(UserInfo userinfo);
 	void updateUserInfo(UserInfo userinfo);
 //	List<String> getUserIdList();
+
+	// Cart
+	boolean isProductInStock(int workingProductId);
+	Product getProduct(int workingProductId);
 }
