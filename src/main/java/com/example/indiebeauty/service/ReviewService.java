@@ -79,7 +79,7 @@ public class ReviewService {
 	}
 
 	@Transactional
-	public boolean registerReview(UploadReview uploadReview) throws FileUploadException {
+	public int registerReview(UploadReview uploadReview) throws FileUploadException {
 		// UploadReview에서 필요한 필드 추출
         String userId = uploadReview.getUserId(); // 사용자 ID (String)
         Date reviewDate = new Date(); // 현재 날짜
@@ -87,7 +87,7 @@ public class ReviewService {
         MultipartFile imageFile = uploadReview.getImageUrl();
         float star = uploadReview.getStar(); // 별점 (float)
         int productId = uploadReview.getProductId(); // 제품 ID (int)
-
+        
         // 이미지 파일 저장
         String imageUrl = saveImage(imageFile);
         
@@ -99,10 +99,13 @@ public class ReviewService {
         review.setImageUrl(imageUrl); // 이미지 URL을 저장
         review.setStar(star);
         review.setProductId(productId);
+        
+        Review newReview = reviewRepository.save(review);
 
         // 리뷰 저장
         reviewRepository.save(review);
+        int newReviewId = newReview.getReviewId();
 
-        return true;
+        return newReviewId;
 	}
 }
