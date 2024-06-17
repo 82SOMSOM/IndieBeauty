@@ -29,4 +29,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	
 	// 최근 등록된 상품 검색 (카테고리 기준)
 	List<Product> findByCategory_CategoryIdOrderByDateDesc(int categoryId);
+	
+	boolean existsByProductIdAndStockGreaterThan(int productId, int stock);
 }

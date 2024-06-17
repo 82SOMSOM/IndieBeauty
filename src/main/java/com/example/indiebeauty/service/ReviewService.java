@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.indiebeauty.controller.UploadProduct;
 import com.example.indiebeauty.controller.UploadReview;
+import com.example.indiebeauty.controller.UserSession;
 import com.example.indiebeauty.domain.Category;
 import com.example.indiebeauty.domain.Product;
 import com.example.indiebeauty.domain.ProductImage;
@@ -79,7 +80,16 @@ public class ReviewService {
 	}
 
 	@Transactional
-	public boolean registerReview(UploadReview uploadReview) throws FileUploadException {
+	public int registerReview(UploadReview uploadReview) throws FileUploadException {
+
+		UserSession userSession = (UserSession) session.getAttribute("userSession");
+		
+		if (userSession == null) return "redirect:/login"; // 가입한 사용자만 review 작성 가능
+		
+		Product product = productService.getProductById(productId);
+        uploadReview.setProduct(product);
+        uploadReview.setUserId(userSession.getUserInfo().getUserid());
+		
 		// UploadReview에서 필요한 필드 추출
         String userId = uploadReview.getUserId(); // 사용자 ID (String)
         Date reviewDate = new Date(); // 현재 날짜
@@ -87,7 +97,7 @@ public class ReviewService {
         MultipartFile imageFile = uploadReview.getImageUrl();
         float star = uploadReview.getStar(); // 별점 (float)
         int productId = uploadReview.getProductId(); // 제품 ID (int)
-
+        
         // 이미지 파일 저장
         String imageUrl = saveImage(imageFile);
         
@@ -99,10 +109,13 @@ public class ReviewService {
         review.setImageUrl(imageUrl); // 이미지 URL을 저장
         review.setStar(star);
         review.setProductId(productId);
+        
+        Review newReview = reviewRepository.save(review);
 
         // 리뷰 저장
         reviewRepository.save(review);
+        int newReviewId = newReview.getReviewId();
 
-        return true;
+        return newReviewId;
 	}
 }

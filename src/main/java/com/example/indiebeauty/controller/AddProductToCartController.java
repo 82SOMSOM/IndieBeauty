@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.indiebeauty.domain.Cart;
 import com.example.indiebeauty.domain.Product;
 import com.example.indiebeauty.service.IndiebeautyFacade;
+import com.example.indiebeauty.service.ProductService;
 
 @Controller
 @SessionAttributes("sessionCart")
@@ -21,6 +22,9 @@ public class AddProductToCartController {
 	public void setIndiebeauty(IndiebeautyFacade indiebeauty) {
 		this.indiebeauty = indiebeauty;
 	}
+	
+	@Autowired
+	private ProductService productService;
 
 	@ModelAttribute("sessionCart")
 	public Cart createCart() {
@@ -40,7 +44,10 @@ public class AddProductToCartController {
 			// every time an item is added to the cart, even if other
 			// item details are cached.
 			boolean isInStock = this.indiebeauty.isProductInStock(workingProductId);
-			Product product = this.indiebeauty.getProduct(workingProductId);
+			Product product = productService.getProductById(workingProductId);
+					
+					
+//					this.indiebeauty.getProduct(workingProductId);
 			cart.addProduct(product, isInStock);
 		}
 		return new ModelAndView("Cart", "cart", cart);
