@@ -81,8 +81,7 @@ public class ReviewService {
 
 	@Transactional
 	public int registerReview(UploadReview uploadReview) throws FileUploadException {
-		
-		UserSession userSession = (UserSession) session.getAttribute("userSession");
+
 		UserSession userSession = (UserSession) session.getAttribute("userSession");
 		
 		if (userSession == null) return "redirect:/login"; // 가입한 사용자만 review 작성 가능

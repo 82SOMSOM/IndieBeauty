@@ -9,12 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.indiebeauty.domain.Item;
 import com.example.indiebeauty.domain.Product;
+import com.example.indiebeauty.domain.Review;
 import com.example.indiebeauty.domain.UserInfo;
-<<<<<<< Updated upstream
-=======
 import com.example.indiebeauty.repository.ProductRepository;
 import com.example.indiebeauty.repository.ReviewRepository;
->>>>>>> Stashed changes
 import com.example.indiebeauty.repository.UserRepository;
 
 @Service
@@ -22,13 +20,10 @@ import com.example.indiebeauty.repository.UserRepository;
 public class IndiebeautyImpl implements IndiebeautyFacade {
 	@Autowired
 	private UserRepository userRepository;
-<<<<<<< Updated upstream
-=======
 	@Autowired
 	private ReviewRepository reviewRepository;
 	@Autowired
 	private ProductRepository productRepository;
->>>>>>> Stashed changes
 	
 	public UserInfo getUserInfo(String userid) {
 		return userRepository.getReferenceById(userid);
@@ -47,8 +42,6 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 	public boolean isProductInStock(int workingProductId) {
 		return productRepository.existsByProductIdAndStockGreaterThan(workingProductId, 0);
 	}
-<<<<<<< Updated upstream
-=======
 	
 //	@Override
 //	public Product getProduct(int workingProductId) {
@@ -65,7 +58,16 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 	public void insertReview(Review review) {
 		reviewRepository.save(review);
 	}
->>>>>>> Stashed changes
+
+	@Override
+	public Review getReview(int reviewId) {
+		return reviewRepository.getReferenceById(reviewId);
+	}
+	
+	@Override
+	public void insertReview(Review review) {
+		reviewRepository.save(review);
+	}
 	
 //	public List<String> getUserIdList(){
 //		return userRepository.findUserIds();

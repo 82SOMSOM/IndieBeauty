@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.indiebeauty.domain.Item;
 import com.example.indiebeauty.domain.Product;
+import com.example.indiebeauty.domain.Review;
 import com.example.indiebeauty.domain.UserInfo;
 
 public interface IndiebeautyFacade {
@@ -17,13 +18,9 @@ public interface IndiebeautyFacade {
 
 	// Cart
 	boolean isProductInStock(int workingProductId);
-<<<<<<< Updated upstream
 	Product getProduct(int workingProductId);
-=======
-//	Product getProduct(int workingProductId);
 
 	// Review
 	Review getReview(int reviewId);
 	void insertReview(Review review);
->>>>>>> Stashed changes
 }

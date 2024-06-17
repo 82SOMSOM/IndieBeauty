@@ -34,7 +34,7 @@ public class Orders implements Serializable{
 	@SequenceGenerator(name = "order_seq_gen", sequenceName = "order_seq", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq_gen")
 	@Column(name = "orderid")
-	private Long orderId;
+	private int orderId;
 
 	@Column(name = "userid")
 	private String userId;

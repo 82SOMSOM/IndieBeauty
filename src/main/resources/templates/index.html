@@ -132,8 +132,11 @@
                                 </nav>
                             </div>
                             <!-- Help Line -->
-                            <div class="help-line">
-                                <a th:href="@{/login}">LOGIN/SIGNIN</a>
+                            <div class="help-line" th:unless="${userSession != null}">
+					            <a th:href="@{/login}">LOGIN/SIGNIN</a>
+					        </div>
+                            <div class="help-line" th:if="${userSession != null}">
+                                <a th:href="@{/logout}">LOGOUT</a>
                             </div>
                         </div>
                     </div>
