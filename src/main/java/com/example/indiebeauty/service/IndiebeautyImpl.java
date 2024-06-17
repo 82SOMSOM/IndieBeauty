@@ -1,5 +1,7 @@
 package com.example.indiebeauty.service;
 
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,9 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.indiebeauty.domain.Item;
 import com.example.indiebeauty.domain.Product;
 import com.example.indiebeauty.domain.Review;
-import com.example.indiebeauty.repository.ReviewRepository;
-import com.example.indiebeauty.domain.SellerInfo;
 import com.example.indiebeauty.domain.UserInfo;
+import com.example.indiebeauty.domain.SellerInfo;
+import com.example.indiebeauty.repository.ProductRepository;
+import com.example.indiebeauty.repository.ReviewRepository;
 import com.example.indiebeauty.repository.SellerRepository;
 import com.example.indiebeauty.repository.UserRepository;
 
@@ -21,6 +24,8 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 	private UserRepository userRepository;
 	@Autowired
 	private ReviewRepository reviewRepository;
+	@Autowired
+	private ProductRepository productRepository;
 	
 	public UserInfo getUserInfo(String userid) {
 		return userRepository.getReferenceById(userid);
@@ -34,20 +39,22 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 	public void updateUserInfo(UserInfo userinfo) {
 		userRepository.save(userinfo);
 	}
+
 //	public List<String> getUserIdList(){
 //	return userRepository.findUserIds();
 //}
 	
 	@Override
 	public boolean isProductInStock(int workingProductId) {
-//		return productRepository.existsByItemIdAndQuantityGreaterThan(itemId, 0);
-		return false;
+		return productRepository.existsByProductIdAndStockGreaterThan(workingProductId, 0);
 	}
-	@Override
-	public Product getProduct(int workingProductId) {
-//		return productRepository.getReferenceById(itemId);
-		return null;
-	}
+	
+//	@Override
+//	public Product getProduct(int workingProductId) {
+////		return productRepository.getReferenceById(itemId);
+//		return null;
+//	}
+	
 	@Override
 	public Review getReview(int reviewId) {
 		return reviewRepository.getReferenceById(reviewId);

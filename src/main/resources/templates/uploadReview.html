@@ -46,41 +46,42 @@
 						<div class="checkout_details_area mt-50 clearfix">
 
 							<div class="cart-page-heading">
-								<h5>Review</h5>
+								<h5>Review Upload</h5>
 								<p>Enter your review</p>
 							</div>
 
-							<form th:action="@{/upload-review}" enctype="multipart/form-data" th:object="${uploadReview}" method="post">
+							<form method="post" th:action="@{/upload-review}" enctype="multipart/form-data" th:object="${uploadReview}">
 								<div class="row">
 									<div class="col-12 mb-3">
-										<label for="product">Ordered Products <span>*</span></label><br>
+										<label for="productName">Ordered Products <span>*</span></label><br>
 										<img th:src="@{/img/product-img/product-10.jpg}" alt=""><br><br>
 										<input type="text" class="form-control"
-											id="postcode" value="Nature skin care" readonly>
+											id="productName" th:value="${uploadReview.product.name}" readonly>
 									</div>
 									<div class="col-12 mb-3">
-										<label for="postcode">Upload Image <span>*</span></label>
-										<input type="file" class="real-upload" accept="image/*" required multiple>
+										<label for="imageUrl">Upload Review Image <span>* 필수항목 아님</span></label><br>
+									    <input type="file" class="form-control" accept="image/*" id="imageUrl" th:field="*{imageUrl}">
 									</div>
 									<div class="col-12 mb-3">
-										<label for="postcode">Please share your feedback by rating <span>*</span></label>
+										<label for="star">Please share your feedback by rating <span>*</span></label>
                                                 <!-- <div class="dropdown-menu" aria-labelledby="karlDropdown"> -->
-                                                	<select class="form-select" aria-label="Default select example">
-	                                                	<option selected>★★★★★</option>
-	                                                    <option >★★★★☆</option>
-	                                                    <option >★★★☆☆</option>
-	                                                    <option >★★☆☆☆</option>
-	                                                    <option >★☆☆☆☆</option>
+                                                	<select class="form-select" aria-label="Default select example" id="review" th:field="*{star}">
+	                                                	<option selected th:value="5">★★★★★</option>
+	                                                    <option th:value="4">★★★★☆</option>
+	                                                    <option th:value="3">★★★☆☆</option>
+	                                                    <option th:value="2">★★☆☆☆</option>
+	                                                    <option th:value="1">★☆☆☆☆</option>
 													</select>
                                                 <!-- </div> -->
 									</div>
 									<div class="col-12 mb-3">
-										<label for="postcode">Content <span>*</span></label> 
-										<textarea class="form-control" id="postcode" value="" maxlength="50" placeholder="한 줄 평 작성 (최대 50자)"></textarea>
+										<label for="content">Content <span>*</span></label> 
+										<textarea class="form-control" id="content" value="" th:field="*{content}"maxlength="50" placeholder="한 줄 평 작성 (최대 50자)"></textarea>
 									</div>
 
 									<div class="col-12">
-										<a href="#" class="btn karl-checkout-btn">Register Review</a>
+										<button type="submit" class="btn karl-checkout-btn w-50">Register Review</button>
+										<!-- <a href="#" class="btn karl-checkout-btn">Register Review</a> -->
 									</div>
 								</div>
 							</form>

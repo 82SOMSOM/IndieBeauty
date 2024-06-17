@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.indiebeauty.domain.Product;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,9 +19,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class UploadReview {
-	private int reviewId;
+	private Product product;
+	
+//	private int reviewId;
 	private String userId;
-	private Date reviewDate;
+//	private Date reviewDate;
 	private String content;
 	private MultipartFile imageUrl;
 	private float star;
