@@ -58,16 +58,6 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 	public void insertReview(Review review) {
 		reviewRepository.save(review);
 	}
-
-	@Override
-	public Review getReview(int reviewId) {
-		return reviewRepository.getReferenceById(reviewId);
-	}
-	
-	@Override
-	public void insertReview(Review review) {
-		reviewRepository.save(review);
-	}
 	
 //	public List<String> getUserIdList(){
 //		return userRepository.findUserIds();
