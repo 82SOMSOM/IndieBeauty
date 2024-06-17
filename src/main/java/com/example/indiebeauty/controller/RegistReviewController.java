@@ -39,9 +39,9 @@ public class RegistReviewController {
 	@GetMapping("/upload-review")
 	public String initUploadReview(@RequestParam int productId, HttpSession session, 
 			@ModelAttribute("uploadReview") UploadReview uploadReview) throws NoSuchProductException {
-
-		UserSession userSession = (UserSession) session.getAttribute("userSession");
 		
+		UserSession userSession = (UserSession) session.getAttribute("userSession");
+    
 		if (userSession == null) return "redirect:/login"; // 가입한 사용자만 review 작성 가능
 		
 		Product product = productService.getProductById(productId);
