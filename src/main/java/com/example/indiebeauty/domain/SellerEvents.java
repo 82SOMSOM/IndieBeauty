@@ -32,9 +32,9 @@ public class SellerEvents {
 	@SequenceGenerator(name = "event_seq_gen", sequenceName = "event_seq", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_seq_gen")
 	@Column(name = "eventid")
-	@ManyToMany
-	@JoinTable(name="JOINEVENT", joinColumns=@JoinColumn(name="eventId", referencedColumnName="eventid"),
-	inverseJoinColumns=@JoinColumn(name="userId", referencedColumnName="userid"))
+//	@ManyToMany
+//	@JoinTable(name="JOINEVENT", joinColumns=@JoinColumn(name="eventId", referencedColumnName="eventid"),
+//	inverseJoinColumns=@JoinColumn(name="userId", referencedColumnName="userid"))
 	private int eventId;
 
 	@Column(name = "sellerid")
