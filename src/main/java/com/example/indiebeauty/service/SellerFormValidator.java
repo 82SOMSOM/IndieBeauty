@@ -7,24 +7,25 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.example.indiebeauty.controller.UserForm;
+import com.example.indiebeauty.controller.SellerForm;
+import com.example.indiebeauty.domain.SellerInfo;
 import com.example.indiebeauty.domain.UserInfo;
 
 @Component
-public class UserFormValidator implements Validator{
-	private static final Logger logger = LoggerFactory.getLogger(UserFormValidator.class);
+public class SellerFormValidator implements Validator{
+	private static final Logger logger = LoggerFactory.getLogger(SellerFormValidator.class);
 	public boolean supports(Class<?> clazz) {
 		return UserInfo.class.isAssignableFrom(clazz);
 	}
 	
 	public void validate(Object obj, Errors errors) {
-		UserForm userForm = (UserForm)obj;
-		UserInfo userinfo = userForm.getUserInfo();
-		
-		if (userForm.isNewUserInfo()) {
-			logger.info("isNewUserInfo 이동");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "UserInfo.userid", "USER_ID_REQUIRED","userid is required");
-			logger.info("userid 확인");
+		SellerForm sellerForm = (SellerForm)obj;
+		SellerInfo sellerinfo = sellerForm.getSellerInfo();
+
+		if (sellerForm.isNewSellerInfo()) {
+			logger.info("isNewSellerrInfo 이동");
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "SellerInfo.sellerid", "Seller_ID_REQUIRED","sellerid is required");
+			logger.info("sellerid 확인");
 //			if(userinfo.getPasswd() == null || userinfo.getPasswd().length() < 1 ||
 //					!userinfo.getPasswd().equals(userForm.getRepeatedPasswd())) {
 //				errors.reject("PASSWORD_MISMATCH", 
@@ -32,12 +33,13 @@ public class UserFormValidator implements Validator{
 //			}
 //			logger.info("password 확인");
 		}
-//		else if (userinfo.getPasswd() != null && userinfo.getPasswd().length() > 0) {
+		//else if (userinfo.getPasswd() != null && userinfo.getPasswd().length() > 0) {
 //			if (!userinfo.getPasswd().equals(userForm.getRepeatedPasswd())) {
 //				errors.reject("PASSWORD_MISMATCH", "Passwords did not match. Matching passwords are required.");
 //			}
-//		}
-		
+		//}
 	}
 
 }
+
+

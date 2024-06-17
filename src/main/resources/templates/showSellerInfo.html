@@ -43,39 +43,42 @@
         <div class="checkout_details_area mt-50 clearfix">
 
         <div class="cart-page-heading">
-            <h5>EDIT USER INFO</h5>
-            <p>Enter your information</p>
+            <h5>SHOW SELLER INFO</h5>
+            <p>confirm your information</p>
         </div>
 
-        <form th:action="@{/user/editUser}" th:object="${userForm}" method="post">
+        <form  th:object="${sellerForm}" method="post">
             <div class="row">
                 <div class="col-md-6 mb-3">
-		            <label for="userid">ID <span>*</span></label>
-		            <input type="text" class="form-control" th:field="*{userInfo.userid}" id="userid" required>
+		            <label for="sellerid">ID <span>*</span></label>
+		            <input type="text" class="form-control" th:field="*{sellerInfo.sellerid}" id="sellerid" disabled required>
 		        </div>
 		        <div class="col-md-6 mb-3">
 		            <label for="passwd">PASSWORD <span>*</span></label>
-		            <input type="password" class="form-control" th:field="*{userInfo.passwd}" id="passwd" required>
+		            <input type="password" class="form-control" th:field="*{sellerInfo.passwd}" id="passwd" disabled required>
 		        </div>
 		        <div class="col-12 mb-3">
 		            <label for="name">Name <span>*</span></label>
-		            <input type="text" class="form-control" th:field="*{userInfo.username}" id="name" required>
+		            <input type="text" class="form-control" th:field="*{sellerInfo.sellername}" id="name" disabled required>
 		        </div>
 		        <div class="col-12 mb-3">
 		            <label for="address">Address <span>*</span></label>
-		            <input type="text" class="form-control" th:field="*{userInfo.address}" id="address" required>
+		            <input type="text" class="form-control" th:field="*{sellerInfo.address}" id="address" disabled required>
 		        </div>
 		        <div class="col-12 mb-3">
 		            <label for="phone">Phone No <span>*</span> ( - 포함 13자리 입력)</label>
-		            <input type="text" class="form-control" th:field="*{userInfo.phone}" id="phone" required>
+		            <input type="text" class="form-control" th:field="*{sellerInfo.phone}" id="phone" disabled required>
 		        </div>
 		        <div class="col-12 mb-4">
 		            <label for="email">Email Address <span>*</span></label>
-		            <input type="email" class="form-control" th:field="*{userInfo.email}" id="email" required>
+		            <input type="email" class="form-control" th:field="*{sellerInfo.email}" id="email" disabled required>
 		        </div>
-
+		        <div class="col-12 mb-4">
+                    <label for="business">Business Registration <span>*</span></label>
+    				<input type="text" th:field="*{sellerInfo.business}" class="form-control" id="business" disabled required>
+                </div>
                 <div class="col-12">
-                    <button type="submit" class="btn karl-checkout-btn">SAVE</button>
+					<a th:href="@{/editSellerInfo}" class="btn karl-checkout-btn">EDIT</a>
                 </div>
             </div>
         </form>

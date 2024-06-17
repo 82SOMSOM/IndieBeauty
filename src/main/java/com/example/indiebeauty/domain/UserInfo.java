@@ -5,7 +5,9 @@ import java.io.Serializable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -14,6 +16,8 @@ import lombok.ToString;
 @Entity
 @Table(name="userinfo")
 @Getter @Setter @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserInfo implements Serializable{
 	@Id
 	private String userid;
@@ -22,4 +26,5 @@ public class UserInfo implements Serializable{
 	private String email;
 	private String phone;
 	private String address;
+//	private List<SellerEvents> events;
 }

@@ -41,39 +41,47 @@
 	        <div class="checkout_details_area mt-50 clearfix">
 	
 	        <div class="cart-page-heading">
-	            <h5>USER SIGNIN</h5>
+	            <h5>SELLER SIGNIN</h5>
 	            <p>Enter your information</p>
 	        </div>
 	
-	        <form th:action="@{/user/registerUser}" th:object="${userForm}" method="POST" >
+	        <form th:action="@{/seller/registerSeller}" th:object="${sellerForm}" method="POST" >
 	            <div class="row">
 	                <div class="col-md-6 mb-3">
-	                    <label for="userid">ID <span>*</span></label>
-	    				<input type="text" th:field="*{userInfo.userid}" class="form-control" id="userid" required>
+	                    <label for="sellerid">ID <span>*</span></label>
+	    				<input type="text" th:field="*{sellerInfo.sellerid}" class="form-control" id="sellerid" required>
 	                </div>
 	                <div class="col-md-6 mb-3">
 	                    <label for="passwd">PASSWORD <span>*</span></label>
-	    				<input type="password" th:field="*{userInfo.passwd}" class="form-control" id="passwd" required>
+	    				<input type="password" th:field="*{sellerInfo.passwd}" class="form-control" id="passwd" required>
 	                </div>
 	                <div class="col-12 mb-3">
-	                    <label for="username">Name <span>*</span></label>
-	                    <input type="text" th:field="*{userInfo.username}" class="form-control" id="username" required>
+	                    <label for="sellername">Name <span>*</span></label>
+	                    <input type="text" th:field="*{sellerInfo.sellername}" class="form-control" id="sellername" required>
+	                </div>
+	                <div class="col-12 mb-3">
+	                    <label for="businessname">Business Name <span>*</span></label>
+	                    <input type="text" th:field="*{sellerInfo.businessname}" class="form-control" id="businessname" required>
 	                </div>
 	                <div class="col-12 mb-3">
 	                    <label for="address">Address <span>*</span></label>
-	    				<input type="text" th:field="*{userInfo.address}" class="form-control" id="address" required>
+	    				<input type="text" th:field="*{sellerInfo.address}" class="form-control" id="address" required>
 	                </div>
 	                <div class="col-12 mb-3">
 	                    <label for="phone">Phone No <span>*</span> ( - 포함 13자리 입력)</label>
-	    				<input type="text" th:field="*{userInfo.phone}" class="form-control" id="phone" required>
+	    				<input type="text" th:field="*{sellerInfo.phone}" class="form-control" id="phone" required>
 	                </div>
 	                <div class="col-12 mb-4">
 	                    <label for="email">Email Address <span>*</span></label>
-	    				<input type="email" th:field="*{userInfo.email}" class="form-control" id="email" required>
+	    				<input type="email" th:field="*{sellerInfo.email}" class="form-control" id="email" required>
+	                </div>
+	                <div class="col-12 mb-4">
+	                    <label for="business">Business Registration <span>*</span></label>
+	    				<input type="file" th:field="*{sellerInfo.business}" class="form-control" id="business" required>
 	                </div>
 	                <div class="col-12">
 	                    <!--<a href="#" class="btn karl-checkout-btn">SIGN IN</a>-->
-	                    <button type="submit" class="btn karl-checkout-btn">SIGN IN</button>
+	                    <button type="submit" class="btn karl-checkout-btn">SELLER SIGN IN</button>
 	                </div>
 	            </div>
 	        </form>

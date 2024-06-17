@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.indiebeauty.domain.SellerInfo;
 import com.example.indiebeauty.domain.UserInfo;
 import com.example.indiebeauty.service.IndiebeautyFacade;
 
@@ -18,15 +20,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@SessionAttributes("userSession")
+@SessionAttributes({"userSession", "sellerSession"})
 public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-	
-	@RequestMapping(value="/login", method = RequestMethod.GET )
-	public String loginForm(){
-		logger.info("login 페이지 이동");
-		return "login";
-	}
 	
 	private IndiebeautyFacade indiebeauty;
 	@Autowired
@@ -34,8 +30,14 @@ public class LoginController {
 		this.indiebeauty = indiebeauty;
 	}
 	
+//	사용자 로그인
+	@RequestMapping(value="/login", method = RequestMethod.GET )
+	public String loginForm(){
+		logger.info("login 페이지 이동");
+		return "login";
+	}	
 	@RequestMapping(value="/user/login", method = RequestMethod.POST)
-	public ModelAndView handleRequest(HttpServletRequest request,
+	public ModelAndView loginUser(HttpServletRequest request,
 			@RequestParam("userid") String userid,
 			@RequestParam("passwd") String passwd,
 			@RequestParam(value="forwardAction", required=false) String forwardAction,
@@ -49,21 +51,60 @@ public class LoginController {
 //		else {
 			UserSession userSession = new UserSession(userinfo);
 			model.addAttribute("userSession", userSession);
+			logger.info("session 저장 성공" + userSession.getUserInfo().getUserid());
 			if (forwardAction != null) {
 				return new ModelAndView("redirect:" + forwardAction);
 			}
 			else {
 				logger.info("login 성공");
-				return new ModelAndView("shop");
+				return new ModelAndView("redirect:/shop?pageNum=1");
 			}
 //		}
 	}
 
-	@RequestMapping(value="/logout", method = RequestMethod.GET)
-	public String logoutUser(HttpSession session) throws Exception{
-		session.removeAttribute("userSession");
-		session.invalidate();
-		logger.info("logout 성공");
-		return "redirect:shop";
+//	판매자 로그인
+	@RequestMapping(value = "/sellerLogin", method = RequestMethod.GET)
+    public String showRegistrationForm() {
+		logger.info("판매자 로그인페이지 이동");
+        return "sellerLogin";  // 회원가입 페이지로 이동
+    }
+	@RequestMapping(value="/seller/login", method = RequestMethod.POST)
+	public ModelAndView loginSeller(HttpServletRequest request,
+			@RequestParam("sellerid") String sellerid,
+			@RequestParam("passwd") String passwd,
+			@RequestParam(value="forwardAction", required=false) String forwardAction,
+			Model model) throws Exception {
+		SellerInfo sellerinfo = indiebeauty.getSellerInfo(sellerid, passwd);
+		logger.info("SellerInfo 불러옴");
+//		if (sellerinfo == null) {
+//			return new ModelAndView("Error", "message",
+//					"Invalid sellerId or password.  login failed.");
+//		}
+//		else {
+			SellerSession sellerSession = new SellerSession(sellerinfo);
+			model.addAttribute("sellerSession", sellerSession);
+			logger.info("seller session 저장 성공 " + sellerSession.getSellerInfo().getSellerid());
+			if (forwardAction != null) {
+				return new ModelAndView("redirect:" + forwardAction);
+			}
+			else {
+				logger.info("seller login 성공");
+				return new ModelAndView("redirect:/shop?pageNum=1");
+			}
+//		}
 	}
+	
+	
+//  로그아웃
+	@RequestMapping("/logout")
+	public String handleRequest(HttpSession session, SessionStatus sessionStatus) throws Exception{
+        logger.info("세션 제거 전"); // 로그아웃 전 세션 상태 로깅
+        sessionStatus.setComplete(); // 세션 어트리뷰트 정리
+//        session.removeAttribute("userSession");
+//        session.removeAttribute("sellerSession");
+        session.invalidate();
+        logger.info("logout 성공 - 세션 제거 후");
+        return "redirect:/shop?pageNum=1";
+	}
+	
 }

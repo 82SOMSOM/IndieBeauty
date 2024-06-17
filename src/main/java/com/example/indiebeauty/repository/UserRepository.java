@@ -10,6 +10,6 @@ import com.example.indiebeauty.domain.UserInfo;
 public interface UserRepository extends JpaRepository<UserInfo, String> {
 	UserInfo findByUseridAndPasswd(String userId, String password);
 	
-	@Query("select u.userid from UserInfo u")
-	List<String> findUserids();
+//	@Query("select u.userid from UserInfo u")
+//	List<String> findUserids();
 }
