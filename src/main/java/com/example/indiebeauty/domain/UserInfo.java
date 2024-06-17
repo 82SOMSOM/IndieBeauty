@@ -1,10 +1,6 @@
 package com.example.indiebeauty.domain;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -20,8 +16,8 @@ import lombok.ToString;
 @Entity
 @Table(name="userinfo")
 @Getter @Setter @ToString
-//@AllArgsConstructor
-//@NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserInfo implements Serializable{
 	@Id
 	private String userid;
@@ -30,4 +26,5 @@ public class UserInfo implements Serializable{
 	private String email;
 	private String phone;
 	private String address;
+//	private List<SellerEvents> events;
 }

@@ -49,6 +49,7 @@ public class RegistUserController {
 		}
 	}
 	
+//	회원가입
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
     public String showRegistrationForm() {
 		logger.info("회원가입페이지 이동");
@@ -103,7 +104,7 @@ public class RegistUserController {
         try {
             indiebeauty.updateUserInfo(userForm.getUserInfo());
             logger.info("회원정보 수정 완료");
-            return "redirect:/shop";
+            return "redirect:/shop?pageNum=1";
         } catch (DataIntegrityViolationException ex) {
         	logger.error("회원정보 수정 에러");
             result.rejectValue("UserInfo.userid", "ERROR", "An error occurred during the update.");
