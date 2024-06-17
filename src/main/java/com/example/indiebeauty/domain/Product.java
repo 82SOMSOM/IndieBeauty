@@ -31,7 +31,7 @@ import lombok.ToString;
 @Table(name="product")
 public class Product {
 	@Id
-	@SequenceGenerator(name="product_seq_gen", 
+	@SequenceGenerator(name="product_seq_gen",
 			sequenceName="product_seq", initialValue=1, allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="product_seq_gen")
 	@Column(name = "productid")
@@ -47,7 +47,7 @@ public class Product {
 	@Column(name = "pdescription")
 	private String description;
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "productid")
 	private List<ProductImage> imageList;
 	

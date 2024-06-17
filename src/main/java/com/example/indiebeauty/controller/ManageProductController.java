@@ -44,11 +44,10 @@ public class ManageProductController {
 	public String registerProduct(@ModelAttribute("uploadProduct") UploadProduct uploadProduct,
 			RedirectAttributes ra, SessionStatus status) {
 		try {
-			productService.registerProduct(uploadProduct);
+			int newProductId = productService.registerProduct(uploadProduct);
 			status.setComplete();
 			
-			// @FIXME redirect 주소 변경
-			return "redirect:/upload-product";
+			return ("redirect:/shop/product-detail/" + newProductId);
 		} catch (FileUploadException e) {
 			String msg = e.getMessage();
 			
