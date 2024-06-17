@@ -1,6 +1,7 @@
 package com.example.indiebeauty.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.indiebeauty.domain.Item;
 import com.example.indiebeauty.domain.Product;
 import com.example.indiebeauty.domain.UserInfo;
+<<<<<<< Updated upstream
+=======
+import com.example.indiebeauty.repository.ProductRepository;
+import com.example.indiebeauty.repository.ReviewRepository;
+>>>>>>> Stashed changes
 import com.example.indiebeauty.repository.UserRepository;
 
 @Service
@@ -16,6 +22,13 @@ import com.example.indiebeauty.repository.UserRepository;
 public class IndiebeautyImpl implements IndiebeautyFacade {
 	@Autowired
 	private UserRepository userRepository;
+<<<<<<< Updated upstream
+=======
+	@Autowired
+	private ReviewRepository reviewRepository;
+	@Autowired
+	private ProductRepository productRepository;
+>>>>>>> Stashed changes
 	
 	public UserInfo getUserInfo(String userid) {
 		return userRepository.getReferenceById(userid);
@@ -31,16 +44,28 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 		userRepository.save(userinfo);
 	}
 
-	@Override
 	public boolean isProductInStock(int workingProductId) {
-//		return productRepository.existsByItemIdAndQuantityGreaterThan(itemId, 0);
-		return false;
+		return productRepository.existsByProductIdAndStockGreaterThan(workingProductId, 0);
 	}
+<<<<<<< Updated upstream
+=======
+	
+//	@Override
+//	public Product getProduct(int workingProductId) {
+////		return productRepository.getReferenceById(itemId);
+//		return null;
+//	}
+	
 	@Override
-	public Product getProduct(int workingProductId) {
-//		return productRepository.getReferenceById(itemId);
-		return null;
+	public Review getReview(int reviewId) {
+		return reviewRepository.getReferenceById(reviewId);
 	}
+	
+	@Override
+	public void insertReview(Review review) {
+		reviewRepository.save(review);
+	}
+>>>>>>> Stashed changes
 	
 //	public List<String> getUserIdList(){
 //		return userRepository.findUserIds();

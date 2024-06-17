@@ -17,5 +17,13 @@ public interface IndiebeautyFacade {
 
 	// Cart
 	boolean isProductInStock(int workingProductId);
+<<<<<<< Updated upstream
 	Product getProduct(int workingProductId);
+=======
+//	Product getProduct(int workingProductId);
+
+	// Review
+	Review getReview(int reviewId);
+	void insertReview(Review review);
+>>>>>>> Stashed changes
 }
