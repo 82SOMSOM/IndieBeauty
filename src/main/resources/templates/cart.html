@@ -61,7 +61,7 @@
                                     <tr th:each="cartProduct : ${cart.cartProductList.pageList}">
                                         <td class="cart_product_img d-flex align-items-center">
                                             <a href="#"><img th:src="@{/img/product-img/product-9.jpg}" alt="Product"></a>
-                                            <h6 th:text="cartProduct.product.name"></h6>
+                                            <h6 th:text="${cartProduct.product.name}"></h6>
                                         </td>
                                         <td class="price"><span th:text="${cartProduct.product.price}"></span></td>
                                         <td class="qty">

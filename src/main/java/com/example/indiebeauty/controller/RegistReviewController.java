@@ -39,14 +39,14 @@ public class RegistReviewController {
 	@GetMapping("/upload-review")
 	public String initUploadReview(@RequestParam int productId, HttpSession session, 
 			@ModelAttribute("uploadReview") UploadReview uploadReview) throws NoSuchProductException {
-        
-		String userId = (String) session.getAttribute("userId");
+
+		UserSession userSession = (UserSession) session.getAttribute("userSession");
 		
-		if (userId == null) return "redirect:/login"; // 가입한 사용자만 review 작성 가능
+		if (userSession == null) return "redirect:/login"; // 가입한 사용자만 review 작성 가능
 		
 		Product product = productService.getProductById(productId);
         uploadReview.setProduct(product);
-        uploadReview.setUserId(userId);
+        uploadReview.setUserId(userSession.getUserInfo().getUserid());
         
 		return "uploadReview";
 	}
