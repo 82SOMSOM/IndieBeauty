@@ -80,6 +80,18 @@ public class ReviewService {
 
 	@Transactional
 	public int registerReview(UploadReview uploadReview) throws FileUploadException {
+//<<<<<<< Updated upstream
+//=======
+//		
+//		UserSession userSession = (UserSession) session.getAttribute("userSession");
+//		
+//		if (userSession == null) return "redirect:/login"; // 가입한 사용자만 review 작성 가능
+//		
+//		Product product = productService.getProductById(productId);
+//        uploadReview.setProduct(product);
+//        uploadReview.setUserId(userSession.getUserInfo().getUserid());
+//		
+//>>>>>>> Stashed changes
 		// UploadReview에서 필요한 필드 추출
         String userId = uploadReview.getUserId(); // 사용자 ID (String)
         Date reviewDate = new Date(); // 현재 날짜
