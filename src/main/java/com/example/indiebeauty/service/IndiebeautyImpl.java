@@ -6,7 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.indiebeauty.domain.Item;
+import com.example.indiebeauty.domain.Product;
+import com.example.indiebeauty.domain.Review;
 import com.example.indiebeauty.domain.UserInfo;
+import com.example.indiebeauty.repository.ReviewRepository;
 import com.example.indiebeauty.repository.UserRepository;
 
 @Service
@@ -14,6 +18,8 @@ import com.example.indiebeauty.repository.UserRepository;
 public class IndiebeautyImpl implements IndiebeautyFacade {
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private ReviewRepository reviewRepository;
 	
 	public UserInfo getUserInfo(String userid) {
 		return userRepository.getReferenceById(userid);
@@ -27,6 +33,26 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 	}
 	public void updateUserInfo(UserInfo userinfo) {
 		userRepository.save(userinfo);
+	}
+
+	@Override
+	public boolean isProductInStock(int workingProductId) {
+//		return productRepository.existsByItemIdAndQuantityGreaterThan(itemId, 0);
+		return false;
+	}
+	@Override
+	public Product getProduct(int workingProductId) {
+//		return productRepository.getReferenceById(itemId);
+		return null;
+	}
+	@Override
+	public Review getReview(int reviewId) {
+		return reviewRepository.getReferenceById(reviewId);
+	}
+	
+	@Override
+	public void insertReview(Review review) {
+		reviewRepository.save(review);
 	}
 	
 //	public List<String> getUserIdList(){

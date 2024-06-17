@@ -31,28 +31,28 @@ import lombok.ToString;
 @Table(name="product")
 public class Product {
 	@Id
-	@SequenceGenerator(name="product_seq_gen", 
+	@SequenceGenerator(name="product_seq_gen",
 			sequenceName="product_seq", initialValue=1, allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="product_seq_gen")
-	@Column(name = "product_id")
+	@Column(name = "productid")
 	private int productId;
 	
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "category_id")
+	@JoinColumn(name = "categoryid")
 	private Category category;
 	
-	@Column(name = "product_name")
+	@Column(name = "pname")
 	private String name;
 	
-	@Column(name = "product_description")
+	@Column(name = "pdescription")
 	private String description;
 	
-	@OneToMany
-	@JoinColumn(name = "product_id")
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "productid")
 	private List<ProductImage> imageList;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "uploaded_date")
+	@Column(name = "udate")
 	private Date date;
 	
 	private int price;

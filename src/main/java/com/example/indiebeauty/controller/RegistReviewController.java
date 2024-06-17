@@ -13,52 +13,48 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.indiebeauty.service.CategoryService;
 import com.example.indiebeauty.service.ProductService;
+import com.example.indiebeauty.service.ReviewService;
 import com.example.indiebeauty.domain.Category;
 import com.example.indiebeauty.exception.FileUploadException;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@SessionAttributes("uploadProduct")
-public class ManageProductController {
+@SessionAttributes("uploadReview")
+public class RegistReviewController {
 	@Autowired
-	private CategoryService categoryService;
-	@Autowired
-	private ProductService productService;
+	private ReviewService reviewService;
 	
-	@ModelAttribute("uploadProduct")
-	public UploadProduct formData() {
-		return new UploadProduct();
+	@ModelAttribute("uploadReview")
+	public UploadReview formData() {
+		return new UploadReview();
 	}
 	
-	@GetMapping("/upload-product")
-	public String initUploadProduct(HttpSession session) {
-		// 메인 페이지에서 모든 Category를 가져와 세션에 저장하는 게 좋을 것 같음.
-		List<Category> categoryList = categoryService.getCategoryList();
-		session.setAttribute("categoryList", categoryList);
-		
-		return "uploadProduct";
+	@GetMapping("/upload-review")
+	public String initUploadReview(HttpSession session) {
+		return "uploadReview";
 	}
 	
-	@PostMapping("/upload-product")
-	public String registerProduct(@ModelAttribute("uploadProduct") UploadProduct uploadProduct,
+	@PostMapping("/upload-review")
+	public String registerReview(@ModelAttribute("review") UploadReview uploadReview,
 			RedirectAttributes ra, SessionStatus status) {
 		try {
-			int newProductId = productService.registerProduct(uploadProduct);
+			reviewService.registerReview(uploadReview);
 			status.setComplete();
 			
-			return ("redirect:/shop/product-detail/" + newProductId);
+			// @FIXME redirect 주소 변경
+			return "redirect:/upload-review";
 		} catch (FileUploadException e) {
 			String msg = e.getMessage();
 			
 			ra.addAttribute("msg", msg);
-			ra.addAttribute("url", "/upload-product");
+			ra.addAttribute("url", "/upload-review");
 			
-			return "redirect:/upload-product/error";
+			return "redirect:/upload-review/error";
 		}
 	}
 	
-	@GetMapping("/upload-product/error")
+	@GetMapping("/upload-review/error")
 	public String alert(@ModelAttribute("msg") String msg, @ModelAttribute("url") String url) {
 		return "alert";
 	}
