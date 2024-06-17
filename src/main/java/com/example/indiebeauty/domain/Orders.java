@@ -3,6 +3,7 @@ package com.example.indiebeauty.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -29,7 +30,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Table(name = "orders")
-public class Orders implements Serializable{
+public class Orders implements Serializable {
 	@Id
 	@SequenceGenerator(name = "order_seq_gen", sequenceName = "order_seq", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq_gen")
@@ -53,8 +54,30 @@ public class Orders implements Serializable{
 	private int accountNumber;
 
 	private String address;
-	
-	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Item> orderItems = new ArrayList<>();
 
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	private List<Item> orderItems;
+
+	public void initOrder(UserInfo userInfo, Cart cart) {
+		userId = userInfo.getUserid();
+		date = new Date();
+		this.orderItems = orderItems != null ? orderItems : new ArrayList<>();
+		totalPrice = (int) cart.getSubTotal();
+
+		Iterator<CartProduct> i = cart.getAllCartProducts();
+		while (i.hasNext()) {
+			CartProduct cartItem = (CartProduct) i.next();
+			addItem(cartItem);
+		}
+	}
+
+	public void addItem(CartProduct cartItem) {
+		Item item = new Item();
+		item.setProduct(cartItem.getProduct()); // Assuming cartItem has reference to Product
+		item.setPrice(cartItem.getProduct().getPrice()); // Set price based on Product price
+		item.setQuantity(cartItem.getQuantity());
+		item.setOrder(this); // Set the relationship to this order
+
+		orderItems.add(item);
+	}
 }

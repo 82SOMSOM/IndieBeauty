@@ -40,7 +40,7 @@ public class Item implements Serializable{
 
 	private int quantity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orderid", referencedColumnName = "orderid")
+    @ManyToOne
+    @JoinColumn(name = "orderid")
     private Orders order;
 }
