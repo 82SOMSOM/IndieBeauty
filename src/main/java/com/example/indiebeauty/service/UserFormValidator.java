@@ -7,7 +7,6 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.example.indiebeauty.controller.RegistUserController;
 import com.example.indiebeauty.controller.UserForm;
 import com.example.indiebeauty.domain.UserInfo;
 
@@ -38,6 +37,7 @@ public class UserFormValidator implements Validator{
 //				errors.reject("PASSWORD_MISMATCH", "Passwords did not match. Matching passwords are required.");
 //			}
 //		}
+		
 	}
 
 }

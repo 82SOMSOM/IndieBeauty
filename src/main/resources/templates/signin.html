@@ -37,48 +37,56 @@
         <div class="container">
         <div class="row">
 
-        <div class="col-12 col-md-6">
-        <div class="checkout_details_area mt-50 clearfix">
-
-        <div class="cart-page-heading">
-            <h5>SIGNIN</h5>
-            <p>Enter your information</p>
-        </div>
-
-        <form th:action="@{/user/registerUser}" th:object="${userForm}" method="POST" >
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="userid">ID <span>*</span></label>
-    				<input type="text" th:field="*{userInfo.userid}" class="form-control" id="userid" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="passwd">PASSWORD <span>*</span></label>
-    				<input type="password" th:field="*{userInfo.passwd}" class="form-control" id="passwd" required>
-                </div>
-                <div class="col-12 mb-3">
-                    <label for="username">Name <span>*</span></label>
-                    <input type="text" th:field="*{userInfo.username}" class="form-control" id="username" required>
-                </div>
-                <div class="col-12 mb-3">
-                    <label for="address">Address</label>
-    				<input type="text" th:field="*{userInfo.address}" class="form-control" id="address" required>
-                </div>
-                <div class="col-12 mb-3">
-                    <label for="phone">Phone No <span>*</span> ( - 제외 11자리 입력)</label>
-    				<input type="number" th:field="*{userInfo.phone}" class="form-control" id="phone" required>
-                </div>
-                <div class="col-12 mb-4">
-                    <label for="email">Email Address <span>*</span></label>
-    				<input type="email" th:field="*{userInfo.email}" class="form-control" id="email" required>
-                </div>
-                <div class="col-12">
-                    <!--<a href="#" class="btn karl-checkout-btn">SIGN IN</a>-->
-                    <button type="submit" class="btn karl-checkout-btn">SIGN IN</button>
-                </div>
+	        <div class="col-12 col-md-6">
+	        <div class="checkout_details_area mt-50 clearfix">
+	
+	        <div class="cart-page-heading">
+	            <h5>USER SIGNIN</h5>
+	            <p>Enter your information</p>
+	        </div>
+	
+	        <form th:action="@{/user/registerUser}" th:object="${userForm}" method="POST" >
+	            <div class="row">
+	                <div class="col-md-6 mb-3">
+	                    <label for="userid">ID <span>*</span></label>
+	    				<input type="text" th:field="*{userInfo.userid}" class="form-control" id="userid" required>
+	                </div>
+	                <div class="col-md-6 mb-3">
+	                    <label for="passwd">PASSWORD <span>*</span></label>
+	    				<input type="password" th:field="*{userInfo.passwd}" class="form-control" id="passwd" required>
+	                </div>
+	                <div class="col-12 mb-3">
+	                    <label for="username">Name <span>*</span></label>
+	                    <input type="text" th:field="*{userInfo.username}" class="form-control" id="username" required>
+	                </div>
+	                <div class="col-12 mb-3">
+	                    <label for="address">Address <span>*</span></label>
+	    				<input type="text" th:field="*{userInfo.address}" class="form-control" id="address" required>
+	                </div>
+	                <div class="col-12 mb-3">
+	                    <label for="phone">Phone No <span>*</span> ( - 포함 13자리 입력)</label>
+	    				<input type="text" th:field="*{userInfo.phone}" class="form-control" id="phone" required>
+	                </div>
+	                <div class="col-12 mb-4">
+	                    <label for="email">Email Address <span>*</span></label>
+	    				<input type="email" th:field="*{userInfo.email}" class="form-control" id="email" required>
+	                </div>
+	                <div class="col-12">
+	                    <!--<a href="#" class="btn karl-checkout-btn">SIGN IN</a>-->
+	                    <button type="submit" class="btn karl-checkout-btn">SIGN IN</button>
+	                </div>
+	            </div>
+	        </form>
+	        </div>
+	        </div>
+	       <!--
+	        <div class="cart-page-heading">
+	            <h5>SIGNIN as a SELLER</h5>
+	        </div>
+            <div class="">
+                <a href="#" class="btn karl-checkout-btn">SELLER SIGNIN</a>
             </div>
-        </form>
-        </div>
-        </div>
+	        -->
         </div>
         </div>
         </div>

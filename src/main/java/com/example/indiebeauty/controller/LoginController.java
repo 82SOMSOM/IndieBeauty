@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.indiebeauty.domain.UserInfo;
@@ -22,10 +23,24 @@ import jakarta.servlet.http.HttpSession;
 public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
+//	사용자 로그인
 	@RequestMapping(value="/login", method = RequestMethod.GET )
 	public String loginForm(){
 		logger.info("login 페이지 이동");
 		return "login";
+	}
+	
+//	판매자 로그인
+	@RequestMapping(value = "/sellerLogin", method = RequestMethod.GET)
+    public String showRegistrationForm() {
+		logger.info("판매자 로그인페이지 이동");
+        return "sellerLogin";  // 회원가입 페이지로 이동
+    }
+	
+	@RequestMapping(value="/shop", method = RequestMethod.GET )
+	public String shopPage(){
+		logger.info("shop 페이지 이동");
+		return "shop";
 	}
 	
 	private IndiebeautyFacade indiebeauty;
@@ -35,7 +50,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/user/login", method = RequestMethod.POST)
-	public ModelAndView handleRequest(HttpServletRequest request,
+	public ModelAndView loginUser(HttpServletRequest request,
 			@RequestParam("userid") String userid,
 			@RequestParam("passwd") String passwd,
 			@RequestParam(value="forwardAction", required=false) String forwardAction,
@@ -49,6 +64,7 @@ public class LoginController {
 //		else {
 			UserSession userSession = new UserSession(userinfo);
 			model.addAttribute("userSession", userSession);
+			logger.info("session 저장 성공" + userSession.getUserInfo().getUserid());
 			if (forwardAction != null) {
 				return new ModelAndView("redirect:" + forwardAction);
 			}
@@ -57,6 +73,17 @@ public class LoginController {
 				return new ModelAndView("shop");
 			}
 //		}
+	}
+	
+//  로그아웃
+    @RequestMapping("/logout")
+	public String handleRequest(HttpSession session, SessionStatus sessionStatus) throws Exception{
+        logger.info("세션 제거 전"); // 로그아웃 전 세션 상태 로깅
+//        session.removeAttribute("userSession");
+        sessionStatus.setComplete(); // 세션 어트리뷰트 정리
+        session.invalidate();
+        logger.info("logout 성공 - 세션 제거 후");
+        return "redirect:/shop";
 	}
 	
 }

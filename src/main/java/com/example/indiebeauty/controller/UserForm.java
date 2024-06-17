@@ -6,11 +6,8 @@ import com.example.indiebeauty.domain.UserInfo;
 
 @SuppressWarnings("serial")
 public class UserForm implements Serializable{
-	
 	private UserInfo userInfo;
-	
 	private boolean newUserInfo;
-	
 	private String repeatedPasswd;
 	
 	public UserForm(UserInfo userInfo) {

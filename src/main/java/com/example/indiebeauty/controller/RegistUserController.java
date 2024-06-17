@@ -54,7 +54,6 @@ public class RegistUserController {
 		logger.info("회원가입페이지 이동");
         return "signin";  // 회원가입 페이지로 이동
     }
-
 	@RequestMapping(value = "/user/registerUser", method = RequestMethod.POST)
 	public String registerUser(@ModelAttribute("userForm") UserForm userForm, BindingResult result, HttpSession session) {
 		logger.info("registerUser method 이동");
@@ -74,17 +73,27 @@ public class RegistUserController {
 		}
 	}
   
-	@RequestMapping(value = "/editUserInfo", method = RequestMethod.GET)
+//	회원정보 수정
+	@RequestMapping(value = "/showUserInfo", method = RequestMethod.GET)
     public String showEditForm(HttpServletRequest request, Model model) {
         UserSession userSession = (UserSession)WebUtils.getSessionAttribute(request, "userSession");
-        if (userSession != null) {
+        logger.info("마이페이지 접근 시도 - 현재 userSession 상태: " + userSession);
+        if (userSession != null && userSession.getUserInfo() != null) {
             UserForm userForm = new UserForm(indiebeauty.getUserInfo(userSession.getUserInfo().getUserid()));
+            logger.info("세션 있음 - 사용자 ID: " + userSession.getUserInfo().getUserid());
             model.addAttribute("userForm", userForm);
-            return "editUserInfo";  // 정보 수정 페이지로 이동
+            logger.info("마이페이지로 이동");
+            return "showUserInfo";  // 정보 수정 페이지로 이동
+        }else {
+	        logger.info("session 없음");
+	        return "redirect:/login";  // 세션이 없으면 회원 가입 페이지로 리다이렉트
         }
-        return "redirect:/singin";  // 세션이 없으면 회원 가입 페이지로 리다이렉트
     }
-
+	@RequestMapping(value = "/editUserInfo", method = RequestMethod.GET)
+    public String editUserInfo() {
+		logger.info("회원정보 수정 페이지 이동");
+        return "editUserInfo";  // 회원가입 페이지로 이동
+    }
     @RequestMapping(value = "/user/editUser", method = RequestMethod.POST)
     public String editUser(@ModelAttribute("userForm") UserForm userForm, BindingResult result, HttpSession session) {
         validator.validate(userForm, result);
@@ -94,19 +103,12 @@ public class RegistUserController {
         try {
             indiebeauty.updateUserInfo(userForm.getUserInfo());
             logger.info("회원정보 수정 완료");
-            return "redirect:/shop.html";
+            return "redirect:/shop";
         } catch (DataIntegrityViolationException ex) {
+        	logger.error("회원정보 수정 에러");
             result.rejectValue("UserInfo.userid", "ERROR", "An error occurred during the update.");
             return "editUserInfo";
         }
     }
-    
-	@RequestMapping("/logout")
-	public String logoutUser(HttpSession session) throws Exception{
-		session.removeAttribute("userSession");
-		session.invalidate();
-		logger.info("logout 성공");
-		return "redirect:shop";
-	}
 	 	
 }

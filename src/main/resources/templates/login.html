@@ -38,36 +38,56 @@
         <div class="container">
         <div class="row">
 
-        <div class="col-12 col-md-6">
-        <div class="checkout_details_area mt-50 clearfix">
+<!-- Left Form Area -->
+                    <div class="col-12 col-md-6">
+                        <div class="checkout_details_area mt-50 clearfix">
+                            <div class="cart-page-heading">
+                                <h5>LOGIN/SIGNIN</h5>
+                                <p>Enter your information</p>
+                            </div>
+                            <form th:action="@{/user/login}" method="post">
+                                <div th:if="${loginForwardAction}">
+                                    <input type="hidden" name="forwardAction" th:value="@{${loginForwardAction}}" />
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mb-3">
+                                        <label for="userid">ID <span>*</span></label>
+                                        <input type="text" class="form-control" id="userid" name="userid" required>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="passwd">PASSWORD <span>*</span></label>
+                                        <input type="password" class="form-control" id="passwd" name="passwd" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn karl-checkout-btn">LOGIN</button>
+                                        <p></p>
+                                        <a th:href="@{/signin}" class="btn karl-checkout-btn">SIGN IN</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
 
-            <div class="cart-page-heading">
-                <h5>LOGIN/SIGNIN</h5>
-                <p>Enter your information</p>
-            </div>
-
-            <form th:action="@{/user/login}" method="post">
-				<div th:if="${loginForwardAction}">
-				    <input type="hidden" name="forwardAction" th:value="@{${loginForwardAction}}" />
-				</div>
-                <div class="row">
-                    <div class="col-12 mb-3">
-                        <label for="userid">ID <span>*</span></label>
-	    				<input type="text" class="form-control" id="userid" name="userid" required>
+                    <!-- Right Form Area -->
+                    <div class="col-12 col-md-6">
+                        <div class="checkout_details_area mt-50 clearfix">
+                            <div class="cart-page-heading">
+                                <h5>Are you a seller?</h5>
+                                <p>Please click the button below</p>
+                            </div>
+                            <form th:action="@{/user/login}" method="post">
+                                <div th:if="${loginForwardAction}">
+                                    <input type="hidden" name="forwardAction" th:value="@{${loginForwardAction}}" />
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+										<br>
+                                        <a th:href="@{/sellerLogin}" class="btn karl-checkout-btn">Seller Login</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="col-12 mb-3">
-                        <label for="passwd">PASSWORD <span>*</span></label>
-	    				<input type="password" class="form-control" id="passwd" name="passwd" required>
-                    </div>
-                    <div class="col-12">
-						<button type="submit" class="btn karl-checkout-btn">LOGIN</button>
-                        <p></p>
-                        <a th:href="@{/signin}" class="btn karl-checkout-btn">SIGN IN</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-        </div>
         </div>
         </div>
         </div>

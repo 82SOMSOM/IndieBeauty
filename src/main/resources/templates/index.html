@@ -37,7 +37,7 @@
                     <li data-toggle="collapse" data-target="#women" class="collapsed active">
                         <a href="#">일반회원 <span class="arrow"></span></a>
                         <ul class="sub-menu collapse" id="women">
-                            <li><a href="editUserInfo.html">회원정보 수정</a></li>
+                            <li><a th:href="@{/showUserInfo}">마이페이지</a></li>
                             <li><a href="checkOrder.html">주문내역 확인</a></li>
                         </ul>
                     </li>
@@ -45,6 +45,7 @@
                     <li data-toggle="collapse" data-target="#man" class="collapsed">
                         <a href="#">판매자 <span class="arrow"></span></a>
                         <ul class="sub-menu collapse" id="man">
+							<li><a th:href="@{/showSellerInfo}">마이페이지</a></li>
                             <li><a href="uploadProduct.html">상품 등록</a></li>
                             <li><a href="uploadEvent.html">이벤트 등록</a></li>
                         </ul>
