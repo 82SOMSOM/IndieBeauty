@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,18 +25,26 @@ import com.example.indiebeauty.domain.Category;
 import com.example.indiebeauty.domain.Product;
 import com.example.indiebeauty.domain.ProductImage;
 import com.example.indiebeauty.domain.Review;
+import com.example.indiebeauty.domain.UserInfo;
 import com.example.indiebeauty.exception.FileUploadException;
 import com.example.indiebeauty.repository.ProductImageRepository;
 import com.example.indiebeauty.repository.ProductRepository;
 import com.example.indiebeauty.repository.ReviewRepository;
+import com.example.indiebeauty.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 
 @Service
 public class ReviewService {
 	
+	private static final Logger logger = LoggerFactory.getLogger(ReviewService.class);
+	
 	@Autowired
 	private ReviewRepository reviewRepository;
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private ProductRepository productRepository;
 	
 //	public Review saveReview(Review review) {
 //		return reviewRepository.save(review);
@@ -81,33 +91,66 @@ public class ReviewService {
 
 	@Transactional
 	public int registerReview(UploadReview uploadReview) throws FileUploadException {
-
-		// UploadReview에서 필요한 필드 추출
+		
         String userId = uploadReview.getUserId(); // 사용자 ID (String)
-        Date reviewDate = new Date(); // 현재 날짜
+        Date reviewDate = new Date(); // 현재 날짜        
         String content = uploadReview.getContent(); // 리뷰 내용
         MultipartFile imageFile = uploadReview.getImageUrl();
         float star = uploadReview.getStar(); // 별점 (float)
         int productId = uploadReview.getProductId(); // 제품 ID (int)
-        
+
+        logger.info("User ID: {}", userId);
+        logger.info("Product ID: {}", productId);
+        logger.info("Review Date: {}", reviewDate);
+        logger.info("Content: {}", content);
+        logger.info("Image File Name: {}", imageFile != null ? imageFile.getOriginalFilename() : "No Image");
+        logger.info("Star: {}", star);
+        logger.info("여기까지 완료==============================================");
+
         // 이미지 파일 저장
         String imageUrl = saveImage(imageFile);
-        
-        // 새 Review 객체 생성
+
+        // 유저 정보 및 제품 정보 로드
+        Optional<UserInfo> userInfoOptional = userRepository.findById(userId);
+        if (!userInfoOptional.isPresent()) {
+            logger.error("User not found with ID: {}", userId);
+            throw new IllegalArgumentException("User not found");
+        }
+        Optional<Product> productOptional = productRepository.findById(productId);
+        if (!productOptional.isPresent()) {
+            logger.error("Product not found with ID: {}", productId);
+            throw new IllegalArgumentException("Product not found");
+        }
+
+        UserInfo userInfo = userInfoOptional.get();
+        Product product = productOptional.get();
+
         Review review = new Review();
-        review.setUserId(userId);
         review.setReviewDate(reviewDate);
         review.setContent(content);
-        review.setImageUrl(imageUrl); // 이미지 URL을 저장
+        review.setImageUrl(imageUrl);
         review.setStar(star);
+        review.setUserId(userId);
         review.setProductId(productId);
-        
-        Review newReview = reviewRepository.save(review);
+        logger.info("UserInfo object loaded: {}", userInfo);
+        logger.info("Product object loaded: {}", product);
+        review.setUserInfo(userInfo);
+        review.setProduct(product);
+        logger.info("Review object with UserInfo and Product set: {}", review);
 
-        // 리뷰 저장
-        reviewRepository.save(review);
-        int newReviewId = newReview.getReviewId();
+        logger.info("Review object created: {}", review);
+        logger.info("==============================================");
 
-        return newReviewId;
+        try {
+            Review savedReview = reviewRepository.save(review);
+            logger.info("Saved Review object: {}", savedReview);
+            logger.info("==============================================");
+            logger.info("Saved Review ID: {}", savedReview.getReviewId());
+            return savedReview.getReviewId();
+        } catch (Exception e) {
+            logger.error("Error saving review: ", e);
+            throw new RuntimeException("Error saving review", e);
+        }
 	}
 }
+

@@ -53,7 +53,7 @@ public class Review {
 	@Column(name="star")
 	private float star;
 	
-	@Column(name="productid")
+	@Column(name="productid", nullable = false)
 	private int productId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
