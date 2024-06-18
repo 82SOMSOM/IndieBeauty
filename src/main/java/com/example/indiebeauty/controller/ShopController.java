@@ -40,12 +40,14 @@ public class ShopController {
 		try {
 			Product product = productService.getProductById(productId);
 			List<Review> reviews = reviewService.getReviewsByProductId(productId); // 0618 추가
+			double averageRating = reviewService.getAverageRating(productId); // 0618 추가
 			
 			System.out.println(product.toString());
 			
 			ModelAndView mav = new ModelAndView("productDetails");
 			mav.addObject("product", product);
 			mav.addObject("reviews", reviews); // 0618 추가
+			mav.addObject("averageRating", averageRating); // 0618 추가
 			
 			return mav;
 		} catch (NoSuchProductException e) {
