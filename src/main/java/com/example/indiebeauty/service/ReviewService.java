@@ -58,6 +58,10 @@ public class ReviewService {
         return reviewRepository.findById(reviewId);
     }
     
+    public List<Review> getReviewsByProductId(int productId) { // 0618 추가
+        return reviewRepository.findByProduct_ProductId(productId);
+    }
+    
 	public static String changePathBasedOnOS(String path) {
 		return path.replace("/", File.separator);
 	}

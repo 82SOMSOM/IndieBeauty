@@ -14,9 +14,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.indiebeauty.domain.Category;
 import com.example.indiebeauty.domain.Product;
+import com.example.indiebeauty.domain.Review;
 import com.example.indiebeauty.exception.NoSuchProductException;
 import com.example.indiebeauty.service.CategoryService;
 import com.example.indiebeauty.service.ProductService;
+import com.example.indiebeauty.service.ReviewService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -26,6 +28,8 @@ public class ShopController {
 	private ProductService productService;
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private ReviewService reviewService; // 0618 추가
 	
 	public ModelAndView viewProductByCategory(String category) {
 		return null;
@@ -35,11 +39,13 @@ public class ShopController {
 	public ModelAndView viewProductDetail(@PathVariable("productId") int productId, RedirectAttributes ra) {
 		try {
 			Product product = productService.getProductById(productId);
+			List<Review> reviews = reviewService.getReviewsByProductId(productId); // 0618 추가
 			
 			System.out.println(product.toString());
 			
 			ModelAndView mav = new ModelAndView("productDetails");
 			mav.addObject("product", product);
+			mav.addObject("reviews", reviews); // 0618 추가
 			
 			return mav;
 		} catch (NoSuchProductException e) {
