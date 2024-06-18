@@ -47,7 +47,7 @@ public class Cart implements Serializable {
   }
 
 
-  public Product removeProductById(String productId) {
+  public Product removeProductById(int productId) {
     CartProduct cartProduct = productMap.remove(productId);
     if (cartProduct == null) {
       return null;
