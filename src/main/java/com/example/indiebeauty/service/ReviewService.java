@@ -62,6 +62,11 @@ public class ReviewService {
         return reviewRepository.findByProduct_ProductId(productId);
     }
     
+    public double getAverageRating(int productId) { // 0618 추가
+        Double avgRating = reviewRepository.findAverageRatingByProductId(productId);
+        return avgRating != null ? avgRating : 0.0;
+    }
+    
 	public static String changePathBasedOnOS(String path) {
 		return path.replace("/", File.separator);
 	}
