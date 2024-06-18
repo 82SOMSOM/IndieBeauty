@@ -137,7 +137,7 @@
         </section>
         <!-- <<<<<<<<<<<<<<<<<<<< Single Product Details Area End >>>>>>>>>>>>>>>>>>>>>>>>> -->
 
-        <!-- ****** Quick View Modal Area Start ****** -->
+        <!-- ****** Quick View Modal Area Start ****** 여기는 필요 없는 것 같음! "삭제 여부 여쭤보기" -->
         <div class="modal fade" id="quickview" tabindex="-1" role="dialog" aria-labelledby="quickview" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -220,91 +220,19 @@
                         <div class="you_make_like_slider owl-carousel">
 
                             <!-- Single gallery Item -->
-                            <div class="single_gallery_item">
+                            <div th:each="review : ${reviews}" class="single_gallery_item">
                                 <!-- Product Image -->
                                 <div class="product-img">
-                                    <img th:src="@{/img/product-img/product-1.jpg}" alt="">
+									<img th:href="@{'/img/review-img/' + ${review.imageUrl}}" alt="">
                                 </div>
                                 <!-- Product Description -->
                                 <div class="product-description">
                                     <div class="single_product_ratings mb-15">
-		                                <i class="fa fa-star" aria-hidden="true"></i>
-		                                <i class="fa fa-star" aria-hidden="true"></i>
-		                                <i class="fa fa-star" aria-hidden="true"></i>
-		                                <i class="fa fa-star" aria-hidden="true"></i>
-		                                <i class="fa fa-star" aria-hidden="true"></i>
+										<i class="fa fa-star" aria-hidden="true" 
+										th:each="i : ${#numbers.sequence(1, 5)}" 
+										th:classappend="${i <= review.star} ? 'fa-star' : 'fa-star-o'"></i>
                            			</div>
-                                    <p>제가 복합성 피부인데 민감하게 느껴지지 않았습니다!</p>
-                                </div>
-                            </div>
-
-                            <!-- Single gallery Item -->
-                            <div class="single_gallery_item">
-                                <!-- Product Image -->
-                                <div class="product-img">
-                                    <img th:src="@{/img/product-img/product-2.jpg}" alt="">
-                                </div>
-                                <!-- Product Description -->
-                                <div class="product-description">
-                                    <div class="single_product_ratings mb-15">
-		                                <i class="fa fa-star" aria-hidden="true"></i>
-		                                <i class="fa fa-star" aria-hidden="true"></i>
-		                                <i class="fa fa-star" aria-hidden="true"></i>
-		                                <i class="fa fa-star" aria-hidden="true"></i>
-		                                <i class="fa fa-star-o" aria-hidden="true"></i>
-                           			</div>
-                                    <p>묽은쪽에 가까운 점도였어요! 이걸 바르고 바로 여드름이 진정된 건 아니지만 자극이 느껴지진 않았어요</p>
-                                </div>
-                            </div>
-
-                            <!-- Single gallery Item -->
-                            <div class="single_gallery_item">
-                                <!-- Product Image -->
-                                <div class="product-img">
-                                    <img th:src="@{/img/product-img/product-3.jpg}" alt="">
-                                </div>
-                                <!-- Product Description -->
-                                <div class="product-description">
-                                    <div class="single_product_ratings mb-15">
-		                                <i class="fa fa-star" aria-hidden="true"></i>
-		                                <i class="fa fa-star" aria-hidden="true"></i>
-		                                <i class="fa fa-star" aria-hidden="true"></i>
-		                                <i class="fa fa-star" aria-hidden="true"></i>
-		                                <i class="fa fa-star" aria-hidden="true"></i>
-                           			</div>
-                                    <p>토리든 마스크팩도 좋았고 세럼 무조건 구매하셔야 해요 수딩크림도 좋아요</p>
-                                </div>
-                            </div>
-
-                            <!-- Single gallery Item -->
-                            <div class="single_gallery_item">
-                                <!-- Product Image -->
-                                <div class="product-img">
-                                    <img th:src="@{/img/product-img/product-4.jpg}" alt="">
-                                    <div class="product-quicview">
-                                        <a href="#" data-toggle="modal" data-target="#quickview"><i class="ti-plus"></i></a>
-                                    </div>
-                                </div>
-                                <!-- Product Description -->
-                                <div class="product-description">
-                                    <h4 class="product-price">$39.90</h4>
-                                    <p>Jeans midi cocktail dress</p>
-                                </div>
-                            </div>
-
-                            <!-- Single gallery Item -->
-                            <div class="single_gallery_item">
-                                <!-- Product Image -->
-                                <div class="product-img">
-                                    <img th:src="@{/img/product-img/product-5.jpg}" alt="">
-                                    <div class="product-quicview">
-                                        <a href="#" data-toggle="modal" data-target="#quickview"><i class="ti-plus"></i></a>
-                                    </div>
-                                </div>
-                                <!-- Product Description -->
-                                <div class="product-description">
-                                    <h4 class="product-price">$39.90</h4>
-                                    <p>Jeans midi cocktail dress</p>
+                                    <p th:text="${review.content}"></p>
                                 </div>
                             </div>
                         </div>
