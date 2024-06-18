@@ -15,7 +15,7 @@ public class RemoveProductFromCartController {
 
 	@RequestMapping("/shop/removeProductFromCart.do")
 	public ModelAndView handleRequest(
-			@RequestParam("workingProductId") String workingProductId,
+			@RequestParam("workingProductId") int workingProductId,
 			@ModelAttribute("sessionCart") Cart cart
 		) throws Exception {
 		cart.removeProductById(workingProductId);

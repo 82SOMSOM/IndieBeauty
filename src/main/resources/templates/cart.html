@@ -90,7 +90,7 @@
                                             <td class="total_price"><span th:text="${cartProduct.totalPrice}"></span>
                                             </td>
                                             <td>
-                                                <a th:href="@{'/shop/removeProductFromCart?workingProductId=' + ${cartProduct.product.productId}}">
+                                                <a th:href="@{'/shop/removeProductFromCart.do?workingProductId=' + ${cartProduct.product.productId}}">
                                                     <img th:src="@{/img/remove_button.png}">
                                                 </a>
                                             </td>
