@@ -57,6 +57,8 @@
 										<img th:src="@{/img/product-img/product-10.jpg}" alt=""><br><br>
 										<input type="text" class="form-control"
 											id="productName" th:value="${uploadReview.product.name}" readonly>
+										<input type="hidden" id="productId" th:field="${uploadReview.productId}"> <!-- productId 숨겨둠 -->
+										<input type="hidden" id="userId" th:field="${uploadReview.userId}"> <!-- userId 숨겨둠 -->
 									</div>
 									<div class="col-12 mb-3">
 										<label for="imageUrl">Upload Review Image <span>* 필수항목 아님</span></label><br>
