@@ -51,15 +51,16 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 	
 //	@Override
 //	public Product getProduct(int workingProductId) {
-////		return productRepository.getReferenceById(itemId);
+////		return productRepository.getReferenceById(workingProductId);
 //		return null;
 //	}
 	
+	
+// 	review
 	@Override
 	public Review getReview(int reviewId) {
 		return reviewRepository.getReferenceById(reviewId);
 	}
-	
 	@Override
 	public void insertReview(Review review) {
 		reviewRepository.save(review);
