@@ -70,7 +70,7 @@ public class ShopController {
 		List<Category> categoryList = categoryService.getCategoryList();
 		session.setAttribute("categoryList", categoryList);
 		
-		Map<String, Object> resultMap = productService.getProductByCategoryIdWithTitleImage(categoryId, pageNum);
+		Map<String, Object> resultMap = productService.getProductByCategoryIdWithTitleImage(categoryId, pageNum, 9);
 		List<Product> products = (List<Product>) resultMap.get("products");
 		int totalPages = (int) resultMap.get("totalPages");
 		
@@ -89,7 +89,7 @@ public class ShopController {
 		List<Category> categoryList = categoryService.getCategoryList();
 		session.setAttribute("categoryList", categoryList);
 		
-		Map<String, Object> resultMap = productService.getAllProductWithTitleImage(pageNum);
+		Map<String, Object> resultMap = productService.getAllProductWithTitleImage(pageNum, 9);
 		List<Product> products = (List<Product>) resultMap.get("products");
 		int totalPages = (int) resultMap.get("totalPages");
 		
