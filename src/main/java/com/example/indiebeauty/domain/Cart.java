@@ -33,7 +33,9 @@ public class Cart implements Serializable {
     return productMap.containsKey(workingProductId);
   }
 
-  public void addProduct(Product product, boolean isInStock) {
+  public void addProduct(Product product, boolean isInStock, int quantity) {
+	  System.out.println("======== addProduct의 quantity 확인 ======== : " + quantity);
+	  
     CartProduct cartProduct = productMap.get(product.getProductId());
     if (cartProduct == null) {
     	cartProduct = new CartProduct();
@@ -43,7 +45,7 @@ public class Cart implements Serializable {
 	    productMap.put(product.getProductId(), cartProduct);
 	      productList.getSource().add(cartProduct);
     }
-    cartProduct.incrementQuantity();
+    cartProduct.incrementQuantity(quantity);
   }
 
 
@@ -58,9 +60,9 @@ public class Cart implements Serializable {
     }
   }
 
-  public void incrementQuantityByProductId(int productId) {
+  public void incrementQuantityByProductId(int productId, int quantity) {
     CartProduct cartProduct = productMap.get(productId);
-    cartProduct.incrementQuantity();
+    cartProduct.incrementQuantity(quantity);
   }
 
   public void setQuantityByProductId(int productId, int quantity) {

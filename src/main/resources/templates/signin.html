@@ -65,11 +65,13 @@
 	                </div>
 	                <div class="col-12 mb-3">
 	                    <label for="phone">Phone No <span>*</span> ( - 포함 13자리 입력)</label>
-	    				<input type="text" th:field="*{userInfo.phone}" class="form-control" id="phone" required>
+	    				<input type="text" th:field="*{userInfo.phone}" class="form-control" id="phone" 
+	    					pattern="[0-9\-]{13}" title="전화번호 형식: 숫자와 - 포함 13자리 입력" required>
 	                </div>
 	                <div class="col-12 mb-4">
 	                    <label for="email">Email Address <span>*</span></label>
-	    				<input type="email" th:field="*{userInfo.email}" class="form-control" id="email" required>
+	    				<input type="email" th:field="*{userInfo.email}" class="form-control" id="email" 
+	    					title="이메일 형식을 맞춰주세요" required>
 	                </div>
 	                <div class="col-12">
 	                    <!--<a href="#" class="btn karl-checkout-btn">SIGN IN</a>-->

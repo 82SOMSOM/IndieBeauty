@@ -100,8 +100,6 @@ public class LoginController {
 	public String handleRequest(HttpSession session, SessionStatus sessionStatus) throws Exception{
         logger.info("세션 제거 전"); // 로그아웃 전 세션 상태 로깅
         sessionStatus.setComplete(); // 세션 어트리뷰트 정리
-//        session.removeAttribute("userSession");
-//        session.removeAttribute("sellerSession");
         session.invalidate();
         logger.info("logout 성공 - 세션 제거 후");
         return "redirect:/shop?pageNum=1";

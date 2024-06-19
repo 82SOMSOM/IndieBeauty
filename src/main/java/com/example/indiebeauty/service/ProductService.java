@@ -30,6 +30,7 @@ import com.example.indiebeauty.controller.UploadProduct;
 import com.example.indiebeauty.domain.Category;
 import com.example.indiebeauty.domain.Product;
 import com.example.indiebeauty.domain.ProductImage;
+import com.example.indiebeauty.domain.SellerInfo;
 import com.example.indiebeauty.exception.FileUploadException;
 import com.example.indiebeauty.exception.NoSuchProductException;
 import com.example.indiebeauty.repository.ProductImageRepository;
@@ -48,7 +49,7 @@ public class ProductService {
 	
 	private static int itemsPerPage = 9;
 	
-	private static Pageable getPageableForShop(int pageNum) {		// 상품 조회에 필요한 Pageable 객체 생성 메소드
+	private static Pageable getPageableForShop(int pageNum, int imtemPerPage) {		// 상품 조회에 필요한 Pageable 객체 생성 메소드
 		Sort sort = Sort.by(new Order(Sort.Direction.DESC, "productId"));
 		Pageable pageable = PageRequest.of(pageNum, itemsPerPage, sort);
 		
@@ -56,8 +57,8 @@ public class ProductService {
 	}
 
 	@Transactional(readOnly = true)
-	public Map<String, Object> getProductByCategoryIdWithTitleImage(int categoryId, int pageNum) {	// categoryId 기준 상품 반환 메소드 (ProductImage는 타이틀 이미지만 반환)
-		Pageable pageable = getPageableForShop(pageNum - 1);
+	public Map<String, Object> getProductByCategoryIdWithTitleImage(int categoryId, int pageNum, int itemPerPage) {	// categoryId 기준 상품 반환 메소드 (ProductImage는 타이틀 이미지만 반환)
+		Pageable pageable = getPageableForShop(pageNum - 1, itemPerPage);
 		
 		Page<Product> result = prodRepo.findByCategory_CategoryId(categoryId, pageable);
 		int totalPages = result.getTotalPages();
@@ -92,10 +93,10 @@ public class ProductService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Map<String, Object> getAllProductWithTitleImage(int pageNum) {	// 전체 상품 반환 메소드 (ProductImage는 타이틀 이미지만 반환)
+	public Map<String, Object> getAllProductWithTitleImage(int pageNum, int itemPerPage) {	// 전체 상품 반환 메소드 (ProductImage는 타이틀 이미지만 반환)
 		System.out.println("================ getAllProductWithTitleImage");
 		
-		Pageable pageable = getPageableForShop(pageNum - 1);
+		Pageable pageable = getPageableForShop(pageNum - 1, itemPerPage);
 		
 		Page<Product> result = prodRepo.findAll(pageable);
 		int totalPages = result.getTotalPages();
@@ -242,7 +243,7 @@ public class ProductService {
 		}
 	}
 	
-	public int registerProduct(UploadProduct uploadProduct) throws FileUploadException {	// 상품 등록 메소드
+	public int registerProduct(UploadProduct uploadProduct, SellerInfo sellerInfo) throws FileUploadException {	// 상품 등록 메소드
 		int categoryId = uploadProduct.getCategoryId();
 		String name = uploadProduct.getName();
 		String description = uploadProduct.getDescription();
@@ -250,7 +251,7 @@ public class ProductService {
 		int price = uploadProduct.getPrice();
 		int stock = uploadProduct.getStock();
 		
-		Product product = new Product(0, new Category(categoryId, null), name, description, null, date, price, stock);
+		Product product = new Product(0, new Category(categoryId, null), name, description, null, date, price, stock, sellerInfo);
 		
 		Product newProduct = prodRepo.save(product);
 		int newProductId = newProduct.getProductId();
