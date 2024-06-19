@@ -1,29 +1,37 @@
 package com.example.indiebeauty.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.indiebeauty.domain.Cart;
+import com.example.indiebeauty.domain.Orders;
 import com.example.indiebeauty.domain.Product;
 import com.example.indiebeauty.domain.UserInfo;
+import com.example.indiebeauty.exception.FileUploadException;
 import com.example.indiebeauty.service.IndiebeautyFacade;
 import com.example.indiebeauty.service.OrdersService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @SessionAttributes({ "sessionCart", "orderForm" })
 public class OrdersController {
 	@Autowired
 	private IndiebeautyFacade indiebeauty;
-	
+
 	@Autowired
 	private OrdersService ordersService;
 
@@ -39,25 +47,32 @@ public class OrdersController {
 
 	@GetMapping("/newOrder")
 	public String initNewOrder(HttpServletRequest request, @ModelAttribute("sessionCart") Cart cart,
-			@ModelAttribute("orderForm") OrderForm orderForm) throws ModelAndViewDefiningException {
+			@ModelAttribute("orderForm") OrderForm orderForm, HttpSession session)
+			throws ModelAndViewDefiningException {
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
 		if (cart != null) {
 			// Re-read account from DB at team's request.
 			UserInfo userInfo = indiebeauty.getUserInfo(userSession.getUserInfo().getUserid());
-			 // 임시 상품 생성
-	        Product product1 = new Product();
-	        product1.setProductId(9);
-	        product1.setName("Product 1");
-	        product1.setPrice(10);
-	        product1.setStock(2);
+			// 임시 상품 생성
+			Product product1 = new Product();
+			product1.setProductId(9);
 
-	        // 장바구니 객체 생성
-	        Cart carttest = new Cart();
+			Product product2 = new Product();
+			product2.setProductId(11);
 
-	        // 상품 추가
-	        carttest.addProduct(product1, true);
+			Product product3 = new Product();
+			product3.setProductId(13);
+
+			// 장바구니 객체 생성
+			Cart carttest = new Cart();
+
+			// 상품 추가
+			carttest.addProduct(product1, true);
+			carttest.addProduct(product2, true);
+			carttest.addProduct(product3, true);
+
 			orderForm.getOrder().initOrder(userInfo, carttest);
-
+			session.setAttribute("userSession", userSession);
 			return "createOrder";
 		} else {
 			ModelAndView modelAndView = new ModelAndView("Error");
@@ -76,16 +91,28 @@ public class OrdersController {
 		return mav;
 	}
 
-//	@RequestMapping("/viewOrder")
-//	public ModelAndView handleRequest(
-//			@ModelAttribute("userSession") UserSession userSession,
-//			@RequestParam("orderId") int orderId) throws Exception {
-//		Orders order = ordersService.getOrderById(orderId);
-//		if (userSession.getAccount().getUsername().equals(order.getUserId())) {
-//			return new ModelAndView("ViewOrder", "order", order);
-//		} else {
-//			return new ModelAndView("Error", "message", "You may only view your own orders.");
-//		}
-//	}
+	@RequestMapping("/viewAllOrders")
+	public ModelAndView getAllOrders(HttpServletRequest request) throws Exception {
+		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
+		List<Orders> orderList = ordersService.getOrdersByUserId(userSession.getUserInfo().getUserid());
+
+		if (userSession.getUserInfo().getUserid() != null) {
+			return new ModelAndView("viewAllOrders", "orderList", orderList);
+		} else {
+			return new ModelAndView("Error", "message", "You may only view your own orders.");
+		}
+	}
+
+	@RequestMapping("/cancelOrder/{orderId}")
+	public String deleteOrder(@PathVariable int orderId, HttpServletRequest request, RedirectAttributes ra)
+			throws Exception {
+		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
+
+		if (userSession.getUserInfo().getUserid() != null) {
+			ordersService.deleteOrder(orderId);
+			return "redirect:/viewAllOrders";
+		}
+		return "redirect:/viewAllOrders";
+	}
 
 }

@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Table(name = "item")
-public class Item implements Serializable{
+public class Item implements Serializable {
 	@Id
 	@SequenceGenerator(name = "item_seq_gen", sequenceName = "item_seq", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_seq_gen")
@@ -33,14 +34,17 @@ public class Item implements Serializable{
 	private int itemId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="productid")
+	@JoinColumn(name = "productid")
 	private Product product;
 
 	private int price;
 
 	private int quantity;
 
-    @ManyToOne
-    @JoinColumn(name = "orderid")
-    private Orders order;
+	@Column(name="orderid")
+	private int orderId;
+
+//	@ManyToOne
+//	@JoinColumn(name = "orderid", insertable = false, updatable = false)
+//	private Orders order;
 }
