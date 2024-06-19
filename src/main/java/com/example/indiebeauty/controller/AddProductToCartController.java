@@ -34,10 +34,11 @@ public class AddProductToCartController {
 	@RequestMapping("/shop/addProductToCart.do")
 	public ModelAndView handleRequest(
 			@RequestParam("workingProductId") int workingProductId,
+			@RequestParam("quantity") int quantity,
 			@ModelAttribute("sessionCart") Cart cart 
 			) throws Exception {
 		if (cart.containsProductId(workingProductId)) {
-			cart.incrementQuantityByProductId(workingProductId);
+			cart.incrementQuantityByProductId(workingProductId, quantity);
 		}
 		else {
 			// isInStock is a "real-time" property that must be updated
@@ -48,7 +49,7 @@ public class AddProductToCartController {
 					
 					
 //					this.indiebeauty.getProduct(workingProductId);
-			cart.addProduct(product, isInStock);
+			cart.addProduct(product, isInStock, quantity);
 		}
 		return new ModelAndView("Cart", "cart", cart);
 	}

@@ -38,7 +38,9 @@ public class CartProduct implements Serializable {
 
   /* Public methods */
 
-  public void incrementQuantity() {
-    quantity++;
+  public void incrementQuantity(int quantity) {
+	  System.out.println("============== quantity 확인 ============== : " + quantity);
+	  this.quantity += quantity;
+	  System.out.println("============== 누적 quantity 확인 ============== : " + this.quantity);
   }
 }
