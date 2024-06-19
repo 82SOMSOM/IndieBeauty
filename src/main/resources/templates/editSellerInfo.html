@@ -71,7 +71,8 @@
 		        </div>
 		        <div class="col-12 mb-3">
 		            <label for="phone">Phone No <span>*</span> ( - 포함 13자리 입력)</label>
-		            <input type="text" class="form-control" th:field="*{sellerInfo.phone}" id="phone" required>
+		            <input type="text" class="form-control" th:field="*{sellerInfo.phone}" id="phone" 
+		            	pattern="[0-9\-]{13}" title="전화번호 형식: 숫자와 - 포함 13자리 입력" required>
 		        </div>
 		        <div class="col-12 mb-4">
 		            <label for="email">Email Address <span>*</span></label>
