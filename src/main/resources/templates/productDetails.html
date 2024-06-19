@@ -40,7 +40,10 @@
                 <div class="row">
                     <div class="col-12">
                         <ol class="breadcrumb d-flex align-items-center">
-                        	<li class="breadcrumb-item"><a=href="#" th:text="${product.category.name}"></a></li>
+                        	<li class="breadcrumb-item">
+							    <a href="#" th:text="${product.sellerInfo == null ? '판매자 정보가 없습니다' : product.sellerInfo.businessname}"></a>
+							</li>
+                        	<!-- <li class="breadcrumb-item"><a=href="#" th:text="${product.category.name}"></a></li> -->
                         </ol>
                         <a th:href="@{'/shop/category/' + ${product.category.categoryId} + '?pageNum=1'}" class="backToHome d-block"><i class="fa fa-angle-double-left"></i> Go to Category</a>
                     </div>

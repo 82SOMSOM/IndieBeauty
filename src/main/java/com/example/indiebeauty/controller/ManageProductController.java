@@ -41,10 +41,15 @@ public class ManageProductController {
 	}
 	
 	@PostMapping("/upload-product")
-	public String registerProduct(@ModelAttribute("uploadProduct") UploadProduct uploadProduct,
-			RedirectAttributes ra, SessionStatus status) {
+	public String registerProduct(
+			@ModelAttribute("uploadProduct") UploadProduct uploadProduct,
+			RedirectAttributes ra, 
+			SessionStatus status,
+			HttpSession session) {
+		SellerSession sellerSession = (SellerSession) session.getAttribute("sellerSession");
+		
 		try {
-			int newProductId = productService.registerProduct(uploadProduct);
+			int newProductId = productService.registerProduct(uploadProduct, sellerSession.getSellerInfo());
 			status.setComplete();
 			
 			return ("redirect:/shop/product-detail/" + newProductId);
