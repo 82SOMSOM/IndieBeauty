@@ -38,56 +38,76 @@
 		<!-- ****** Cart Area Start ****** -->
 		<div class="cart_area section_padding_100 clearfix">
 			<div class="container">
-				<!-- 주문 정보 하나만 표시 -->
-				<div class="row">
-					<div class="col-12">
-						<div class="cart-table clearfix">
+				<!-- Thymeleaf 반복문을 통해 각 주문(Order)을 반복 -->
+				<div class="row" th:each="order : ${orderList}"
+					style="margin-top: 20px; border: 2px solid rgb(217, 167, 117);">
+					<div class="col-12" style="margin-top: 20px;">
+						<div class="order-table clearfix">
+							<table class="table table-responsive">
+								<thead>
+									<tr>
+										<th>주문한 날짜</th>
+										<th>총 주문 가격</th>
+										<th>주문 취소</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- 각 주문의 정보를 표시 -->
+									<tr>
+										<td th:text="${order.date}">Order Date</td>
+										<td th:text="${order.totalPrice}">Total Price</td>
+										<td class="review">
+											<a th:href="@{/cancelOrder/{orderId}(orderId=${order.orderId})}"
+												class="btn btn-danger btn-sm">Cancel Order</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<!-- 각 주문의 상품들을 표시하기 위한 테이블 -->
 							<table class="table table-responsive">
 								<thead>
 									<tr>
 										<th>Product</th>
-										<th>Price</th>
-										<th>Quantity</th>
-										<th>Total</th>
+										<th>상품 가격</th>
+										<th>주문 수량</th>
+										<th>주문 가격</th>
 										<th></th>
 									</tr>
 								</thead>
 								<tbody>
-									<!-- orderForm에서 받은 주문의 상품들을 반복하여 표시 -->
-									<tr th:each="orderItem : ${orderForm.order.orderItems}">
-										<td class="cart_product_img d-flex align-items-center">
-											<!--	<a href="#"><img th:src="@{/img/product-img/product-9.jpg}"
-													alt="Product"></a>-->
-											<h6 th:text="${orderItem.product.name}"></h6>
+									<!-- 각 주문의 상품들을 반복하여 표시 -->
+									<tr th:each="item : ${order.orderItems}">
+										<!--<td class="cart_product_img d-flex align-items-center">
+											<a href="#"><img th:src="@{/img/product-img/product-9.jpg}"
+													alt="Product"></a>
+											<h6 th:text="${item.product.productName}">Product Name</h6>
+										</td>-->
+										<td>
+											<h6 th:text="${item.product.name}">Product Name</h6>
 										</td>
-										<td class="price"><span th:text="${orderItem.price}"></span></td>
+										<td class="price"><span th:text="${item.price}">$49.88</span></td>
 										<td class="qty">
-											<div class="quantity" th:text="${orderItem.quantity}"></div>
+											<div class="quantity" th:text="${item.quantity}">1</div>
 										</td>
-										<td class="review">
-											<a href="./reviewForm.html"><img th:src="@{/img/review_button.png}"></a>
+										<td class="total_price"><span
+												th:text="${item.price * item.quantity}">$49.88</span></td>
+										<td>
+											<h6></h6>
 										</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-12 col-lg-8"></div>
-						<div class="col-12 col-lg-4" style="width: 700px;">
-							<div class="cart-total-area mt-70">
-								<a href="/viewAllOrders" class="btn karl-checkout-btn">내 모든 주문 내역</a>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
-		<!-- ****** Cart Area End ****** -->
+	</div>
+	<!-- ****** Cart Area End ****** -->
 
-		<!-- ****** Footer Area Start ****** -->
-		<footer th:insert="~{index::footer-area}"></footer>
-		<!-- ****** Footer Area End ****** -->
+	<!-- ****** Footer Area Start ****** -->
+	<footer th:insert="~{index::footer-area}"></footer>
+	<!-- ****** Footer Area End ****** -->
 	</div>
 	<!-- /.wrapper end -->
 
