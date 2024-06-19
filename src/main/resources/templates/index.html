@@ -34,7 +34,7 @@
 	        <div class="menu-list">
 	            <ul id="menu-content" class="menu-content collapse out">
 	                <!-- Single Item -->
-	                <li data-toggle="collapse" data-target="#women" class="collapsed active">
+	                <li data-toggle="collapse" data-target="#women" th:if="${session.userSession != null && session.sellerSession == null}"  class="collapsed active">
 	                    <a href="#">일반회원 <span class="arrow"></span></a>
 	                    <ul class="sub-menu collapse" id="women">
 	                        <li><a th:href="@{/showUserInfo}">마이페이지</a></li>
@@ -42,7 +42,7 @@
 	                    </ul>
 	                </li>
 	                <!-- Single Item -->
-	                <li data-toggle="collapse" data-target="#man" class="collapsed">
+	                <li data-toggle="collapse" data-target="#man" th:if="${session.userSession == null && session.sellerSession != null}" class="collapsed">
 	                    <a href="#">판매자 <span class="arrow"></span></a>
 	                    <ul class="sub-menu collapse" id="man">
 							<li><a th:href="@{/showSellerInfo}">마이페이지</a></li>
