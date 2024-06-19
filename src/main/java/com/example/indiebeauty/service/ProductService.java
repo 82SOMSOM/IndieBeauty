@@ -48,7 +48,7 @@ public class ProductService {
 	
 	private static int itemsPerPage = 9;
 	
-	private static Pageable getPageableForShop(int pageNum) {		// 상품 조회에 필요한 Pageable 객체 생성 메소드
+	private static Pageable getPageableForShop(int pageNum, int imtemPerPage) {		// 상품 조회에 필요한 Pageable 객체 생성 메소드
 		Sort sort = Sort.by(new Order(Sort.Direction.DESC, "productId"));
 		Pageable pageable = PageRequest.of(pageNum, itemsPerPage, sort);
 		
@@ -56,8 +56,8 @@ public class ProductService {
 	}
 
 	@Transactional(readOnly = true)
-	public Map<String, Object> getProductByCategoryIdWithTitleImage(int categoryId, int pageNum) {	// categoryId 기준 상품 반환 메소드 (ProductImage는 타이틀 이미지만 반환)
-		Pageable pageable = getPageableForShop(pageNum - 1);
+	public Map<String, Object> getProductByCategoryIdWithTitleImage(int categoryId, int pageNum, int itemPerPage) {	// categoryId 기준 상품 반환 메소드 (ProductImage는 타이틀 이미지만 반환)
+		Pageable pageable = getPageableForShop(pageNum - 1, itemPerPage);
 		
 		Page<Product> result = prodRepo.findByCategory_CategoryId(categoryId, pageable);
 		int totalPages = result.getTotalPages();
@@ -92,10 +92,10 @@ public class ProductService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Map<String, Object> getAllProductWithTitleImage(int pageNum) {	// 전체 상품 반환 메소드 (ProductImage는 타이틀 이미지만 반환)
+	public Map<String, Object> getAllProductWithTitleImage(int pageNum, int itemPerPage) {	// 전체 상품 반환 메소드 (ProductImage는 타이틀 이미지만 반환)
 		System.out.println("================ getAllProductWithTitleImage");
 		
-		Pageable pageable = getPageableForShop(pageNum - 1);
+		Pageable pageable = getPageableForShop(pageNum - 1, itemPerPage);
 		
 		Page<Product> result = prodRepo.findAll(pageable);
 		int totalPages = result.getTotalPages();
