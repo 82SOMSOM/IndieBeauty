@@ -30,6 +30,7 @@ import com.example.indiebeauty.controller.UploadProduct;
 import com.example.indiebeauty.domain.Category;
 import com.example.indiebeauty.domain.Product;
 import com.example.indiebeauty.domain.ProductImage;
+import com.example.indiebeauty.domain.SellerInfo;
 import com.example.indiebeauty.exception.FileUploadException;
 import com.example.indiebeauty.exception.NoSuchProductException;
 import com.example.indiebeauty.repository.ProductImageRepository;
@@ -242,7 +243,7 @@ public class ProductService {
 		}
 	}
 	
-	public int registerProduct(UploadProduct uploadProduct) throws FileUploadException {	// 상품 등록 메소드
+	public int registerProduct(UploadProduct uploadProduct, SellerInfo sellerInfo) throws FileUploadException {	// 상품 등록 메소드
 		int categoryId = uploadProduct.getCategoryId();
 		String name = uploadProduct.getName();
 		String description = uploadProduct.getDescription();
@@ -250,7 +251,7 @@ public class ProductService {
 		int price = uploadProduct.getPrice();
 		int stock = uploadProduct.getStock();
 		
-		Product product = new Product(0, new Category(categoryId, null), name, description, null, date, price, stock);
+		Product product = new Product(0, new Category(categoryId, null), name, description, null, date, price, stock, sellerInfo);
 		
 		Product newProduct = prodRepo.save(product);
 		int newProductId = newProduct.getProductId();

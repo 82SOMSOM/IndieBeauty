@@ -57,4 +57,8 @@ public class Product {
 	
 	private int price;
 	private int stock;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "sellerid")
+	private SellerInfo sellerInfo;
 }
