@@ -53,25 +53,8 @@ public class OrdersController {
 		if (cart != null) {
 			// Re-read account from DB at team's request.
 			UserInfo userInfo = indiebeauty.getUserInfo(userSession.getUserInfo().getUserid());
-			// 임시 상품 생성
-			Product product1 = new Product();
-			product1.setProductId(9);
 
-			Product product2 = new Product();
-			product2.setProductId(11);
-
-			Product product3 = new Product();
-			product3.setProductId(13);
-
-			// 장바구니 객체 생성
-			Cart carttest = new Cart();
-
-			// 상품 추가
-			carttest.addProduct(product1, true);
-			carttest.addProduct(product2, true);
-			carttest.addProduct(product3, true);
-
-			orderForm.getOrder().initOrder(userInfo, carttest);
+			orderForm.getOrder().initOrder(userInfo, cart);
 			session.setAttribute("userSession", userSession);
 			return "createOrder";
 		} else {
