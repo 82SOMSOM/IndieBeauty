@@ -45,6 +45,7 @@
 							<table class="table table-responsive">
 								<thead>
 									<tr>
+									<!--	<th></th>-->
 										<th>Product</th>
 										<th>Price</th>
 										<th>Quantity</th>
@@ -56,8 +57,10 @@
 									<!-- orderForm에서 받은 주문의 상품들을 반복하여 표시 -->
 									<tr th:each="orderItem : ${orderForm.order.orderItems}">
 										<td class="cart_product_img d-flex align-items-center">
-											<!--	<a href="#"><img th:src="@{/img/product-img/product-9.jpg}"
-													alt="Product"></a>-->
+											<!--<a th:href="@{'/shop/product-detail/' + ${item.product.productId}}">
+												<img th:src="@{'/img/product-img/' + ${item.product.imageList[0].imageUrl}}"
+													alt="Product Image">
+											</a>-->
 											<h6 th:text="${orderItem.product.name}"></h6>
 										</td>
 										<td class="price"><span th:text="${orderItem.price}"></span></td>
