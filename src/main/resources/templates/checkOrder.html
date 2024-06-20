@@ -65,7 +65,8 @@
 											<div class="quantity" th:text="${orderItem.quantity}"></div>
 										</td>
 										<td class="review">
-											<a href="./reviewForm.html"><img th:src="@{/img/review_button.png}"></a>
+											<a th:href="@{/upload-review(productId=${orderItem.product.productId})}"><img
+													th:src="@{/img/review_button.png}"></a>
 										</td>
 									</tr>
 								</tbody>

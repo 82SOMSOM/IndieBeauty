@@ -78,7 +78,7 @@ public class Orders implements Serializable {
 		Item item = new Item();
 		item.setProduct(cartItem.getProduct()); // Assuming cartItem has reference to Product
 		item.setPrice(cartItem.getProduct().getPrice()); // Set price based on Product price
-		item.setQuantity(cartItem.getProduct().getStock());
+		item.setQuantity(cartItem.getQuantity());
 //		item.setOrder(this); // Set the relationship to this order
 
 		orderItems.add(item);
