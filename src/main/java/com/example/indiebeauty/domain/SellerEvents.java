@@ -1,6 +1,10 @@
 package com.example.indiebeauty.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,20 +29,16 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Table(name = "sellerevents")
 public class SellerEvents {
 	@Id
 	@SequenceGenerator(name = "event_seq_gen", sequenceName = "event_seq", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_seq_gen")
 	@Column(name = "eventid")
-//	@ManyToMany
-//	@JoinTable(name="JOINEVENT", joinColumns=@JoinColumn(name="eventId", referencedColumnName="eventid"),
-//	inverseJoinColumns=@JoinColumn(name="userId", referencedColumnName="userid"))
 	private int eventId;
 
 	@Column(name = "sellerid")
-	private int sellerId;
+	private String sellerId;
 
 	private String title;
 
@@ -53,4 +53,13 @@ public class SellerEvents {
 
 	@Column(name = "joincount")
 	private int joinCount;
+
+	@ManyToMany
+	@JoinTable(name = "JOINEVENT", joinColumns = @JoinColumn(name = "eventid", referencedColumnName = "eventid"), inverseJoinColumns = @JoinColumn(name = "userid", referencedColumnName = "userid"))
+	private Set<UserInfo> participants = new HashSet<>();
+
+	public void initEvent(SellerInfo sellerInfo) {
+		sellerId = sellerInfo.getSellerid();
+		date = new Date();
+	}
 }

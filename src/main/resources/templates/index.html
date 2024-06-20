@@ -47,7 +47,7 @@
 	                    <ul class="sub-menu collapse" id="man">
 							<li><a th:href="@{/showSellerInfo}">마이페이지</a></li>
 	                        <li><a th:href="@{/upload-product}">상품 등록</a></li>
-	                        <li><a href="uploadEvent.html">이벤트 등록</a></li>
+	                        <li><a th:href="@{/uploadEvent}">이벤트 등록</a></li>
 	                    </ul>
 	                </li>
 	            </ul>
@@ -125,7 +125,7 @@
                                                 </div>
                                             </li>
                                             <li class="nav-item"><a class="nav-link" href="#">RANKING</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#"><span class="karl-level">hot</span> EVENT</a></li>
+                                            <li class="nav-item"><a class="nav-link" th:href="@{/viewAllEvents}"><span class="karl-level">hot</span> EVENT</a></li>
                                         </ul>
                                     </div>
                                 </nav>

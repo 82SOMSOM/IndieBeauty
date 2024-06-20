@@ -47,9 +47,16 @@ public class OrdersController {
 
 	@GetMapping("/newOrder")
 	public String initNewOrder(HttpServletRequest request, @ModelAttribute("sessionCart") Cart cart,
-			@ModelAttribute("orderForm") OrderForm orderForm, HttpSession session)
+			@ModelAttribute("orderForm") OrderForm orderForm, HttpSession session, RedirectAttributes ra)
 			throws ModelAndViewDefiningException {
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
+		if (userSession == null) {
+			ra.addAttribute("msg", "로그인 후 주문 가능합니다.");
+			ra.addAttribute("url", "/login");
+
+			return "redirect:/upload-product/error";
+		}
+
 		if (cart != null) {
 			// Re-read account from DB at team's request.
 			UserInfo userInfo = indiebeauty.getUserInfo(userSession.getUserInfo().getUserid());
@@ -58,9 +65,7 @@ public class OrdersController {
 			session.setAttribute("userSession", userSession);
 			return "createOrder";
 		} else {
-			ModelAndView modelAndView = new ModelAndView("Error");
-			modelAndView.addObject("message", "An order could not be created because a cart could not be found.");
-			throw new ModelAndViewDefiningException(modelAndView);
+			return "redirect:/shop?pageNum=1";
 		}
 	}
 
@@ -82,7 +87,7 @@ public class OrdersController {
 		if (userSession.getUserInfo().getUserid() != null) {
 			return new ModelAndView("viewAllOrders", "orderList", orderList);
 		} else {
-			return new ModelAndView("Error", "message", "You may only view your own orders.");
+			return new ModelAndView("Error", "message", "You need to login.");
 		}
 	}
 
@@ -94,8 +99,9 @@ public class OrdersController {
 		if (userSession.getUserInfo().getUserid() != null) {
 			ordersService.deleteOrder(orderId);
 			return "redirect:/viewAllOrders";
+		} else {
+			return "redirect:/login";
 		}
-		return "redirect:/viewAllOrders";
 	}
 
 }

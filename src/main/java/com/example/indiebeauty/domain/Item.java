@@ -33,7 +33,7 @@ public class Item implements Serializable {
 	@Column(name = "itemid")
 	private int itemId;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "productid")
 	private Product product;
 

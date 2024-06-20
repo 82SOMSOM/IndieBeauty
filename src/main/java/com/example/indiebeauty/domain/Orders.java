@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
