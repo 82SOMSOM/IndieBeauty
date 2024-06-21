@@ -20,10 +20,7 @@ import lombok.ToString;
 @ToString
 public class UploadReview {
 	private Product product;
-	
-//	private int reviewId;
 	private String userId;
-//	private Date reviewDate;
 	private String content;
 	private MultipartFile imageUrl;
 	private float star;
