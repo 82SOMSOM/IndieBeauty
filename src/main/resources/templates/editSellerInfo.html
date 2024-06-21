@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>Karl - Fashion Ecommerce Template | Checkout</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" th:href="@{/css/core-style.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <!-- Responsive CSS -->
+    <link th:href="@{/css/responsive.css}" rel="stylesheet">
+
+</head>
+
+<body>
+    <div th:insert="~{index::side-menu}"></div>
+
+    <div id="wrapper">
+
+        <!-- ****** Header Area Start ****** -->
+        <header th:insert="~{index::header-area}"></header>
+        <!-- ****** Header Area End ****** -->
+
+        <section th:insert="~{index::top-discount-area}"></section>
+
+        <!-- ****** Checkout Area Start ****** -->
+        <div class="checkout_area section_padding_100">
+        <div class="container">
+        <div class="row">
+
+        <div class="col-12 col-md-6">
+        <div class="checkout_details_area mt-50 clearfix">
+
+        <div class="cart-page-heading">
+            <h5>EDIT SELLER INFO</h5>
+            <p>Enter your information</p>
+        </div>
+
+        <form th:action="@{/seller/editSeller}" th:object="${sellerForm}" method="post">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+		            <label for="userid">ID <span>*</span></label>
+		            <input type="text" class="form-control" th:field="*{sellerInfo.sellerid}" id="sellerid" required>
+		        </div>
+		        <div class="col-md-6 mb-3">
+		            <label for="passwd">PASSWORD <span>*</span></label>
+		            <input type="password" class="form-control" th:field="*{sellerInfo.passwd}" id="passwd" required>
+		        </div>
+		        <div class="col-12 mb-3">
+		            <label for="name">Name <span>*</span></label>
+		            <input type="text" class="form-control" th:field="*{sellerInfo.sellername}" id="name" required>
+		        </div>
+		        <div class="col-12 mb-3">
+                    <label for="businessname">Business Name <span>*</span></label>
+                    <input type="text" th:field="*{sellerInfo.businessname}" class="form-control" id="businessname" required>
+                </div>
+		        <div class="col-12 mb-3">
+		            <label for="address">Address <span>*</span></label>
+		            <input type="text" class="form-control" th:field="*{sellerInfo.address}" id="address" required>
+		        </div>
+		        <div class="col-12 mb-3">
+		            <label for="phone">Phone No <span>*</span> ( - 포함 13자리 입력)</label>
+		            <input type="text" class="form-control" th:field="*{sellerInfo.phone}" id="phone" 
+		            	pattern="[0-9\-]{13}" title="전화번호 형식: 숫자와 - 포함 13자리 입력" required>
+		        </div>
+		        <div class="col-12 mb-4">
+		            <label for="email">Email Address <span>*</span></label>
+		            <input type="email" class="form-control" th:field="*{sellerInfo.email}" id="email" required>
+		        </div>
+		        <div class="col-12 mb-4">
+                    <label for="business">Business Registration <span>*</span></label>
+    				<input type="file" th:field="*{sellerInfo.business}" class="form-control" id="business" required>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn karl-checkout-btn">SAVE</button>
+                </div>
+            </div>
+        </form>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <!-- ****** Footer Area Start ****** -->
+        <footer th:insert="~{index::footer-area}"></footer>
+    <!-- /.wrapper end -->
+
+    <!-- jQuery (Necessary for All JavaScript Plugins) -->
+    <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+    <!-- Popper js -->
+    <script th:src="@{/js/popper.min.js}"></script>
+    <!-- Bootstrap js -->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <!-- Plugins js -->
+    <script th:src="@{/js/plugins.js}"></script>
+    <!-- Active js -->
+    <script th:src="@{/js/active.js}"></script>
+
+</body>
+
+</html>

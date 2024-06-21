@@ -12,22 +12,20 @@
     <title>Karl - Fashion Ecommerce Template | Checkout</title>
 
     <!-- Favicon  -->
-    <link rel="icon" th:href="@{img/core-img/favicon.ico}">
+    <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
 
     <!-- Core Style CSS -->
-    <link rel="stylesheet" th:href="@{css/core-style.css}">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" th:href="@{/css/core-style.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 
     <!-- Responsive CSS -->
-    <link th:href="@{css/responsive.css}" rel="stylesheet">
+    <link th:href="@{/css/responsive.css}" rel="stylesheet">
 
 </head>
 
 <body>
     <div th:insert="~{index::side-menu}"></div>
-
     <div id="wrapper">
-
         <!-- ****** Header Area Start ****** -->
          <header th:insert="~{index::header-area}"></header>
         <!-- ****** Header Area End ****** -->
@@ -36,55 +34,64 @@
 
         <!-- ****** Checkout Area Start ****** -->
         <div class="checkout_area section_padding_100">
-            <div class="container">
-                <div class="row">
+        <div class="container">
+        <div class="row">
 
-                    <div class="col-12 col-md-6">
-                        <div class="checkout_details_area mt-50 clearfix">
-
-                            <div class="cart-page-heading">
-                                <h5>SIGNIN</h5>
-                                <p>Enter your information</p>
-                            </div>
-
-                            <form action="#" method="post">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="first_name">ID <span>*</span></label>
-                                        <input type="text" class="form-control" id="id" value="" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="last_name">PASSWORD <span>*</span></label>
-                                        <input type="text" class="form-control" id="password" value="" required>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <label for="company">Name <span>*</span></label>
-                                        <input type="text" class="form-control" id="name" value="" required>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <label for="street_address">Address <span>*</span></label>
-                                        <input type="text" class="form-control mb-3" id="street_address" value="">
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <label for="phone_number">Phone No <span>*</span></label>
-                                        <input type="number" class="form-control" id="phone_number" min="0" value="">
-                                    </div>
-                                    <div class="col-12 mb-4">
-                                        <label for="email_address">Email Address <span>*</span></label>
-                                        <input type="email" class="form-control" id="email_address" value="">
-                                    </div>
-
-                                    <div class="col-12">
-                                        <a href="#" class="btn karl-checkout-btn">SIGN IN</a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+	        <div class="col-12 col-md-6">
+	        <div class="checkout_details_area mt-50 clearfix">
+	
+	        <div class="cart-page-heading">
+	            <h5>USER SIGNIN</h5>
+	            <p>Enter your information</p>
+	        </div>
+	
+	        <form th:action="@{/user/registerUser}" th:object="${userForm}" method="POST" >
+	            <div class="row">
+	                <div class="col-md-6 mb-3">
+	                    <label for="userid">ID <span>*</span></label>
+	    				<input type="text" th:field="*{userInfo.userid}" class="form-control" id="userid" required>
+	                </div>
+	                <div class="col-md-6 mb-3">
+	                    <label for="passwd">PASSWORD <span>*</span></label>
+	    				<input type="password" th:field="*{userInfo.passwd}" class="form-control" id="passwd" required>
+	                </div>
+	                <div class="col-12 mb-3">
+	                    <label for="username">Name <span>*</span></label>
+	                    <input type="text" th:field="*{userInfo.username}" class="form-control" id="username" required>
+	                </div>
+	                <div class="col-12 mb-3">
+	                    <label for="address">Address <span>*</span></label>
+	    				<input type="text" th:field="*{userInfo.address}" class="form-control" id="address" required>
+	                </div>
+	                <div class="col-12 mb-3">
+	                    <label for="phone">Phone No <span>*</span> ( - 포함 13자리 입력)</label>
+	    				<input type="text" th:field="*{userInfo.phone}" class="form-control" id="phone" 
+	    					pattern="[0-9\-]{13}" title="전화번호 형식: 숫자와 - 포함 13자리 입력" required>
+	                </div>
+	                <div class="col-12 mb-4">
+	                    <label for="email">Email Address <span>*</span></label>
+	    				<input type="email" th:field="*{userInfo.email}" class="form-control" id="email" 
+	    					title="이메일 형식을 맞춰주세요" required>
+	                </div>
+	                <div class="col-12">
+	                    <!--<a href="#" class="btn karl-checkout-btn">SIGN IN</a>-->
+	                    <button type="submit" class="btn karl-checkout-btn">SIGN IN</button>
+	                </div>
+	            </div>
+	        </form>
+	        </div>
+	        </div>
+	       <!--
+	        <div class="cart-page-heading">
+	            <h5>SIGNIN as a SELLER</h5>
+	        </div>
+            <div class="">
+                <a href="#" class="btn karl-checkout-btn">SELLER SIGNIN</a>
             </div>
+	        -->
         </div>
-
+        </div>
+        </div>
         <!-- ****** Footer Area Start ****** -->
         <footer th:insert="~{index::footer-area}"></footer>
         <!-- ****** Footer Area End ****** -->
@@ -92,15 +99,15 @@
     <!-- /.wrapper end -->
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
-    <script th:src="@{js/jquery/jquery-2.2.4.min.js}"></script>
+    <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
     <!-- Popper js -->
-    <script th:src="@{js/popper.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
     <!-- Bootstrap js -->
-    <script th:src="@{js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
     <!-- Plugins js -->
-    <script th:src="@{js/plugins.js}"></script>
+    <script th:src="@{/js/plugins.js}"></script>
     <!-- Active js -->
-    <script th:src="@{js/active.js}"></script>
+    <script th:src="@{/js/active.js}"></script>
 
 </body>
 

@@ -2,112 +2,123 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<!-- Title  -->
+	<title>Karl - Fashion Ecommerce Template | CreateOrder</title>
 
-    <!-- Title  -->
-    <title>Karl - Fashion Ecommerce Template | CreateOrder</title>
+	<!-- Favicon  -->
+	<link rel="icon" th:href="@{/img/core-img/favicon.ico}">
 
-    <!-- Favicon  -->
-    <link rel="icon" th:href="@{img/core-img/favicon.ico}">
+	<!-- Core Style CSS -->
+	<link rel="stylesheet" th:href="@{/css/core-style.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
 
-    <!-- Core Style CSS -->
-    <link rel="stylesheet" th:href="@{css/core-style.css}">
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Responsive CSS -->
-    <link th:href="@{css/responsive.css}" rel="stylesheet">
-
+	<!-- Responsive CSS -->
+	<link th:href="@{/css/responsive.css}" rel="stylesheet">
 </head>
 
 <body>
 	<div th:insert="~{index::side-menu}"></div>
-	
-    <div id="wrapper">
+	<div id="wrapper">
 
-        <!-- ****** Header Area Start ****** -->
+		<!-- ****** Header Area Start ****** -->
 		<header th:insert="~{index::header-area}"></header>
-        <!-- ****** Header Area End ****** -->
+		<!-- ****** Header Area End ****** -->
 
-        <section th:insert="~{index::top-discount-area}"></section>
+		<section th:insert="~{index::top-discount-area}"></section>
 
-        <!-- ****** Checkout Area Start ****** -->
-        <div class="checkout_area section_padding_100">
-            <div class="container">
-                <div class="row">
+		<!-- ****** Checkout Area Start ****** -->
+		<div class="checkout_area section_padding_100">
+			<div class="container">
+				<div class="row">
 
-                    <div class="col-12 col-md-6">
-                        <div class="checkout_details_area mt-50 clearfix">
+					<div class="col-12 col-md-6">
+						<div class="checkout_details_area mt-50 clearfix">
 
-                            <div class="cart-page-heading">
-                                <h5>Product order</h5>
-                                <p>Enter your order information</p>
-                            </div>
+							<div class="cart-page-heading">
+								<h5>Product order</h5>
+								<p>Enter your order information</p>
+							</div>
 
-                            <form action="#" method="post">
-                                <div class="row">
-                            <div class="col-12 mb-3">
-                                        <label for="street_address">Name <span>*</span></label>
-                                        <input type="text" class="form-control mb-3" id="street_address" value="Jack"  readonly>
-                                    
-                                    </div>
-                           <div class="col-12 col-md-9 mb-3"> <!-- col-md-9로 수정 -->
-                               <label for="street_address">Order Date <span>*</span></label>
-                               <input type="text" class="form-control" id="adress" value="2024/02/02"  readonly>
-                           </div>
-                                    <div class="col-12 mb-3">
-                              <label for="last_name">Ordered Products<span>*</span></label><br>
-                                          <img th:src="@{img/product-img/product-10.jpg}" alt="">
-                                          <br><br>
-                                          <input type="text" class="form-control" id="postcode" value="Nature skin care"  readonly>
-                                          <br>
-                                    
-                                          <img src="../img/product-img/product-10.jpg" alt="">
-                                          <br><br>
-                                          <input type="text" class="form-control" id="postcode" value="lipstick"  readonly>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <label for="postcode">Total price <span>*</span></label>
-                                        <input type="text" class="form-control" id="postcode" value="700$"  readonly>
-                                    </div>
-                                    
-                              <div class="col-12 mb-3">
-                                        <label for="postcode">Account Number <span>*</span></label>
-                                        <input type="text" class="form-control" id="postcode" value="">
-                                    </div>                                  
-                                    
-                                    <div class="col-12">
-                                        <a href="#" class="btn karl-checkout-btn">Order products</a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ****** Checkout Area End ****** -->
+							<form method="post" th:action="@{/newOrder}" th:object="${orderForm.order}">
+								<div class="row">
+									<!-- ReadOnly Fields -->
+									<div class="col-12 mb-3">
+										<label for="userId">User Id <span>*</span></label>
+										<input type="text" class="form-control mb-3" id="userId" th:value="*{userId}"
+											readonly>
+									</div>
+									<div class="col-12 col-md-9 mb-3">
+										<label for="date">Order Date <span>*</span></label>
+										<input type="text" class="form-control" id="date" th:value="*{date}" readonly>
+									</div>
 
-        <!-- ****** Footer Area Start ****** -->
-        <footer th:insert="~{index::footer-area}"></footer>
-        <!-- ****** Footer Area End ****** -->
-    </div>
-    <!-- /.wrapper end -->
+									<div class="col-12 col-md-9 mb-3" th:each="item : *{orderItems}">
+										<div class="product-img" style="width: 200px; height: auto;">
+											<a th:href="@{'/shop/product-detail/' + ${item.product.productId}}">
+												<img th:src="@{'/img/product-img/' + ${item.product.imageList[0].imageUrl}}"
+													alt="Product Image">
+											</a>
+										</div>
+										<br><br>
+										<input type="text" class="form-control" th:id="'orderdItem_' + ${item.itemId}"
+											th:value="${item.product.name + ' , ' + item.quantity + '개'}" readonly>
+										<br>
+									</div>
+									<!-- End ReadOnly Fields -->
 
-    <!-- jQuery (Necessary for All JavaScript Plugins) -->
-    <script th:src="@{js/jquery/jquery-2.2.4.min.js}"></script>
-    <!-- Popper js -->
-    <script th:src="@{js/popper.min.js}"></script>
-    <!-- Bootstrap js -->
-    <script th:src="@{js/bootstrap.min.js}"></script>
-    <!-- Plugins js -->
-    <script th:src="@{js/plugins.js}"></script>
-    <!-- Active js -->
-    <script th:src="@{js/active.js}"></script>
+									<!-- Editable Fields -->
+									<div class="col-12 mb-3">
+										<label for="totalPrice">Total price <span>*</span></label>
+										<input type="text" class="form-control" id="totalPrice" th:field="*{totalPrice}"
+											readonly>
+									</div>
 
+									<div class="col-12 mb-3">
+										<label for="accountNumber">Account Number <span>*</span></label>
+										<input type="text" class="form-control" id="accountNumber"
+											th:field="*{accountNumber}" required>
+									</div>
+
+									<div class="col-12 mb-3">
+										<label for="address">Address <span>*</span></label>
+										<input type="text" class="form-control" id="address" th:field="*{address}"
+											required>
+									</div>
+									<!-- End Editable Fields -->
+
+									<div class="col-12">
+										<button type="submit" class="btn karl-checkout-btn">Order products</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ****** Checkout Area End ****** -->
+
+		<!-- ****** Footer Area Start ****** -->
+		<footer th:insert="~{index::footer-area}"></footer>
+		<!-- ****** Footer Area End ****** -->
+	</div>
+	<!-- /.wrapper end -->
+
+	<!-- jQuery (Necessary for All JavaScript Plugins) -->
+	<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+	<!-- Popper js -->
+	<script th:src="@{/js/popper.min.js}"></script>
+	<!-- Bootstrap js -->
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- Plugins js -->
+	<script th:src="@{/js/plugins.js}"></script>
+	<!-- Active js -->
+	<script th:src="@{/js/active.js}"></script>
 </body>
 
 </html>

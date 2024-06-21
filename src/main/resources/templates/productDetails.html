@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>상품 상세보기</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" th:href="@{/css/core-style.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <!-- Responsive CSS -->
+    <link th:href="@{/css/responsive.css}" rel="stylesheet">
+
+</head>
+
+<body>
+    <div th:insert="~{index::side-menu}"></div>
+
+    <div id="wrapper">
+
+        <!-- ****** Header Area Start ****** -->
+         <header th:insert="~{index::header-area}"></header>
+        <!-- ****** Header Area End ****** -->
+
+        <section th:insert="~{index::top-discount-area}"></section>
+
+        <!-- <<<<<<<<<<<<<<<<<<<< Breadcumb Area Start <<<<<<<<<<<<<<<<<<<< -->
+		<div class="breadcumb_area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <ol class="breadcrumb d-flex align-items-center">
+                        	<li class="breadcrumb-item">
+							    <a href="#" th:text="${product.sellerInfo == null ? '판매자 정보가 없습니다' : product.sellerInfo.businessname}"></a>
+							</li>
+                        	<!-- <li class="breadcrumb-item"><a=href="#" th:text="${product.category.name}"></a></li> -->
+                        </ol>
+                        <a th:href="@{'/shop/category/' + ${product.category.categoryId} + '?pageNum=1'}" class="backToHome d-block"><i class="fa fa-angle-double-left"></i> Go to Category</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <<<<<<<<<<<<<<<<<<<< Breadcumb Area End <<<<<<<<<<<<<<<<<<<< -->
+
+        <!-- <<<<<<<<<<<<<<<<<<<< Single Product Details Area Start >>>>>>>>>>>>>>>>>>>>>>>>> -->
+        <section class="single_product_details_area section_padding_0_100">
+        	<div class="container">
+        		<div class="row">
+        			<div class="col-12 col-md-6">
+        				<div class="single_product_thumb">
+        					<div id="product_details_slider" class="carousel slide" data-ride="carousel">
+        						<ol class="carousel-indicators">
+        							<!-- Index와 이미지 URL을 사용하여 슬라이더 인디케이터를 동적으로 생성 -->
+						       		<li th:each="img, stat : ${product.imageList}"
+						           		th:classappend="${stat.index == 0} ? 'active'"
+						           		th:data-slide-to="${stat.index}"
+						           		data-target="#product_details_slider"
+						           		th:style="'background-image: url(' +  @{'/img/product-img/' + ${img.imageUrl}} + ');'">
+						       		</li>
+        						</ol>
+        						<div class="carousel-inner">
+        							<div th:each="img, stat : ${product.imageList}"
+				             			th:classappend="'carousel-item ' + (${stat.index == 0} ? ' active' : '')">
+				            			<a class="gallery_img" th:href="@{'/img/product-img/' + ${img.imageUrl}}">
+				                			<img class="d-block w-100" th:src="@{'/img/product-img/' + ${img.imageUrl}}" th:alt="'Slide ' + (${stat.index + 1})">
+				            			</a>
+				        			</div>
+        						</div>
+        					</div>
+        				</div>
+        			</div>
+        			<div class="col-12 col-md-6">
+        				<div class="single_product_desc">
+        					<h4 class="title"><a href="#" th:text="${product.name}"></a></h4>
+                            <h4 class="price" th:text="${product.price} + '원'">가격</h4>
+                            <p class="available">
+							  Available: 
+							  <span class="text-muted">
+							    <span th:if="${product.stock <= 0}">Out of Stock</span>
+							    <span th:if="${product.stock > 0}">In Stock</span>
+							  </span>
+							</p>
+							<div class="single_product_ratings mb-15">
+								<h6 th:text="'⭐ '+ ${averageRating} + '점'" class="mb-0"></h6>
+							</div>
+                            <!-- Add to Cart Form -->
+							<form method="post" th:action="@{/shop/addProductToCart.do(workingProductId=${product.productId})}" class="cart clearfix mb-50 d-flex">
+                                <div class="quantity">
+                                    <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) && qty > 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                    <input type="number" class="qty-text" id="qty" step="1" min="1" max="12" name="quantity" value="1">
+                                    <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                </div>
+                                <button type="submit" name="addtocart" value="5" class="btn cart-submit d-block">Add to cart</button>
+                            </form>
+                            <div id="accordion" role="tablist">
+                                <div class="card">
+                                    <div class="card-header" role="tab" id="headingOne">
+                                        <h6 class="mb-0">
+                                            <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Information</a>
+                                        </h6>
+                                    </div>
+
+                                    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <p th:text="${product.description}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header" role="tab" id="headingThree">
+                                        <h6 class="mb-0">
+                                            <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">shipping &amp; Returns</a>
+                                        </h6>
+                                    </div>
+                                    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse quo sint repudiandae suscipit ab soluta delectus voluptate, vero vitae, tempore maxime rerum iste dolorem mollitia perferendis distinctio. Quibusdam laboriosam rerum distinctio. Repudiandae fugit odit, sequi id!</p>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae qui maxime consequatur laudantium temporibus ad et. A optio inventore deleniti ipsa.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        				</div>
+        			</div>
+        		</div>
+        	</div>
+        </section>
+        <!-- <<<<<<<<<<<<<<<<<<<< Single Product Details Area End >>>>>>>>>>>>>>>>>>>>>>>>> -->
+
+        <section class="you_may_like_area clearfix">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section_heading text-center">
+                            <h2>REVIEW</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="you_make_like_slider owl-carousel">
+                            <!-- Single gallery Item -->
+                            <div th:each="review : ${reviews}" class="single_gallery_item">
+                                <!-- Review Image -->
+                                <div class="product-img">
+									<img th:src="@{'/img/review-img/' + ${review.imageUrl}}">
+                                </div> 
+                                <!-- Review Star, Content -->
+                                <div class="product-description">
+                                    <div class="single_product_ratings mb-15">
+										<i class="fa fa-star" aria-hidden="true" 
+										th:each="i : ${#numbers.sequence(1, 5)}" 
+										th:classappend="${i <= review.star} ? 'fa-star' : 'fa-star-o'"></i>
+                           			</div>
+                                    <p th:text="${review.content}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ****** Footer Area Start ****** -->
+        <footer th:insert="~{index::footer-area}"></footer>
+        <!-- ****** Footer Area End ****** -->
+    </div>
+    <!-- /.wrapper end -->
+
+    <!-- jQuery (Necessary for All JavaScript Plugins) -->
+    <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+    <!-- Popper js -->
+    <script th:src="@{/js/popper.min.js}"></script>
+    <!-- Bootstrap js -->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <!-- Plugins js -->
+    <script th:src="@{/js/plugins.js}"></script>
+    <!-- Active js -->
+    <script th:src="@{/js/active.js}"></script>
+
+</body>
+
+</html>

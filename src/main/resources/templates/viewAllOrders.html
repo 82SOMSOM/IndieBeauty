@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+	<!-- Title  -->
+	<title>Karl - Fashion Ecommerce Template | Cart</title>
+
+	<!-- Favicon  -->
+	<link rel="icon" th:href="@{/img/core-img/favicon.ico}">
+
+	<!-- Core Style CSS -->
+	<link rel="stylesheet" th:href="@{/css/core-style.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+
+	<!-- Responsive CSS -->
+	<link href="@{/css/responsive.css}" rel="stylesheet">
+</head>
+
+<body>
+	<div th:insert="~{index::side-menu}"></div>
+
+	<div id="wrapper">
+
+		<!-- ****** Header Area Start ****** -->
+		<header th:insert="~{index::header-area}"></header>
+		<!-- ****** Header Area End ****** -->
+
+		<!-- ****** Top Discount Area Start ****** -->
+		<section th:insert="~{index::top-discount-area}"></section>
+		<!-- ****** Top Discount Area End ****** -->
+
+		<!-- ****** Cart Area Start ****** -->
+		<div class="cart_area section_padding_100 clearfix">
+			<div class="container">
+				<!-- Thymeleaf 반복문을 통해 각 주문(Order)을 반복 -->
+				<div class="row" th:each="order : ${orderList}"
+					style="margin-top: 20px; border: 2px solid rgb(217, 167, 117);">
+					<div class="col-12" style="margin-top: 20px;">
+						<div class="order-table clearfix">
+							<table class="table table-responsive">
+								<thead>
+									<tr>
+										<th>주문한 날짜</th>
+										<th>총 주문 가격</th>
+										<th>주문 취소</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- 각 주문의 정보를 표시 -->
+									<tr>
+										<td th:text="${order.date}">Order Date</td>
+										<td th:text="${order.totalPrice}">Total Price</td>
+										<td class="review">
+											<a th:href="@{/cancelOrder/{orderId}(orderId=${order.orderId})}"
+												class="btn btn-danger btn-sm">Cancel Order</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<!-- 각 주문의 상품들을 표시하기 위한 테이블 -->
+							<table class="table table-responsive">
+								<thead>
+									<tr>
+										<th>Product</th>
+										<th>상품 가격</th>
+										<th>주문 수량</th>
+										<th>주문 가격</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- 각 주문의 상품들을 반복하여 표시 -->
+									<tr th:each="item : ${order.orderItems}">
+										<!--<td class="cart_product_img d-flex align-items-center">
+											<a href="#"><img th:src="@{/img/product-img/product-9.jpg}"
+													alt="Product"></a>
+											<h6 th:text="${item.product.productName}">Product Name</h6>
+										</td>-->
+										<td>
+											<h6 th:text="${item.product.name}">Product Name</h6>
+										</td>
+										<td class="price"><span th:text="${item.price}">$49.88</span></td>
+										<td class="qty">
+											<div class="quantity" th:text="${item.quantity}">1</div>
+										</td>
+										<td class="total_price"><span
+												th:text="${item.price * item.quantity}">$49.88</span></td>
+										<td>
+											<h6></h6>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ****** Cart Area End ****** -->
+
+	<!-- ****** Footer Area Start ****** -->
+	<footer th:insert="~{index::footer-area}"></footer>
+	<!-- ****** Footer Area End ****** -->
+	</div>
+	<!-- /.wrapper end -->
+
+	<!-- jQuery (Necessary for All JavaScript Plugins) -->
+	<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+	<!-- Popper js -->
+	<script th:src="@{/js/popper.min.js}"></script>
+	<!-- Bootstrap js -->
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- Plugins js -->
+	<script th:src="@{/js/plugins.js}"></script>
+	<!-- Active js -->
+	<script th:src="@{/js/active.js}"></script>
+</body>
+
+</html>
