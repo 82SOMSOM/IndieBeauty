@@ -41,14 +41,8 @@ public class AddProductToCartController {
 			cart.incrementQuantityByProductId(workingProductId, quantity);
 		}
 		else {
-			// isInStock is a "real-time" property that must be updated
-			// every time an item is added to the cart, even if other
-			// item details are cached.
 			boolean isInStock = this.indiebeauty.isProductInStock(workingProductId);
 			Product product = productService.getProductById(workingProductId);
-					
-					
-//					this.indiebeauty.getProduct(workingProductId);
 			cart.addProduct(product, isInStock, quantity);
 		}
 		return new ModelAndView("Cart", "cart", cart);
