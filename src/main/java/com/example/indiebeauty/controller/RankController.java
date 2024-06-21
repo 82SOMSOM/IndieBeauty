@@ -18,6 +18,7 @@ import com.example.indiebeauty.domain.Review;
 import com.example.indiebeauty.exception.NoSuchProductException;
 import com.example.indiebeauty.service.CategoryService;
 import com.example.indiebeauty.service.ProductService;
+import com.example.indiebeauty.service.RankService;
 import com.example.indiebeauty.service.ReviewService;
 
 import jakarta.servlet.http.HttpSession;
@@ -30,6 +31,8 @@ public class RankController {
     private CategoryService categoryService;
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private RankService rankService;
 
     @GetMapping("/rank/product-detail/{productId}")
     public ModelAndView viewProductDetail(@PathVariable("productId") int productId, RedirectAttributes ra) {
@@ -82,7 +85,7 @@ public class RankController {
         List<Category> categoryList = categoryService.getCategoryList();
         session.setAttribute("categoryList", categoryList);
 
-        Map<String, Object> resultMap = productService.getAllProductWithTitleImage(pageNum, 9);
+        Map<String, Object> resultMap = rankService.getAllProductWithTitleImage(pageNum, 9);
         List<Product> products = (List<Product>) resultMap.get("products");
         int totalPages = (int) resultMap.get("totalPages");
 
