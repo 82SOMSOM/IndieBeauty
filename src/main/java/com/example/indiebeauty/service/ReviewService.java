@@ -37,18 +37,12 @@ import jakarta.transaction.Transactional;
 @Service
 public class ReviewService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ReviewService.class);
-	
 	@Autowired
 	private ReviewRepository reviewRepository;
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
 	private ProductRepository productRepository;
-	
-//	public Review saveReview(Review review) {
-//		return reviewRepository.save(review);
-//	}
 	
 	public void deleteReview(int reviewId) {
         reviewRepository.deleteById(reviewId);
@@ -58,11 +52,11 @@ public class ReviewService {
         return reviewRepository.findById(reviewId);
     }
     
-    public List<Review> getReviewsByProductId(int productId) { // 0618 추가
+    public List<Review> getReviewsByProductId(int productId) {
         return reviewRepository.findByProduct_ProductId(productId);
     }
     
-    public double getAverageRating(int productId) { // 0618 추가
+    public double getAverageRating(int productId) {
         Double avgRating = reviewRepository.findAverageRatingByProductId(productId);
         return avgRating != null ? avgRating : 0.0;
     }
@@ -101,20 +95,12 @@ public class ReviewService {
 	@Transactional
 	public int registerReview(UploadReview uploadReview) throws FileUploadException {
 		
-        String userId = uploadReview.getUserId(); // 사용자 ID (String)
-        Date reviewDate = new Date(); // 현재 날짜        
-        String content = uploadReview.getContent(); // 리뷰 내용
+        String userId = uploadReview.getUserId();
+        Date reviewDate = new Date();
+        String content = uploadReview.getContent();
         MultipartFile imageFile = uploadReview.getImageUrl();
-        float star = uploadReview.getStar(); // 별점 (float)
-        int productId = uploadReview.getProductId(); // 제품 ID (int)
-
-        logger.info("User ID: {}", userId);
-        logger.info("Product ID: {}", productId);
-        logger.info("Review Date: {}", reviewDate);
-        logger.info("Content: {}", content);
-        logger.info("Image File Name: {}", imageFile != null ? imageFile.getOriginalFilename() : "No Image");
-        logger.info("Star: {}", star);
-        logger.info("여기까지 완료==============================================");
+        float star = uploadReview.getStar();
+        int productId = uploadReview.getProductId();
 
         // 이미지 파일 저장
         String imageUrl = saveImage(imageFile);
@@ -122,12 +108,10 @@ public class ReviewService {
         // 유저 정보 및 제품 정보 로드
         Optional<UserInfo> userInfoOptional = userRepository.findById(userId);
         if (!userInfoOptional.isPresent()) {
-            logger.error("User not found with ID: {}", userId);
             throw new IllegalArgumentException("User not found");
         }
         Optional<Product> productOptional = productRepository.findById(productId);
         if (!productOptional.isPresent()) {
-            logger.error("Product not found with ID: {}", productId);
             throw new IllegalArgumentException("Product not found");
         }
 
@@ -141,23 +125,13 @@ public class ReviewService {
         review.setStar(star);
         review.setUserId(userId);
         review.setProductId(productId);
-        logger.info("UserInfo object loaded: {}", userInfo);
-        logger.info("Product object loaded: {}", product);
         review.setUserInfo(userInfo);
         review.setProduct(product);
-        logger.info("Review object with UserInfo and Product set: {}", review);
-
-        logger.info("Review object created: {}", review);
-        logger.info("==============================================");
 
         try {
             Review savedReview = reviewRepository.save(review);
-            logger.info("Saved Review object: {}", savedReview);
-            logger.info("==============================================");
-            logger.info("Saved Review ID: {}", savedReview.getReviewId());
             return savedReview.getReviewId();
         } catch (Exception e) {
-            logger.error("Error saving review: ", e);
             throw new RuntimeException("Error saving review", e);
         }
 	}
