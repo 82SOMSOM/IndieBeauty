@@ -19,12 +19,7 @@ public class FileProcessUtil {
 		
 		String filePath = workingDirPath + productImgPath + fileName;
 		filePath = changePathBasedOnOS(filePath);
-		
-		Path path = Paths.get(filePath);
 		File file = new File(filePath);
-		
-		System.out.println("================ isProductImageExistsInServer: " + path.toString());
-		System.out.println("exits : " + file.exists());
 		
 //		return Files.exists(path);
 		return file.exists();

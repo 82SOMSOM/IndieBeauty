@@ -108,7 +108,7 @@ public class ShopController {
 		List<Category> categoryList = categoryService.getCategoryList();
 		session.setAttribute("categoryList", categoryList);
 		
-		Map<String, Object> resultMap = productService.getProductListByKeywordWithTitleImage(keyword, pageNum);
+		Map<String, Object> resultMap = productService.getProductListByKeywordWithTitleImage(keyword, pageNum, 9);
 		List<Product> products = (List<Product>) resultMap.get("products");
 		int totalPages = (int) resultMap.get("totalPages");
 		
