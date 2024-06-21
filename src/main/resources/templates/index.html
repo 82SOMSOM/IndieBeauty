@@ -124,7 +124,7 @@
                                                 <a th:each="category : ${session.categoryList}" class="dropdown-item" th:href="@{'/shop/category/' + ${category.categoryId} + '?pageNum=1'}" th:text="${category.name}">Category</a>
                                                 </div>
                                             </li>
-                                            <li class="nav-item"><a class="nav-link" href="@{/rank?pageNum=1}">RANKING</a></li>
+                                            <li class="nav-item"><a class="nav-link" th:href="@{/rank?pageNum=1}">RANKING</a></li>
                                             <li class="nav-item"><a class="nav-link" th:href="@{/viewAllEvents}"><span class="karl-level">hot</span> EVENT</a></li>
                                         </ul>
                                     </div>
@@ -154,7 +154,7 @@
             <!-- Single Discount Area -->
             <div class="single-discount-area">
                 <h5>Check the rankings to get useful information</h5>
-                <h6><a href="@{/rank?pageNum=1}">CHECK NOW</a></h6>
+                <h6><a th:href="@{/rank?pageNum=1}">CHECK NOW</a></h6>
             </div>
             <!-- Single Discount Area -->
             <div class="single-discount-area">
