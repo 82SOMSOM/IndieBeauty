@@ -54,7 +54,7 @@
 								<div class="row">
 									<div class="col-12 mb-3">
 										<label for="productName">Ordered Products <span>*</span></label><br>
-										<img th:src="@{/img/product-img/product-10.jpg}" alt=""><br><br>
+										<img th:src="@{'/img/product-img/' + ${uploadReview.product.imageList[0].imageUrl}}" alt=""><br><br>
 										<input type="text" class="form-control"
 											id="productName" th:value="${uploadReview.product.name}" readonly>
 										<input type="hidden" id="productId" th:field="${uploadReview.productId}"> <!-- productId 숨겨둠 -->
