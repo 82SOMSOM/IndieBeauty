@@ -1,6 +1,7 @@
 package com.example.indiebeauty.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,7 +21,6 @@ import com.example.indiebeauty.domain.Cart;
 import com.example.indiebeauty.domain.Orders;
 import com.example.indiebeauty.domain.Product;
 import com.example.indiebeauty.domain.UserInfo;
-import com.example.indiebeauty.exception.FileUploadException;
 import com.example.indiebeauty.service.IndiebeautyFacade;
 import com.example.indiebeauty.service.OrdersService;
 
@@ -80,16 +81,26 @@ public class OrdersController {
 	}
 
 	@RequestMapping("/viewAllOrders")
-	public ModelAndView getAllOrders(HttpServletRequest request) throws Exception {
+	public ModelAndView getAllOrders(HttpServletRequest request,
+			@RequestParam(name = "pageNum", defaultValue = "1") int pageNum) {
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
-		List<Orders> orderList = ordersService.getOrdersByUserId(userSession.getUserInfo().getUserid());
-
-		if (userSession.getUserInfo().getUserid() != null) {
-			return new ModelAndView("viewAllOrders", "orderList", orderList);
-		} else {
+		if (userSession == null || userSession.getUserInfo() == null) {
 			return new ModelAndView("Error", "message", "You need to login.");
 		}
+
+		String userId = userSession.getUserInfo().getUserid();
+		Map<String, Object> resultMap = ordersService.getOrdersByUserId(userId, pageNum);
+		@SuppressWarnings("unchecked")
+		List<Orders> orders = (List<Orders>)resultMap.get("orders");
+		int totalPages = (int) resultMap.get("totalPages");
+
+		ModelAndView mav = new ModelAndView("viewAllOrders");
+		mav.addObject("orderList", orders);
+		mav.addObject("totalPages", totalPages);
+		mav.addObject("currentPage", pageNum);
+		return mav;
 	}
+	
 
 	@RequestMapping("/cancelOrder/{orderId}")
 	public String deleteOrder(@PathVariable int orderId, HttpServletRequest request, RedirectAttributes ra)
