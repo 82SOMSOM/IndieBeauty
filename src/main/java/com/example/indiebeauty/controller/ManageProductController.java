@@ -40,7 +40,6 @@ public class ManageProductController {
 			return "redirect:/upload-product/error";
 		}
 		
-		// 메인 페이지에서 모든 Category를 가져와 세션에 저장하는 게 좋을 것 같음.
 		List<Category> categoryList = categoryService.getCategoryList();
 		session.setAttribute("categoryList", categoryList);
 		

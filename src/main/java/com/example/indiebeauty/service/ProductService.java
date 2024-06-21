@@ -47,11 +47,9 @@ public class ProductService {
 	@Autowired
 	private ProductImageService prodImgService;
 	
-	private static int itemsPerPage = 9;
-	
 	private static Pageable getPageableForShop(int pageNum, int imtemPerPage) {		// 상품 조회에 필요한 Pageable 객체 생성 메소드
 		Sort sort = Sort.by(new Order(Sort.Direction.DESC, "productId"));
-		Pageable pageable = PageRequest.of(pageNum, itemsPerPage, sort);
+		Pageable pageable = PageRequest.of(pageNum, imtemPerPage, sort);
 		
 		return pageable;
 	}
@@ -79,11 +77,6 @@ public class ProductService {
 				product.setImageList(noImageList); 
 			}
 		}
-		
-		System.out.println("================ getProductByCategoryIdWithTitleImage");
-		 for (Product product: products) {
-			 System.out.println(product.getImageList());
-		 }
 		 
 		 Map<String, Object> resultMap = new HashMap<String, Object>();
 		 resultMap.put("products", products);
@@ -94,8 +87,6 @@ public class ProductService {
 	
 	@Transactional(readOnly = true)
 	public Map<String, Object> getAllProductWithTitleImage(int pageNum, int itemPerPage) {	// 전체 상품 반환 메소드 (ProductImage는 타이틀 이미지만 반환)
-		System.out.println("================ getAllProductWithTitleImage");
-		
 		Pageable pageable = getPageableForShop(pageNum - 1, itemPerPage);
 		
 		Page<Product> result = prodRepo.findAll(pageable);
@@ -107,11 +98,6 @@ public class ProductService {
 			List<ProductImage> piList = product.getImageList();
 			
 			ProductImage titleImage = prodImgService.getTitleImage(product.getImageList());
-			if (titleImage != null) {
-				System.out.println(product.getName() + " title image: " + titleImage.toString());
-			} else {
-				System.out.println(product.getName() + " title image: null");
-			}
 			
 			if (titleImage != null 	
 					&& FileProcessUtil.isProductImageExistsInServer(titleImage.getImageUrl())) {
@@ -156,7 +142,7 @@ public class ProductService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Map<String, Object> getProductListByKeywordWithTitleImage(String keyword, int pageNum) {	// 상품 검색 메소드
+	public Map<String, Object> getProductListByKeywordWithTitleImage(String keyword, int pageNum, int itemPerPage) {	// 상품 검색 메소드
 		List<Product> searchByProductName = prodRepo.findByNameContainingIgnoreCase(keyword);
 		List<Product> searchByCategoryName = prodRepo.findByCategory_NameContainingIgnoreCase(keyword);
 		List<Product> searchByDescriptionName = prodRepo.findByDescriptionContainingIgnoreCase(keyword);
@@ -167,8 +153,8 @@ public class ProductService {
 		searchResult.addAll(searchByCategoryName);
 		
 		int searchResultSize = searchResult.size();
-		int startIndex = pageNum * itemsPerPage;	// 페이지 첫 번째 인덱스
-		int endIndex = Math.min(startIndex + itemsPerPage, searchResultSize);	// 페이지 마지막 인덱스
+		int startIndex = pageNum * itemPerPage;	// 페이지 첫 번째 인덱스
+		int endIndex = Math.min(startIndex + itemPerPage, searchResultSize);	// 페이지 마지막 인덱스
 		
 		List<Product> products = new ArrayList<>();
 		for (int i = startIndex; i <= endIndex; i++) {	// pageNum 페이지에 보이는 상품 ArrayList에 담기
@@ -191,14 +177,10 @@ public class ProductService {
 			}
 		}
 		
-		System.out.println("================ getProductByCategoryIdWithTitleImage");
-		 for (Product product: searchResult) {
-			 System.out.println(product.getImageList());
-		 }
 		 
 		 Map<String, Object> resultMap = new HashMap<String, Object>();
 		 resultMap.put("products", searchResult);
-		 resultMap.put("totalPages", (searchResultSize + itemsPerPage - 1) / itemsPerPage);
+		 resultMap.put("totalPages", (searchResultSize + itemPerPage - 1) / itemPerPage);
 		
 		return resultMap;
 	}
@@ -261,9 +243,6 @@ public class ProductService {
 			String imageFileName = saveImage(image);
 			ProductImage productIamge = new ProductImage(0, newProductId, imageFileName, 0);
 			productImageList.add(productIamge);
-			
-			System.out.println("========== registerProduct ===========");
-			System.out.println(productIamge.toString());
 		}
 		
 		String titleImageFileName = saveImage(uploadProduct.getTitleImage());
