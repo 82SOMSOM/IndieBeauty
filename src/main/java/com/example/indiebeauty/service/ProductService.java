@@ -185,16 +185,6 @@ public class ProductService {
 		return resultMap;
 	}
 	
-	@Transactional(readOnly = true)
-	public List<Product> getRecentlyRegisteredProductList() {	// 최근 등록순 상품 반환 메소드
-		return prodRepo.findByOrderByDateDesc();
-	}
-	
-	@Transactional(readOnly = true)
-	public List<Product> getRecentlyRegisteredProductListByCategory(int categoryId) {	// 카테고리 기준 최근 등록순 상품 반환 메소드
-		return prodRepo.findByCategory_CategoryIdOrderByDateDesc(categoryId);
-	}
-	
 	public static String changePathBasedOnOS(String path) {		// OS에 따른 경로 구분자 변환 메소드
 		return path.replace("/", File.separator);
 	}
