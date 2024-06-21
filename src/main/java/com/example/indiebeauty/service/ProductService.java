@@ -72,7 +72,6 @@ public class ProductService {
 	                       .filter(img -> img.getIsTitleImg() == 1)
 	                       .collect(Collectors.toList());
 			} else {
-				System.out.println("Singleton 처리");
 				List<ProductImage> noImageList = Collections.singletonList(new ProductImage(0, 0, "no-image.png", 0));
 				product.setImageList(noImageList); 
 			}
@@ -153,15 +152,18 @@ public class ProductService {
 		searchResult.addAll(searchByCategoryName);
 		
 		int searchResultSize = searchResult.size();
-		int startIndex = pageNum * itemPerPage;	// 페이지 첫 번째 인덱스
+		int startIndex = (pageNum - 1) * itemPerPage;	// 페이지 첫 번째 인덱스
 		int endIndex = Math.min(startIndex + itemPerPage, searchResultSize);	// 페이지 마지막 인덱스
 		
 		List<Product> products = new ArrayList<>();
 		for (int i = startIndex; i <= endIndex; i++) {	// pageNum 페이지에 보이는 상품 ArrayList에 담기
-			products.add(searchResult.get(i));
+			if (searchResult.size() > i) {
+				products.add(searchResult.get(i));
+			}
 		}
 		
 		for (Product product : products) {
+			
 			List<ProductImage> piList = product.getImageList();
 			
 			ProductImage titleImage = prodImgService.getTitleImage(product.getImageList());
@@ -171,7 +173,6 @@ public class ProductService {
 	                       .filter(img -> img.getIsTitleImg() == 1)
 	                       .collect(Collectors.toList());
 			} else {
-				System.out.println("Singleton 처리");
 				List<ProductImage> noImageList = Collections.singletonList(new ProductImage(0, 0, "no-image.png", 0));
 				product.setImageList(noImageList); 
 			}
