@@ -67,7 +67,7 @@
 
                                         <tr th:each="cartProduct : ${cart.cartProductList.pageList}">
                                             <td class="cart_product_img d-flex align-items-center">
-                                                <a href="#"><img th:src="@{/img/product-img/product-9.jpg}"
+                                                <a href="#"><img th:src="@{'/img/product-img/' + ${cartProduct.product.imageList[0].imageUrl}}"
                                                         alt="Product"></a>
                                                 <h6 th:text="${cartProduct.product.name}"></h6>
                                             </td>
