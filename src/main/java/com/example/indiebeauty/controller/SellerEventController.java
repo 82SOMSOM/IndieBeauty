@@ -1,6 +1,7 @@
 package com.example.indiebeauty.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -69,11 +71,20 @@ public class SellerEventController {
 	}
 
 	@RequestMapping("/viewAllEvents")
-	public ModelAndView getAllEvents(HttpServletRequest request) throws Exception {
+	public ModelAndView getAllEvents(HttpServletRequest request,  @RequestParam(name = "pageNum", defaultValue = "1") int pageNum)
+			throws Exception {
 
-		List<SellerEvents> eventList = eventService.getAllSellerEvents();
+		Map<String, Object> resultMap = eventService.getEventsByEventId(pageNum);
+		@SuppressWarnings("unchecked")
+		List<SellerEvents> eventList = (List<SellerEvents>) resultMap.get("events");
+		int totalPages = (int) resultMap.get("totalPages");
 
-		return new ModelAndView("viewAllEvents", "eventList", eventList);
+		ModelAndView mav = new ModelAndView("viewAllEvents");
+		mav.addObject("eventList", eventList);
+		mav.addObject("totalPages", totalPages);
+		mav.addObject("currentPage", pageNum);
+
+		return mav;
 	}
 
 	@Transactional
