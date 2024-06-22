@@ -43,8 +43,4 @@ public class Item implements Serializable {
 
 	@Column(name="orderid")
 	private int orderId;
-
-//	@ManyToOne
-//	@JoinColumn(name = "orderid", insertable = false, updatable = false)
-//	private Orders order;
 }
