@@ -47,9 +47,9 @@ public class ProductService {
 	@Autowired
 	private ProductImageService prodImgService;
 	
-	private static Pageable getPageableForShop(int pageNum, int imtemPerPage) {		// 상품 조회에 필요한 Pageable 객체 생성 메소드
+	private static Pageable getPageableForShop(int pageNum, int itemPerPage) {		// 상품 조회에 필요한 Pageable 객체 생성 메소드
 		Sort sort = Sort.by(new Order(Sort.Direction.DESC, "productId"));
-		Pageable pageable = PageRequest.of(pageNum, imtemPerPage, sort);
+		Pageable pageable = PageRequest.of(pageNum, itemPerPage, sort);
 		
 		return pageable;
 	}
