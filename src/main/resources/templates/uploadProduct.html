@@ -50,11 +50,12 @@
                                 <div class="row">
                             <div class="col-12 mb-3">
                                 <label for="name">Product Name <span>*</span></label>
-                                <input type="text" class="form-control mb-3" id="name" th:field="*{name}">
+                                <input type="text" id="name" class="form-control mb-3" th:field="*{name}" required>
+                                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></div>
                             </div>
                             <div class="col-12 mb-3">
                                 <label for="category">Category<span>*</span></label>
-                                <select class="custom-select d-block w-100" id="category" th:field="*{categoryId}">
+                                <select class="custom-select d-block w-100" id="categoryId" th:field="*{categoryId}">
 	                               <option th:each="category : ${session.categoryList}"
 	                               		th:value="${category.categoryId}"
 	                               		th:text="${category.name}">
@@ -64,22 +65,26 @@
                             <div class="col-12 mb-3">
                               <label for="titleImage">Product Main Image<span>*</span></label><br>
                                         <input type="file" class="form-control" accept="image/*" id="titleImage" required th:field="*{titleImage}">
+                                        <div th:if="${#fields.hasErrors('titleImage')}" th:errors="titleImage" class="text-danger"></div>
                                     </div>
                                     <div class="col-12 mb-3">
-                              <label for="detailImageList">Please upload four images for detail.<span>*</span></label><br>
+                              <label for="detailImageList">Please upload images for detail. <br>(You can upload up to 4 images.)<span>*</span></label><br>
                                     <input type="file" class="form-control" accept="image/*" id="detailImageList" required multiple th:field="*{detailImageList}">
+                                    <div th:if="${#fields.hasErrors('detailImageList')}" th:errors="*{detailImageList}" class="text-danger"></div>
                            </div>
-                           <div class="col-12 mb-3"> <!-- col-md-9로 수정 -->
+                           <div class="col-12 mb-3"> 
                                <label for="description">Description <span>*</span></label>
-                               <input type="text" class="form-control" id="description" value="" th:field="*{description}">
+                               <input type="text" class="form-control" id="description" value="" th:field="*{description}" required>
                            </div>
                                     <div class="col-12 mb-3">
                                         <label for="price">Price <span>*</span></label>
-                                        <input type="text" class="form-control" id="price" value="" th:field="*{price}">
+                                        <input type="text" class="form-control" id="price" value="" th:field="*{price}" required>
+                                        <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger"></div>
                                     </div>
                                     <div class="col-12 mb-3">
                                         <label for="stock">Stock <span>*</span></label>
-                                        <input type="text" class="form-control" id="stock" value="" th:field="*{stock}">
+                                        <input type="text" class="form-control" id="stock" value="" th:field="*{stock}" required>
+                                        <div th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}" class="text-danger"></div>
                                     </div>
                                     
                                     <div class="col-12">

@@ -24,11 +24,5 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	// 설명에 포함된 상품 검색 (상품 설명 기준)
 	List<Product> findByDescriptionContainingIgnoreCase(String keyword);
 	
-	// 최근 등록된 상품 검색 (모든 상품 기준)
-	List<Product> findByOrderByDateDesc();
-	
-	// 최근 등록된 상품 검색 (카테고리 기준)
-	List<Product> findByCategory_CategoryIdOrderByDateDesc(int categoryId);
-	
 	boolean existsByProductIdAndStockGreaterThan(int productId, int stock);
 }

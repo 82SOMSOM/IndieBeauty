@@ -29,7 +29,7 @@ public class ShopController {
 	@Autowired
 	private CategoryService categoryService;
 	@Autowired
-	private ReviewService reviewService; // 0618 추가
+	private ReviewService reviewService;
 	
 	public ModelAndView viewProductByCategory(String category) {
 		return null;
@@ -39,15 +39,15 @@ public class ShopController {
 	public ModelAndView viewProductDetail(@PathVariable("productId") int productId, RedirectAttributes ra) {
 		try {
 			Product product = productService.getProductById(productId);
-			List<Review> reviews = reviewService.getReviewsByProductId(productId); // 0618 추가
-			double averageRating = reviewService.getAverageRating(productId); // 0618 추가
+			List<Review> reviews = reviewService.getReviewsByProductId(productId);
+			double averageRating = reviewService.getAverageRating(productId);
 			
 			System.out.println(product.toString());
 			
 			ModelAndView mav = new ModelAndView("productDetails");
 			mav.addObject("product", product);
-			mav.addObject("reviews", reviews); // 0618 추가
-			mav.addObject("averageRating", averageRating); // 0618 추가
+			mav.addObject("reviews", reviews);
+			mav.addObject("averageRating", averageRating);
 			
 			return mav;
 		} catch (NoSuchProductException e) {
@@ -108,7 +108,7 @@ public class ShopController {
 		List<Category> categoryList = categoryService.getCategoryList();
 		session.setAttribute("categoryList", categoryList);
 		
-		Map<String, Object> resultMap = productService.getProductListByKeywordWithTitleImage(keyword, pageNum);
+		Map<String, Object> resultMap = productService.getProductListByKeywordWithTitleImage(keyword, pageNum, 9);
 		List<Product> products = (List<Product>) resultMap.get("products");
 		int totalPages = (int) resultMap.get("totalPages");
 		

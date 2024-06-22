@@ -54,19 +54,21 @@
 									</div>
 									<div class="col-12 col-md-9 mb-3">
 										<label for="date">Order Date <span>*</span></label>
-										<input type="text" class="form-control" id="date" th:value="*{date}"
-											readonly>
+										<input type="text" class="form-control" id="date" th:value="*{date}" readonly>
 									</div>
-	
-									<!--<div class="col-12 col-md-9 mb-3" th:each="item : *{orderItems}">
-										<label th:text="${item.product.name}"></label>  Display each item's name 
-										<img th:src="@{'/img/product-img/' + ${item.product.imageList[0].imageUrl}}"
-											alt="Product Image">
+
+									<div class="col-12 col-md-9 mb-3" th:each="item : *{orderItems}">
+										<div class="product-img" style="width: 200px; height: auto;">
+											<a th:href="@{'/shop/product-detail/' + ${item.product.productId}}">
+												<img th:src="@{'/img/product-img/' + ${item.product.imageList[0].imageUrl}}"
+													alt="Product Image">
+											</a>
+										</div>
 										<br><br>
 										<input type="text" class="form-control" th:id="'orderdItem_' + ${item.itemId}"
-											th:value="${item.quantity}" readonly>  Display each item's quantity 
+											th:value="${item.product.name + ' , ' + item.quantity + '개'}" readonly>
 										<br>
-									</div> -->
+									</div>
 									<!-- End ReadOnly Fields -->
 
 									<!-- Editable Fields -->
@@ -79,13 +81,13 @@
 									<div class="col-12 mb-3">
 										<label for="accountNumber">Account Number <span>*</span></label>
 										<input type="text" class="form-control" id="accountNumber"
-											th:field="*{accountNumber}">
+											th:field="*{accountNumber}" required>
 									</div>
-									
+
 									<div class="col-12 mb-3">
 										<label for="address">Address <span>*</span></label>
-										<input type="text" class="form-control" id="address"
-											th:field="*{address}">
+										<input type="text" class="form-control" id="address" th:field="*{address}"
+											required>
 									</div>
 									<!-- End Editable Fields -->
 

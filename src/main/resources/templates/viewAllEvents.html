@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+	<!-- Title  -->
+	<title>Karl - Fashion Ecommerce Template | Shop</title>
+
+	<!-- Favicon  -->
+	<link rel="icon" th:href="@{/img/core-img/favicon.ico}">
+
+	<!-- Core Style CSS -->
+	<link rel="stylesheet" th:href="@{/css/core-style.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+
+	<!-- Responsive CSS -->
+	<link th:href="@{/css/responsive.css}" rel="stylesheet">
+
+</head>
+
+<body>
+	<div th:insert="~{index::side-menu}"></div>
+
+	<div id="wrapper">
+
+		<!-- ****** Header Area Start ****** -->
+		<header th:insert="~{index::header-area}"></header>
+		<!-- ****** Header Area End ****** -->
+
+		<section th:insert="~{index::top-discount-area}"></section>
+
+		<section class="shop_grid_area section_padding_100">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 col-md-4 col-lg-3">
+						<div class="shop_sidebar_area">
+
+							<div class="widget catagory mb-50">
+								<!--  Side Nav  -->
+								<div class="nav-side-menu">
+									<div class="subscribtion_form" style="padding-bottom: 50px;">
+										<form th:action="@{/shop/search}" method="get">
+											<input type="text" name="keyword" class="mail" placeholder="Search Product">
+											<input type="hidden" name="pageNum" value="1">
+											<button type="submit" class="submit">검색</button>
+										</form>
+									</div>
+									<!--									<h6 class="mb-0">Catagories</h6>
+									<div class="menu-list">
+										<ul id="menu-content2" class="menu-content collapse out">
+											 Single Item 
+											<li data-toggle="collapse" data-target="#women2"
+												th:each="category : ${session.categoryList}">
+												<a th:href="@{'/shop/category/' + ${category.categoryId} + '?pageNum=1'}"
+													th:text="${category.name}">SKIN/TONER</a>
+												<ul class="sub-menu collapse show" id="women2">
+
+												</ul>
+											</li>
+										</ul>
+									</div>-->
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-12 col-md-8 col-lg-9">
+						<div class="shop_grid_product_area">
+							<div class="row">
+								<!-- Single gallery Item -->
+								<div class="col-12 col-sm-6 col-lg-4 single_gallery_item wow fadeInUpBig"
+									data-wow-delay="0.2s" th:each="event : ${eventList}">
+									<!-- Product Image -->
+									<div class="product-img">
+										<img th:src="@{'/img/product-img/' + ${event.eventImage}}" alt="Product Image">
+									</div>
+									<!-- Product Description -->
+									<div class="product-description">
+										<h4 class="event-title" th:text="${event.title}"></h4>
+										<p th:text="${event.content}"></p>
+										<!-- Add to Cart -->
+										<span style="margin-right: 10px;"
+											th:text="${#sets.size(event.participants) + '/' + event.joinCount}"></span>
+										<a th:href="@{/joinEvent/{eventId}(eventId=${event.eventId})}"
+											class="btn  btn-info btn-sm">Join</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div th:if="${totalPages > 0}">
+							<div class="shop_pagination_area wow fadeInUp" data-wow-delay="0.01s"
+								style="margin: 20px auto 0 200px;">
+								<nav aria-label="Page navigation">
+									<ul class="pagination pagination-sm">
+										<li th:each="pageNum : ${#numbers.sequence(1, totalPages)}"
+											th:classappend="${currentPage == pageNum} ? 'active' : ''"
+											class="page-item">
+											<a th:href="@{${currentUrl}(pageNum=*{pageNum})}" class="page-link"
+												th:text="*{pageNum}"></a>
+										</li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+						<div th:if="${totalPages == 0}"
+							style="display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center;">
+							<h3>등록된 상품이 없습니다.</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ****** Footer Area Start ****** -->
+		<footer th:insert="~{index::footer-area}"></footer>
+		<!-- ****** Footer Area End ****** -->
+	</div>
+	<!-- /.wrapper end -->
+
+	<!-- jQuery (Necessary for All JavaScript Plugins) -->
+	<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+	<!-- Popper js -->
+	<script th:src="@{/js/popper.min.js}"></script>
+	<!-- Bootstrap js -->
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- Plugins js -->
+	<script th:src="@{/js/plugins.js}"></script>
+	<!-- Active js -->
+	<script th:src="@{/js/active.js}"></script>
+
+</body>
+
+</html>

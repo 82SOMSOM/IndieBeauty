@@ -6,12 +6,13 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -55,7 +56,8 @@ public class Orders implements Serializable {
 
 	private String address;
 
-	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name="orderid")
 	private List<Item> orderItems;
 
 	public void initOrder(UserInfo userInfo, Cart cart) {
@@ -76,7 +78,7 @@ public class Orders implements Serializable {
 		item.setProduct(cartItem.getProduct()); // Assuming cartItem has reference to Product
 		item.setPrice(cartItem.getProduct().getPrice()); // Set price based on Product price
 		item.setQuantity(cartItem.getQuantity());
-		item.setOrder(this); // Set the relationship to this order
+//		item.setOrder(this); // Set the relationship to this order
 
 		orderItems.add(item);
 	}

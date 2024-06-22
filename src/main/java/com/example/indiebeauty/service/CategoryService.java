@@ -14,11 +14,6 @@ public class CategoryService {
 	private CategoryRepository categoryRepository;
 	
 	public List<Category> getCategoryList() {
-		System.out.println("categoryRepository : ");
-		List<Category> list = categoryRepository.findAll();
-		for (Category c : list) {
-			System.out.println(c);
-		}
 		return categoryRepository.findAll();
 	}
 }
