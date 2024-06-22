@@ -39,10 +39,9 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 	public void updateUserInfo(UserInfo userinfo) {
 		userRepository.save(userinfo);
 	}
-
-//	public List<String> getUserIdList(){
-//	return userRepository.findUserIds();
-//}
+	public boolean existsUserId(String userid) {
+	    return userRepository.existsById(userid);
+	}
 	
 	@Override
 	public boolean isProductInStock(int workingProductId) {
@@ -80,6 +79,9 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 	}
 	public void updateSellerInfo(SellerInfo sellerinfo) {
 		sellerRepository.save(sellerinfo);
+	}
+	public boolean existsSellerId(String sellerid) {
+	    return sellerRepository.existsById(sellerid);
 	}
 
 }

@@ -20,6 +20,9 @@
 
     <!-- Responsive CSS -->
     <link th:href="@{/css/responsive.css}" rel="stylesheet">
+    
+    <script th:src="@{/js/toggleFavorite.js}"></script>
+
 
 </head>
 
@@ -42,6 +45,10 @@
                         <ol class="breadcrumb d-flex align-items-center">
                         	<li class="breadcrumb-item">
 							    <a href="#" th:text="${product.sellerInfo == null ? '판매자 정보가 없습니다' : product.sellerInfo.businessname}"></a>
+							    <!-- 클릭 이벤트 추가 -->
+					            <a href="#" class="heart" th:data-businessname="${product.sellerInfo.businessname}" onclick="toggleFavorite(this)">
+					                <i class="far fa-heart" th:classappend="${#lists.contains(userFavorites, product.sellerInfo.businessname) ? 'fas' : 'far'}"></i>
+					            </a>
 							</li>
                         	<!-- <li class="breadcrumb-item"><a=href="#" th:text="${product.category.name}"></a></li> -->
                         </ol>

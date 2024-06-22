@@ -20,7 +20,21 @@
 
     <!-- Responsive CSS -->
     <link th:href="@{/css/responsive.css}" rel="stylesheet">
-
+	<script>
+	function checkSellerId() {
+	    const sellerId = document.getElementById('sellerid').value;
+	    fetch(`/seller/checkSellerId?sellerid=${sellerId}`)
+	    .then(response => response.json())
+	    .then(data => {
+	        if(data.available) {
+	            alert('The sellername is available.\n사용가능한 아이디입니다.');
+	        } else {
+	            alert('The sellername is already taken.\n다른 아이디를 사용하세요.');
+	        }
+	    })
+	    .catch(error => console.error('Error:', error));
+	}
+	</script>
 </head>
 
 <body>
@@ -47,11 +61,18 @@
 	
 	        <form th:action="@{/seller/registerSeller}" th:object="${sellerForm}" method="POST" >
 	            <div class="row">
-	                <div class="col-md-6 mb-3">
-	                    <label for="sellerid">ID <span>*</span></label>
-	    				<input type="text" th:field="*{sellerInfo.sellerid}" class="form-control" id="sellerid" required>
-	                </div>
-	                <div class="col-md-6 mb-3">
+					<div class="col-md-6 mb-3">
+					    <label for="sellerid">ID <span>*</span></label>
+					    <div class="input-group">
+					        <input type="text" th:field="*{sellerInfo.sellerid}" class="form-control" id="sellerid" required>
+					        &nbsp;&nbsp;
+					        <div class="input-group-append">
+					            <button type="button" class="btn btn-outline-secondary" onclick="checkSellerId()">Check ID</button>
+					        </div>
+					    </div>
+					    <small id="selleridHelp" class="form-text text-muted">Please click Check ID to verify if the sellername is available.</small>
+					</div>
+	                <div class="col-md-12 mb-3">
 	                    <label for="passwd">PASSWORD <span>*</span></label>
 	    				<input type="password" th:field="*{sellerInfo.passwd}" class="form-control" id="passwd" required>
 	                </div>
