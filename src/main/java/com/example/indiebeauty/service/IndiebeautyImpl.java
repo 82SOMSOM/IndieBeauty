@@ -21,6 +21,8 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
+	private SellerRepository sellerRepository;
+	@Autowired
 	private ReviewRepository reviewRepository;
 	@Autowired
 	private ProductRepository productRepository;
@@ -73,8 +75,6 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 	}
 	
 //	seller
-	@Autowired
-	private SellerRepository sellerRepository;
 	public SellerInfo getSellerInfo(String sellerid) {
 		return sellerRepository.getReferenceById(sellerid);
 	}
