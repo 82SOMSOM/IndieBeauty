@@ -121,11 +121,10 @@
 													role="button" data-toggle="dropdown" aria-haspopup="true"
 													aria-expanded="false">Pages</a>
 												<div class="dropdown-menu" aria-labelledby="karlDropdown">
-													<a class="dropdown-item" href="index.html">Home</a>
+													<a class="dropdown-item" th:href="@{/}">Home</a>
 													<a class="dropdown-item" th:href="@{/shop?pageNum=1}">Shop</a>
 													<!-- <a class="dropdown-item" href="product-details.html">Product Details</a> -->
 													<a class="dropdown-item" th:href="@{/shop/viewCart.do}">Cart</a>
-													<a class="dropdown-item" href="checkout.html">Checkout</a>
 												</div>
 											</li>
 											<li class="nav-item dropdown">
