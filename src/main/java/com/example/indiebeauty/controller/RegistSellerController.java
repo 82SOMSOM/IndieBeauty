@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 import com.example.indiebeauty.service.IndiebeautyFacade;
@@ -119,5 +120,26 @@ public class RegistSellerController {
             return "editSellerInfo";
         }
     }
+	
+//  회원 탈퇴
+//    @GetMapping("/seller/deleteSeller")
+//    public String deleteSeller(HttpSession session, RedirectAttributes redirectAttrs) {
+//        try {
+//        	SellerSession sellerSession = (SellerSession) session.getAttribute("sellerSession");
+//            if (sellerSession != null && sellerSession.getSellerInfo() != null) {
+//                // 사용자와 관련된 모든 데이터를 먼저 삭제
+//                indiebeauty.deleteAllSellerRelatedData(sellerSession.getSellerInfo().getSellerid());
+//                // 사용자 정보 삭제
+//                indiebeauty.deleteSellerInfo(sellerSession.getSellerInfo().getSellerid());
+//                session.invalidate();
+//                return "redirect:/sellerLogin";
+//            } else {
+//                return "redirect:/sellerLogin";
+//            }
+//        } catch (DataIntegrityViolationException ex) {
+//            redirectAttrs.addFlashAttribute("error", "Failed to delete account. Please contact support.");
+//            return "redirect:/showSellerInfo"; // 회원 정보 페이지로 리다이렉트
+//        }
+//    }
 	
 }

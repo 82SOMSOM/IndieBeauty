@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 import com.example.indiebeauty.service.IndiebeautyFacade;
@@ -119,5 +120,26 @@ public class RegistUserController {
             return "editUserInfo";
         }
     }
-	 	
+    
+//  회원 탈퇴
+    @GetMapping("/user/deleteUser")
+    public String deleteUser(HttpSession session, RedirectAttributes redirectAttrs) {
+        try {
+            UserSession userSession = (UserSession) session.getAttribute("userSession");
+            if (userSession != null && userSession.getUserInfo() != null) {
+                // 사용자와 관련된 모든 데이터를 먼저 삭제
+                indiebeauty.deleteAllUserRelatedData(userSession.getUserInfo().getUserid());
+                // 사용자 정보 삭제
+                indiebeauty.deleteUserInfo(userSession.getUserInfo().getUserid());
+                session.invalidate();
+                return "redirect:/login";
+            } else {
+                return "redirect:/login";
+            }
+        } catch (DataIntegrityViolationException ex) {
+            redirectAttrs.addFlashAttribute("error", "Failed to delete account. Please contact support.");
+            return "redirect:/showUserInfo"; // 회원 정보 페이지로 리다이렉트
+        }
+    }
+    
 }

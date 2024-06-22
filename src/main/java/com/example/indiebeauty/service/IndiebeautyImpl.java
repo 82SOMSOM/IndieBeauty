@@ -1,18 +1,17 @@
 package com.example.indiebeauty.service;
 
-import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.indiebeauty.domain.Item;
-import com.example.indiebeauty.domain.Product;
 import com.example.indiebeauty.domain.Review;
-import com.example.indiebeauty.domain.UserInfo;
 import com.example.indiebeauty.domain.SellerInfo;
+import com.example.indiebeauty.domain.UserInfo;
+import com.example.indiebeauty.repository.FavoritesRepository;
+import com.example.indiebeauty.repository.OrdersRepository;
 import com.example.indiebeauty.repository.ProductRepository;
 import com.example.indiebeauty.repository.ReviewRepository;
+import com.example.indiebeauty.repository.SellerEventsRepository;
 import com.example.indiebeauty.repository.SellerRepository;
 import com.example.indiebeauty.repository.UserRepository;
 
@@ -26,6 +25,10 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 	private ReviewRepository reviewRepository;
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired
+	private OrdersRepository ordersRepository;
+	@Autowired
+	private SellerEventsRepository sellerEventsRepository;
 	
 	public UserInfo getUserInfo(String userid) {
 		return userRepository.getReferenceById(userid);
@@ -41,6 +44,14 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 	}
 	public boolean existsUserId(String userid) {
 	    return userRepository.existsById(userid);
+	}
+	public void deleteAllUserRelatedData(String userid) {
+	    ordersRepository.deleteByUserId(userid);
+	    reviewRepository.deleteByUserId(userid);
+	}
+	public void deleteUserInfo(String userId) {
+	    deleteAllUserRelatedData(userId); // 자식 레코드 먼저 삭제
+	    userRepository.deleteById(userId); // 그 다음 사용자 레코드 삭제
 	}
 	
 	@Override
@@ -83,5 +94,13 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 	public boolean existsSellerId(String sellerid) {
 	    return sellerRepository.existsById(sellerid);
 	}
+//	public void deleteAllSellerRelatedData(String sellerid) {
+//		sellerEventsRepository.deleteBySellerId(sellerid);
+//		productRepository.deleteBySellerId(sellerid);
+//	}
+//	public void deleteSellerInfo(String sellerId) {
+//	    deleteAllSellerRelatedData(sellerId); // 자식 레코드 먼저 삭제
+//	    sellerRepository.deleteById(sellerId); // 그 다음 사용자 레코드 삭제
+//	}
 
 }

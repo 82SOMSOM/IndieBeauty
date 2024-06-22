@@ -16,4 +16,5 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 	Page<Orders> findByUserId(String userId, Pageable pageable);
 	//사용자 아이디로 주문 찾기
 //	List<Orders> findByUserId(String userid);
+	void deleteByUserId(String userid);
 }
