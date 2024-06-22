@@ -64,7 +64,7 @@ private static final int PAGE_SIZE = 9;
 
 
 	@Transactional
-	public void insertEvent(EventForm eventForm) throws FileUploadException {
+	public boolean insertEvent(EventForm eventForm) throws FileUploadException {
 		String sellerId = eventForm.getEvent().getSellerId();
 		String title = eventForm.getEvent().getTitle();
 		String content = eventForm.getEvent().getContent();
@@ -78,6 +78,12 @@ private static final int PAGE_SIZE = 9;
 				participants);
 
 		SellerEvents newEvent = sellerEventRepo.save(sellerEvent);
+		
+		if(newEvent != null) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 }
