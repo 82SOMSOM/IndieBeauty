@@ -1,8 +1,5 @@
 package com.example.indiebeauty.service;
 
-import java.util.List;
-
-import com.example.indiebeauty.domain.Item;
 import com.example.indiebeauty.domain.Product;
 import com.example.indiebeauty.domain.Review;
 import com.example.indiebeauty.domain.SellerInfo;
