@@ -63,7 +63,10 @@ public class SellerEventController {
 	@PostMapping("/uploadEvent")
 	protected ModelAndView confirmEvent(@ModelAttribute("eventForm") EventForm eventForm, SessionStatus status)
 			throws FileUploadException {
-		eventService.insertEvent(eventForm);
+		boolean rslt = eventService.insertEvent(eventForm);
+
+		System.out.println("이벤트 생성 결과 :" + rslt);
+		
 		ModelAndView mav = new ModelAndView("redirect:/viewAllEvents");
 		mav.addObject("event", eventForm);
 		status.setComplete();
@@ -71,8 +74,8 @@ public class SellerEventController {
 	}
 
 	@RequestMapping("/viewAllEvents")
-	public ModelAndView getAllEvents(HttpServletRequest request,  @RequestParam(name = "pageNum", defaultValue = "1") int pageNum)
-			throws Exception {
+	public ModelAndView getAllEvents(HttpServletRequest request,
+			@RequestParam(name = "pageNum", defaultValue = "1") int pageNum) throws Exception {
 
 		Map<String, Object> resultMap = eventService.getEventsByEventId(pageNum);
 		@SuppressWarnings("unchecked")
