@@ -19,7 +19,7 @@
 	<link rel="stylesheet" th:href="@{/css/style.css}">
 
 	<!-- Responsive CSS -->
-	<link href="@{/css/responsive.css}" rel="stylesheet">
+	<link th:href="@{/css/responsive.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -38,29 +38,26 @@
 		<!-- ****** Cart Area Start ****** -->
 		<div class="cart_area section_padding_100 clearfix">
 			<div class="container">
-				<!-- 주문 정보 하나만 표시 -->
 				<div class="row">
 					<div class="col-12">
 						<div class="cart-table clearfix">
 							<table class="table table-responsive">
 								<thead>
 									<tr>
-									<!--	<th></th>-->
 										<th>Product</th>
 										<th>Price</th>
 										<th>Quantity</th>
-										<th>Total</th>
+										<th>Review</th>
 										<th></th>
 									</tr>
 								</thead>
 								<tbody>
-									<!-- orderForm에서 받은 주문의 상품들을 반복하여 표시 -->
 									<tr th:each="orderItem : ${orderForm.order.orderItems}">
 										<td class="cart_product_img d-flex align-items-center">
-											<!--<a th:href="@{'/shop/product-detail/' + ${item.product.productId}}">
-												<img th:src="@{'/img/product-img/' + ${item.product.imageList[0].imageUrl}}"
+											<a>
+												<img th:src="@{'/img/product-img/' + ${orderItem.product.imageList[0].imageUrl}}"
 													alt="Product Image">
-											</a>-->
+											</a>
 											<h6 th:text="${orderItem.product.name}"></h6>
 										</td>
 										<td class="price"><span th:text="${orderItem.price}"></span></td>
@@ -68,21 +65,28 @@
 											<div class="quantity" th:text="${orderItem.quantity}"></div>
 										</td>
 										<td class="review">
-											<a th:href="@{/upload-review(productId=${orderItem.product.productId})}"><img
-													th:src="@{/img/review_button.png}"></a>
+											<a th:href="@{/upload-review(productId=${orderItem.product.productId})}">
+												<img th:src="@{/img/review_button.png}">
+											</a>
 										</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-12 col-lg-8"></div>
-						<div class="col-12 col-lg-4" style="width: 700px;">
-							<div class="cart-total-area mt-70">
-								<a href="/viewAllOrders" class="btn karl-checkout-btn">내 모든 주문 내역</a>
-							</div>
+				</div>
+				<div class="row">
+					<div class="col-12 col-lg-8"></div>
+					<div class="col-12 col-lg-4">
+						<div class="cart-total-area mt-70">
+							<ul class="cart-total-chart">
+								<li><span><strong>Total</strong></span> <span
+										th:text="${orderForm.order.totalPrice}"><strong></strong></span>
+								</li>
+							</ul>
+							<a href="/viewAllOrders" class="btn karl-checkout-btn">내 모든 주문 내역</a>
 						</div>
+
 					</div>
 				</div>
 			</div>
