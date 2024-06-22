@@ -59,7 +59,6 @@ public class OrdersController {
 		}
 
 		if (cart != null) {
-			// Re-read account from DB at team's request.
 			UserInfo userInfo = indiebeauty.getUserInfo(userSession.getUserInfo().getUserid());
 
 			orderForm.getOrder().initOrder(userInfo, cart);
@@ -76,7 +75,7 @@ public class OrdersController {
 		ModelAndView mav = new ModelAndView("checkOrder");
 		mav.addObject("order", orderForm);
 		mav.addObject("message", "Thank you, your order has been submitted.");
-		status.setComplete(); // remove sessionCart and orderForm from session
+		status.setComplete(); 
 		return mav;
 	}
 
