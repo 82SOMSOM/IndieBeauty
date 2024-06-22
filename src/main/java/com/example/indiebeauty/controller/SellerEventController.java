@@ -63,7 +63,10 @@ public class SellerEventController {
 	@PostMapping("/uploadEvent")
 	protected ModelAndView confirmEvent(@ModelAttribute("eventForm") EventForm eventForm, SessionStatus status)
 			throws FileUploadException {
-		eventService.insertEvent(eventForm);
+		boolean rslt = eventService.insertEvent(eventForm);
+
+		System.out.println("이벤트 생성 결과 :" + rslt);
+
 		ModelAndView mav = new ModelAndView("redirect:/viewAllEvents");
 		mav.addObject("event", eventForm);
 		status.setComplete();
@@ -71,8 +74,8 @@ public class SellerEventController {
 	}
 
 	@RequestMapping("/viewAllEvents")
-	public ModelAndView getAllEvents(HttpServletRequest request,  @RequestParam(name = "pageNum", defaultValue = "1") int pageNum)
-			throws Exception {
+	public ModelAndView getAllEvents(HttpServletRequest request,
+			@RequestParam(name = "pageNum", defaultValue = "1") int pageNum) throws Exception {
 
 		Map<String, Object> resultMap = eventService.getEventsByEventId(pageNum);
 		@SuppressWarnings("unchecked")
@@ -85,6 +88,42 @@ public class SellerEventController {
 		mav.addObject("currentPage", pageNum);
 
 		return mav;
+	}
+
+	@RequestMapping("/viewSellerOwnEvents")
+	public ModelAndView getSellerOwnEvents(HttpServletRequest request,
+			@RequestParam(name = "pageNum", defaultValue = "1") int pageNum) throws Exception {
+		SellerSession sellerSession = (SellerSession) request.getSession().getAttribute("sellerSession");
+		if (sellerSession == null || sellerSession.getSellerInfo() == null) {
+			return new ModelAndView("Error", "message", "You need to login.");
+		}
+
+		String sellerId = sellerSession.getSellerInfo().getSellerid();
+
+		Map<String, Object> resultMap = eventService.getEventsBySellerId(sellerId, pageNum);
+		@SuppressWarnings("unchecked")
+		List<SellerEvents> eventList = (List<SellerEvents>) resultMap.get("events");
+		int totalPages = (int) resultMap.get("totalPages");
+
+		ModelAndView mav = new ModelAndView("viewSellerOwnEvents");
+		mav.addObject("eventList", eventList);
+		mav.addObject("totalPages", totalPages);
+		mav.addObject("currentPage", pageNum);
+
+		return mav;
+	}
+
+	@RequestMapping("/deleteEvent/{eventId}")
+	public String deleteOrder(@PathVariable int eventId, HttpServletRequest request, RedirectAttributes ra)
+			throws Exception {
+		SellerSession sellerSession = (SellerSession) request.getSession().getAttribute("sellerSession");
+
+		if (sellerSession.getSellerInfo().getSellerid() != null) {
+			eventService.deleteEvent(eventId);
+			return "redirect:/viewSellerOwnEvents";
+		} else {
+			return "redirect:/login";
+		}
 	}
 
 	@Transactional

@@ -1,11 +1,10 @@
 package com.example.indiebeauty.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +21,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Getter
@@ -54,7 +52,7 @@ public class SellerEvents {
 	@Column(name = "joincount")
 	private int joinCount;
 
-	@ManyToMany
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "JOINEVENT", joinColumns = @JoinColumn(name = "eventid", referencedColumnName = "eventid"), inverseJoinColumns = @JoinColumn(name = "userid", referencedColumnName = "userid"))
 	private Set<UserInfo> participants = new HashSet<>();
 

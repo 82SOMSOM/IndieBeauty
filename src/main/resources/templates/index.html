@@ -2,291 +2,337 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <!-- Title  -->
-    <title>Karl - Fashion Ecommerce Template | Home</title>
+	<!-- Title  -->
+	<title>Karl - Fashion Ecommerce Template | Home</title>
 
-    <!-- Favicon  -->
-    <link rel="icon" th:href="@{/img/core-img/favicon.ico}">
+	<!-- Favicon  -->
+	<link rel="icon" th:href="@{/img/core-img/favicon.ico}">
 
-    <!-- Core Style CSS -->
-    <link rel="stylesheet" th:href="@{/css/core-style.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+	<!-- Core Style CSS -->
+	<link rel="stylesheet" th:href="@{/css/core-style.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
 
-    <!-- Responsive CSS -->
-    <link th:href="@{/css/responsive.css}" rel="stylesheet">
+	<!-- Responsive CSS -->
+	<link th:href="@{/css/responsive.css}" rel="stylesheet">
 
 </head>
 
 <body>
-    <div th:fragment="side-menu" class="catagories-side-menu">
-        <!-- Close Icon -->
-        <div id="sideMenuClose">
-            <i class="ti-close"></i>
-        </div>
-        <!--  Side Nav  -->
-	    <div class="nav-side-menu">
-	        <div class="menu-list">
-	            <ul id="menu-content" class="menu-content collapse out">
-	                <!-- Single Item -->
-	                <li data-toggle="collapse" data-target="#women" th:if="${session.userSession != null && session.sellerSession == null}"  class="collapsed active">
-	                    <a href="#">일반회원 <span class="arrow"></span></a>
-	                    <ul class="sub-menu collapse" id="women">
-	                        <li><a th:href="@{/showUserInfo}">마이페이지</a></li>
-	                        <li><a th:href="@{/viewAllOrders}">주문내역 확인</a></li>
-	                    </ul>
-	                </li>
-	                <!-- Single Item -->
-	                <li data-toggle="collapse" data-target="#man" th:if="${session.userSession == null && session.sellerSession != null}" class="collapsed">
-	                    <a href="#">판매자 <span class="arrow"></span></a>
-	                    <ul class="sub-menu collapse" id="man">
+	<div th:fragment="side-menu" class="catagories-side-menu">
+		<!-- Close Icon -->
+		<div id="sideMenuClose">
+			<i class="ti-close"></i>
+		</div>
+		<!--  Side Nav  -->
+		<div class="nav-side-menu">
+			<div class="menu-list">
+				<ul id="menu-content" class="menu-content collapse out">
+					<!-- Single Item -->
+					<li data-toggle="collapse" data-target="#women"
+						th:if="${session.userSession != null && session.sellerSession == null}"
+						class="collapsed active">
+						<a href="#">일반회원 <span class="arrow"></span></a>
+						<ul class="sub-menu collapse" id="women">
+							<li><a th:href="@{/showUserInfo}">마이페이지</a></li>
+							<li><a th:href="@{/viewAllOrders}">주문내역 확인</a></li>
+						</ul>
+					</li>
+					<!-- Single Item -->
+					<li data-toggle="collapse" data-target="#man"
+						th:if="${session.userSession == null && session.sellerSession != null}" class="collapsed">
+						<a href="#">판매자 <span class="arrow"></span></a>
+						<ul class="sub-menu collapse" id="man">
 							<li><a th:href="@{/showSellerInfo}">마이페이지</a></li>
-	                        <li><a th:href="@{/upload-product}">상품 등록</a></li>
-	                        <li><a th:href="@{/uploadEvent}">이벤트 등록</a></li>
-	                    </ul>
-	                </li>
-	            </ul>
-	        </div>
-	    </div>
-    </div>
+							<li><a th:href="@{/upload-product}">상품 등록</a></li>
+							<li><a th:href="@{/uploadEvent}">이벤트 등록</a></li>
+							<li><a th:href="@{/viewSellerOwnEvents}">내 이벤트 확인</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 
-    <div id="wrapper">
+	<div id="wrapper">
 
-        <!-- ****** Header Area Start ****** -->
-        <header th:fragment="header-area" class="header_area">
-            <!-- Top Header Area Start -->
-            <div class="top_header_area">
-                <div class="container h-100">
-                    <div class="row h-100 align-items-center justify-content-end">
+		<!-- ****** Header Area Start ****** -->
+		<header th:fragment="header-area" class="header_area">
+			<!-- Top Header Area Start -->
+			<div class="top_header_area">
+				<div class="container h-100">
+					<div class="row h-100 align-items-center justify-content-end">
 
-                        <div class="col-12 col-lg-7">
-                            <div class="top_single_area d-flex align-items-center">
-                                <!-- Logo Area -->
-                                <div class="top_logo">
-                                    <a href="#"><img th:src="@{/img/core-img/logo.png}" alt=""></a>
-                                </div>
-                                <!-- Cart & Menu Area -->
-                                <div class="header-cart-menu d-flex align-items-center ml-auto">
-                                    <!-- Cart Area -->
-                                    <div class="cart">
-                                        <a href="" th:href="@{/shop/viewCart.do}" id="header-cart-btn"><span class="cart_quantity">💄</span> <i class="ti-bag"></i> Cart</a>
-                                    </div>
-                                    <div class="header-right-side-menu ml-15">
-                                        <a href="#" id="sideMenuBtn"><i class="ti-menu" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+						<div class="col-12 col-lg-7">
+							<div class="top_single_area d-flex align-items-center">
+								<!-- Logo Area -->
+								<div class="top_logo">
+									<a href="#"><img th:src="@{/img/core-img/logo.png}" alt=""></a>
+								</div>
+								<!-- Cart & Menu Area -->
+								<div class="header-cart-menu d-flex align-items-center ml-auto">
+									<!-- Cart Area -->
+									<div class="cart">
+										<a href="" th:href="@{/shop/viewCart.do}" id="header-cart-btn"><span
+												class="cart_quantity">💄</span> <i class="ti-bag"></i> Cart</a>
+									</div>
+									<div class="header-right-side-menu ml-15">
+										<a href="#" id="sideMenuBtn"><i class="ti-menu" aria-hidden="true"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
 
-                    </div>
-                </div>
-            </div>
+					</div>
+				</div>
+			</div>
 
-            <!-- Top Header Area End -->
-            <div class="main_header_area">
-                <div class="container h-100">
-                    <div class="row h-100">
-                        <div class="col-12 d-md-flex justify-content-between">
-                            <!-- Header Social Area -->
-                            <div class="header-social-area">
-                                <a href="#"><i></i></a>
-                                <a href="#"><i></i></a>
-                                <a href="#"><i></i></a>
-                                <a href="#"><i></i></a>
-                            </div>
-                            <!-- Menu Area -->
-                            <div class="main-menu-area">
-                                <nav class="navbar navbar-expand-lg align-items-start">
+			<!-- Top Header Area End -->
+			<div class="main_header_area">
+				<div class="container h-100">
+					<div class="row h-100">
+						<div class="col-12 d-md-flex justify-content-between">
+							<!-- Header Social Area -->
+							<div class="header-social-area">
+								<a href="#"><i></i></a>
+								<a href="#"><i></i></a>
+								<a href="#"><i></i></a>
+								<a href="#"><i></i></a>
+							</div>
+							<!-- Menu Area -->
+							<div class="main-menu-area">
+								<nav class="navbar navbar-expand-lg align-items-start">
 
-                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#karl-navbar" aria-controls="karl-navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i class="ti-menu"></i></span></button>
+									<button class="navbar-toggler" type="button" data-toggle="collapse"
+										data-target="#karl-navbar" aria-controls="karl-navbar" aria-expanded="false"
+										aria-label="Toggle navigation"><span class="navbar-toggler-icon"><i
+												class="ti-menu"></i></span></button>
 
-                                    <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
-                                        <ul class="navbar-nav animated" id="nav">
-                                            <li class="nav-item active"><a class="nav-link" th:href="@{/}">Home</a></li>
-                                            <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" href="#" id="karlDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-                                                <div class="dropdown-menu" aria-labelledby="karlDropdown">
-                                                    <a class="dropdown-item" href="index.html">Home</a>
-                                                    <a class="dropdown-item" th:href="@{/shop?pageNum=1}">Shop</a>
-                                                    <!-- <a class="dropdown-item" href="product-details.html">Product Details</a> -->
-                                                    <a class="dropdown-item" th:href="@{/shop/viewCart.do}">Cart</a>
-                                                    <a class="dropdown-item" href="checkout.html">Checkout</a>
-                                                </div>
-                                            </li>
-                                            <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" href="#" id="karlDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">CATEGOREIES</a>
-                                                <div class="dropdown-menu" aria-labelledby="karlDropdown">
-                                                <a th:each="category : ${session.categoryList}" class="dropdown-item" th:href="@{'/shop/category/' + ${category.categoryId} + '?pageNum=1'}" th:text="${category.name}">Category</a>
-                                                </div>
-                                            </li>
-                                            <li class="nav-item"><a class="nav-link" th:href="@{/rank?pageNum=1}">RANKING</a></li>
-                                            <li class="nav-item"><a class="nav-link" th:href="@{/viewAllEvents}"><span class="karl-level">hot</span> EVENT</a></li>
-                                        </ul>
-                                    </div>
-                                </nav>
-                            </div>
-                            <!-- Help Line -->
-                            <div class="help-line" th:if="${session.userSession == null && session.sellerSession == null}">
-					            <a th:href="@{/login}">LOGIN/SIGNIN</a>
-					        </div>
-                            <div class="help-line" th:if="${session.userSession != null || session.sellerSession != null}">
-                                <a th:href="@{/logout}">LOGOUT</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <!-- ****** Header Area End ****** -->
+									<div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
+										<ul class="navbar-nav animated" id="nav">
+											<li class="nav-item active"><a class="nav-link" th:href="@{/}">Home</a></li>
+											<li class="nav-item dropdown">
+												<a class="nav-link dropdown-toggle" href="#" id="karlDropdown"
+													role="button" data-toggle="dropdown" aria-haspopup="true"
+													aria-expanded="false">Pages</a>
+												<div class="dropdown-menu" aria-labelledby="karlDropdown">
+													<a class="dropdown-item" href="index.html">Home</a>
+													<a class="dropdown-item" th:href="@{/shop?pageNum=1}">Shop</a>
+													<!-- <a class="dropdown-item" href="product-details.html">Product Details</a> -->
+													<a class="dropdown-item" th:href="@{/shop/viewCart.do}">Cart</a>
+													<a class="dropdown-item" href="checkout.html">Checkout</a>
+												</div>
+											</li>
+											<li class="nav-item dropdown">
+												<a class="nav-link dropdown-toggle" href="#" id="karlDropdown"
+													role="button" data-toggle="dropdown" aria-haspopup="true"
+													aria-expanded="false">CATEGOREIES</a>
+												<div class="dropdown-menu" aria-labelledby="karlDropdown">
+													<a th:each="category : ${session.categoryList}"
+														class="dropdown-item"
+														th:href="@{'/shop/category/' + ${category.categoryId} + '?pageNum=1'}"
+														th:text="${category.name}">Category</a>
+												</div>
+											</li>
+											<li class="nav-item"><a class="nav-link"
+													th:href="@{/rank?pageNum=1}">RANKING</a></li>
+											<li class="nav-item"><a class="nav-link" th:href="@{/viewAllEvents}"><span
+														class="karl-level">hot</span> EVENT</a></li>
+										</ul>
+									</div>
+								</nav>
+							</div>
+							<!-- Help Line -->
+							<div class="help-line"
+								th:if="${session.userSession == null && session.sellerSession == null}">
+								<a th:href="@{/login}">LOGIN/SIGNIN</a>
+							</div>
+							<div class="help-line"
+								th:if="${session.userSession != null || session.sellerSession != null}">
+								<a th:href="@{/logout}">LOGOUT</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<!-- ****** Header Area End ****** -->
 
-        <!-- ****** Top Discount Area Start ****** -->
-        <section th:fragment="top-discount-area" class="top-discount-area d-md-flex align-items-center">
-            <!-- Single Discount Area -->
-            <div class="single-discount-area">
-                <a th:href="@{/shop?pageNum=1}"><h5>Free Shipping &amp; Returns</h5></a>
-                <h6><a href="#">BUY NOW</a></h6>
-            </div>
-            <!-- Single Discount Area -->
-            <div class="single-discount-area">
-                <h5>Check the rankings to get useful information</h5>
-                <h6><a th:href="@{/rank?pageNum=1}">CHECK NOW</a></h6>
-            </div>
-            <!-- Single Discount Area -->
-            <div class="single-discount-area">
-                <h5>Check the seller's news</h5>
-                <h6><a href="#">CHECK NOW</a></h6>
-            </div>
-        </section>
-        <!-- ****** Top Discount Area End ****** -->
+		<!-- ****** Top Discount Area Start ****** -->
+		<section th:fragment="top-discount-area" class="top-discount-area d-md-flex align-items-center">
+			<!-- Single Discount Area -->
+			<div class="single-discount-area">
+				<a th:href="@{/shop?pageNum=1}">
+					<h5>Free Shipping &amp; Returns</h5>
+				</a>
+				<h6><a href="#">BUY NOW</a></h6>
+			</div>
+			<!-- Single Discount Area -->
+			<div class="single-discount-area">
+				<h5>Check the rankings to get useful information</h5>
+				<h6><a th:href="@{/rank?pageNum=1}">CHECK NOW</a></h6>
+			</div>
+			<!-- Single Discount Area -->
+			<div class="single-discount-area">
+				<h5>Check the seller's news</h5>
+				<h6><a href="#">CHECK NOW</a></h6>
+			</div>
+		</section>
+		<!-- ****** Top Discount Area End ****** -->
 
-        <!-- ****** Welcome Slides Area Start ****** -->
-        <section class="welcome_area">
-            <div class="welcome_slides owl-carousel">
-                <!-- Single Slide Start -->
-                <div class="single_slide height-800 bg-img background-overlay" style="background-image: url(img/bg-img/bg-1.jpg);">
-                    <div class="container h-100">
-                        <div class="row h-100 align-items-center">
-                            <div class="col-12">
-                                <div class="welcome_slide_text">
-                                    <h6 data-animation="bounceInDown" data-delay="0" data-duration="500ms">* Only today we offer free shipping</h6>
-                                    <h2 data-animation="fadeInUp" data-delay="500ms" data-duration="500ms">SKIN/TONER</h2>
-                                    <a th:href="@{/shop/category/0?pageNum=1}" class="btn karl-btn" data-animation="fadeInUp" data-delay="1s" data-duration="500ms">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+		<!-- ****** Welcome Slides Area Start ****** -->
+		<section class="welcome_area">
+			<div class="welcome_slides owl-carousel">
+				<!-- Single Slide Start -->
+				<div class="single_slide height-800 bg-img background-overlay"
+					style="background-image: url(img/bg-img/bg-1.jpg);">
+					<div class="container h-100">
+						<div class="row h-100 align-items-center">
+							<div class="col-12">
+								<div class="welcome_slide_text">
+									<h6 data-animation="bounceInDown" data-delay="0" data-duration="500ms">* Only today
+										we offer free shipping</h6>
+									<h2 data-animation="fadeInUp" data-delay="500ms" data-duration="500ms">SKIN/TONER
+									</h2>
+									<a th:href="@{/shop/category/0?pageNum=1}" class="btn karl-btn"
+										data-animation="fadeInUp" data-delay="1s" data-duration="500ms">Shop Now</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-                <!-- Single Slide Start -->
-                <div class="single_slide height-800 bg-img background-overlay" style="background-image: url(img/bg-img/bg-4.jpg);">
-                    <div class="container h-100">
-                        <div class="row h-100 align-items-center">
-                            <div class="col-12">
-                                <div class="welcome_slide_text">
-                                    <h6 data-animation="fadeInDown" data-delay="0" data-duration="500ms">* Only today we offer free shipping</h6>
-                                    <h2 data-animation="fadeInUp" data-delay="500ms" data-duration="500ms">ESSENCE/AMPOULE</h2>
-                                    <a th:href="@{/shop/category/1?pageNum=1}" class="btn karl-btn" data-animation="fadeInLeftBig" data-delay="1s" data-duration="500ms">SHOP NOW</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				<!-- Single Slide Start -->
+				<div class="single_slide height-800 bg-img background-overlay"
+					style="background-image: url(img/bg-img/bg-4.jpg);">
+					<div class="container h-100">
+						<div class="row h-100 align-items-center">
+							<div class="col-12">
+								<div class="welcome_slide_text">
+									<h6 data-animation="fadeInDown" data-delay="0" data-duration="500ms">* Only today we
+										offer free shipping</h6>
+									<h2 data-animation="fadeInUp" data-delay="500ms" data-duration="500ms">
+										ESSENCE/AMPOULE</h2>
+									<a th:href="@{/shop/category/1?pageNum=1}" class="btn karl-btn"
+										data-animation="fadeInLeftBig" data-delay="1s" data-duration="500ms">SHOP
+										NOW</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-                <!-- Single Slide Start -->
-                <div class="single_slide height-800 bg-img background-overlay" style="background-image: url(img/bg-img/bg-2.jpg);">
-                    <div class="container h-100">
-                        <div class="row h-100 align-items-center">
-                            <div class="col-12">
-                                <div class="welcome_slide_text">
-                                    <h6 data-animation="fadeInDown" data-delay="0" data-duration="500ms">* Only today we offer free shipping</h6>
-                                    <h2 data-animation="bounceInDown" data-delay="500ms" data-duration="500ms">CREAM/LOTION</h2>
-                                    <a th:href="@{/shop/category/2?pageNum=1}" class="btn karl-btn" data-animation="fadeInRightBig" data-delay="1s" data-duration="500ms">SHOP NOW</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+				<!-- Single Slide Start -->
+				<div class="single_slide height-800 bg-img background-overlay"
+					style="background-image: url(img/bg-img/bg-2.jpg);">
+					<div class="container h-100">
+						<div class="row h-100 align-items-center">
+							<div class="col-12">
+								<div class="welcome_slide_text">
+									<h6 data-animation="fadeInDown" data-delay="0" data-duration="500ms">* Only today we
+										offer free shipping</h6>
+									<h2 data-animation="bounceInDown" data-delay="500ms" data-duration="500ms">
+										CREAM/LOTION</h2>
+									<a th:href="@{/shop/category/2?pageNum=1}" class="btn karl-btn"
+										data-animation="fadeInRightBig" data-delay="1s" data-duration="500ms">SHOP
+										NOW</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
-        <!-- ****** New Arrivals Area Start ****** -->
-        <section class="new_arrivals_area section_padding_100_0 clearfix">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="section_heading text-center">
-                            <h2>New Arrivals</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
+		<!-- ****** New Arrivals Area Start ****** -->
+		<section class="new_arrivals_area section_padding_100_0 clearfix">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="section_heading text-center">
+							<h2>New Arrivals</h2>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            <div class="karl-projects-menu mb-100">
-                <div class="text-center portfolio-menu">
-                    <button class="btn active" data-filter="*">ALL</button>
-                    <button class="btn" th:each="category : ${session.categoryList}" th:text="${category.name}" th:attr="data-filter='.category-' +${category.categoryId}">Category</button>
-                </div>
-            </div>
+			<div class="karl-projects-menu mb-100">
+				<div class="text-center portfolio-menu">
+					<button class="btn active" data-filter="*">ALL</button>
+					<button class="btn" th:each="category : ${session.categoryList}" th:text="${category.name}"
+						th:attr="data-filter='.category-' +${category.categoryId}">Category</button>
+				</div>
+			</div>
 
-            <div class="container">
-                <div class="row karl-new-arrivals">
-                
-                	<!-- Single gallery Item Start (Thymeleaf) -->
-                    <div class="col-12 col-sm-6 col-md-4 single_gallery_item" th:classappend="'category-' + ${product.category.categoryId} + ' wow fadeInUpBig'" data-wow-delay="0.2s" th:each="product:${allProducts}">
-                        <!-- Product Image -->
-                        <div class="product-img">
-                            <a th:href="@{'/shop/product-detail/' + ${product.productId}}"><img th:src="@{'/img/product-img/' + ${product.imageList[0].imageUrl}}"  alt=""></a>
-                        </div>
-                        <!-- Product Description -->
-                        <div class="product-description">
-                            <a th:href="@{'/shop/product-detail/' + ${product.productId}}"><h4 class="product-price" th:text="${product.name}">Jeans midi cocktail dress</h4></a>
-                            <p th:text="${product.price}">$39.90</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+			<div class="container">
+				<div class="row karl-new-arrivals">
 
-        <!-- ****** Footer Area Start ****** -->
-        <footer th:fragment="footer-area" class="footer_area">
-            <div class="container">
-                <div class="row">
-                    <!-- Single Footer Area Start -->
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="single_footer_area">
-                            <div class="footer-logo">
-                                <img th:src="@{/img/core-img/logo.png}" alt="">
-                            </div>
-                            <div class="copywrite_text d-flex align-items-center">
-                                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="line"></div>
-            </div>
-        </footer>
-        <!-- ****** Footer Area End ****** -->
-    </div>
-    <!-- /.wrapper end -->
+					<!-- Single gallery Item Start (Thymeleaf) -->
+					<div class="col-12 col-sm-6 col-md-4 single_gallery_item"
+						th:classappend="'category-' + ${product.category.categoryId} + ' wow fadeInUpBig'"
+						data-wow-delay="0.2s" th:each="product:${allProducts}">
+						<!-- Product Image -->
+						<div class="product-img">
+							<a th:href="@{'/shop/product-detail/' + ${product.productId}}"><img
+									th:src="@{'/img/product-img/' + ${product.imageList[0].imageUrl}}" alt=""></a>
+						</div>
+						<!-- Product Description -->
+						<div class="product-description">
+							<a th:href="@{'/shop/product-detail/' + ${product.productId}}">
+								<h4 class="product-price" th:text="${product.name}">Jeans midi cocktail dress</h4>
+							</a>
+							<p th:text="${product.price}">$39.90</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
-    <!-- jQuery (Necessary for All JavaScript Plugins) -->
-    <script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
-    <!-- Popper js -->
-    <script th:src="@{/js/popper.min.js}"></script>
-    <!-- Bootstrap js -->
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <!-- Plugins js -->
-    <script th:src="@{/js/plugins.js}"></script>
-    <!-- Active js -->
-    <script th:src="@{/js/active.js}"></script>
+		<!-- ****** Footer Area Start ****** -->
+		<footer th:fragment="footer-area" class="footer_area">
+			<div class="container">
+				<div class="row">
+					<!-- Single Footer Area Start -->
+					<div class="col-12 col-md-6 col-lg-3">
+						<div class="single_footer_area">
+							<div class="footer-logo">
+								<img th:src="@{/img/core-img/logo.png}" alt="">
+							</div>
+							<div class="copywrite_text d-flex align-items-center">
+								<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+									Copyright &copy;
+									<script>document.write(new Date().getFullYear());</script> All rights reserved |
+									Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
+										href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed by <a
+										href="https://themewagon.com" target="_blank">ThemeWagon</a>
+									<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="line"></div>
+			</div>
+		</footer>
+		<!-- ****** Footer Area End ****** -->
+	</div>
+	<!-- /.wrapper end -->
+
+	<!-- jQuery (Necessary for All JavaScript Plugins) -->
+	<script th:src="@{/js/jquery/jquery-2.2.4.min.js}"></script>
+	<!-- Popper js -->
+	<script th:src="@{/js/popper.min.js}"></script>
+	<!-- Bootstrap js -->
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<!-- Plugins js -->
+	<script th:src="@{/js/plugins.js}"></script>
+	<!-- Active js -->
+	<script th:src="@{/js/active.js}"></script>
 
 </body>
 
