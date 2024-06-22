@@ -54,7 +54,7 @@ public class ShopController {
 			String msg = e.getMessage();
 			
 			ra.addAttribute("msg", msg);
-			ra.addAttribute("url", "/shop");
+			ra.addAttribute("url", "/shop?pageNum=1");
 			
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("redirect:/shop/productDetail/error");
