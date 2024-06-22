@@ -32,6 +32,4 @@ public interface IndiebeautyFacade {
 	void insertSellerInfo(SellerInfo sellerinfo);
 	void updateSellerInfo(SellerInfo sellerinfo);
 	boolean existsSellerId(String sellerid);
-//	void deleteAllSellerRelatedData(String sellerid);
-//	void deleteSellerInfo(String sellerid);
 }

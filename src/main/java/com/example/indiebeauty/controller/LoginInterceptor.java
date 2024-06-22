@@ -12,21 +12,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class LoginInterceptor implements HandlerInterceptor {
-	private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
-	
+public class LoginInterceptor implements HandlerInterceptor {	
 	@Override
 	public boolean preHandle(HttpServletRequest request, 
 			HttpServletResponse response, Object handler) throws Exception{
 		UserSession userSession =
 				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
 		if(userSession == null) {
-			logger.info("userSesson == null");
 			String url = request.getRequestURL().toString();
 			String query = request.getQueryString();
 			ModelAndView modelAndView = new ModelAndView("login");
 			if(query != null) {
-				logger.info("query != null");
 				modelAndView.addObject("loginForwardAction", url+"?"+query);
 			}
 			else {
