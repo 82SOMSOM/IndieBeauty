@@ -36,8 +36,6 @@ public class RankService {
 
 	@Transactional(readOnly = true)
 	public Map<String, Object> getAllProductWithTitleImage(int pageNum, int itemPerPage) {	// 전체 상품 반환 메소드 (ProductImage는 타이틀 이미지만 반환)
-		System.out.println("================ getAllProductWithTitleImage");
-		
 		Pageable pageable = getPageableForShop(pageNum - 1, itemPerPage);
 		
 		Page<Product> result = rankRepository.findAllOrderByAvgStarDesc(pageable);
@@ -45,15 +43,9 @@ public class RankService {
 		List<Product> products = result.getContent();
 		
 		for (Product product : products) {
-			System.out.println("rank 결과 product" + product.toString());
 			List<ProductImage> piList = product.getImageList();
 			
 			ProductImage titleImage = prodImgService.getTitleImage(product.getImageList());
-			if (titleImage != null) {
-				System.out.println(product.getName() + " title image: " + titleImage.toString());
-			} else {
-				System.out.println(product.getName() + " title image: null");
-			}
 			
 			if (titleImage != null 	
 					&& FileProcessUtil.isProductImageExistsInServer(titleImage.getImageUrl())) {
@@ -66,10 +58,6 @@ public class RankService {
 				product.setImageList(noImageList); 
 			}
 		}
-		
-		 for (Product product: products) {
-			 System.out.println(product.getImageList());
-		 }
 		 
 		 Map<String, Object> resultMap = new HashMap<String, Object>();
 		 resultMap.put("products", products);
