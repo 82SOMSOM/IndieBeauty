@@ -94,13 +94,5 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 	public boolean existsSellerId(String sellerid) {
 	    return sellerRepository.existsById(sellerid);
 	}
-//	public void deleteAllSellerRelatedData(String sellerid) {
-//		sellerEventsRepository.deleteBySellerId(sellerid);
-//		productRepository.deleteBySellerId(sellerid);
-//	}
-//	public void deleteSellerInfo(String sellerId) {
-//	    deleteAllSellerRelatedData(sellerId); // 자식 레코드 먼저 삭제
-//	    sellerRepository.deleteById(sellerId); // 그 다음 사용자 레코드 삭제
-//	}
 
 }

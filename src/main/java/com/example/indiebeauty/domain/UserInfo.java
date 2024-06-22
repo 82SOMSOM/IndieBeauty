@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-//컴파일 경고를 사용하지 않도록 하는 어노테이션
 @SuppressWarnings("serial") 
 @Entity
 @Table(name="userinfo")
