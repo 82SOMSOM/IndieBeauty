@@ -42,8 +42,6 @@ public class ShopController {
 			List<Review> reviews = reviewService.getReviewsByProductId(productId);
 			double averageRating = reviewService.getAverageRating(productId);
 			
-			System.out.println(product.toString());
-			
 			ModelAndView mav = new ModelAndView("productDetails");
 			mav.addObject("product", product);
 			mav.addObject("reviews", reviews);

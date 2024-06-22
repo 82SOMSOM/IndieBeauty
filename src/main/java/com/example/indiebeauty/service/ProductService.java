@@ -93,7 +93,6 @@ public class ProductService {
 		List<Product> products = result.getContent();
 		
 		for (Product product : products) {
-			System.out.println("결과 product" + product.toString());
 			List<ProductImage> piList = product.getImageList();
 			
 			ProductImage titleImage = prodImgService.getTitleImage(product.getImageList());
@@ -109,10 +108,6 @@ public class ProductService {
 				product.setImageList(noImageList); 
 			}
 		}
-		
-		 for (Product product: products) {
-			 System.out.println(product.getImageList());
-		 }
 		 
 		 Map<String, Object> resultMap = new HashMap<String, Object>();
 		 resultMap.put("products", products);
@@ -131,7 +126,6 @@ public class ProductService {
 				if (!FileProcessUtil.isProductImageExistsInServer(pi.getImageUrl())) {
 					pi.setImageUrl("no-image.png");
 				}
-				System.out.println(pi.toString());
 			}
 			
 			return result.get();
@@ -140,6 +134,20 @@ public class ProductService {
 		}
 	}
 	
+	private static List<Product> mergeAndRemoveDuplicates(@SuppressWarnings("unchecked") List<Product>... lists) {
+        HashMap<Integer, Product> productMap = new HashMap<>();
+
+        // 각 리스트에서 중복 제거
+        for (List<Product> productList : lists) {
+            for (Product product : productList) {
+                productMap.put(product.getProductId(), product);
+            }
+        }
+
+        // HashMap에서 List로 변환
+        return new ArrayList<>(productMap.values());
+    }
+	
 	@Transactional(readOnly = true)
 	public Map<String, Object> getProductListByKeywordWithTitleImage(String keyword, int pageNum, int itemPerPage) {	// 상품 검색 메소드
 		List<Product> searchByProductName = prodRepo.findByNameContainingIgnoreCase(keyword);
@@ -147,9 +155,8 @@ public class ProductService {
 		List<Product> searchByDescriptionName = prodRepo.findByDescriptionContainingIgnoreCase(keyword);
 		
 		// 상품 검색 시 정렬 기준 - 1. 이름, 2. 설명, 3. 카테고리
-		List<Product> searchResult = new ArrayList<>(searchByProductName);
-		searchResult.addAll(searchByDescriptionName);
-		searchResult.addAll(searchByCategoryName);
+		@SuppressWarnings("unchecked")
+		List<Product> searchResult = mergeAndRemoveDuplicates(searchByProductName, searchByDescriptionName, searchByCategoryName);
 		
 		int searchResultSize = searchResult.size();
 		int startIndex = (pageNum - 1) * itemPerPage;	// 페이지 첫 번째 인덱스
