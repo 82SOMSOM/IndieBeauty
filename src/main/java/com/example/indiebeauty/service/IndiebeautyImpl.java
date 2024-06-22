@@ -4,14 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.indiebeauty.domain.Product;
 import com.example.indiebeauty.domain.Review;
 import com.example.indiebeauty.domain.SellerInfo;
 import com.example.indiebeauty.domain.UserInfo;
-import com.example.indiebeauty.repository.FavoritesRepository;
 import com.example.indiebeauty.repository.OrdersRepository;
 import com.example.indiebeauty.repository.ProductRepository;
 import com.example.indiebeauty.repository.ReviewRepository;
-import com.example.indiebeauty.repository.SellerEventsRepository;
 import com.example.indiebeauty.repository.SellerRepository;
 import com.example.indiebeauty.repository.UserRepository;
 
@@ -27,8 +26,6 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 	private ProductRepository productRepository;
 	@Autowired
 	private OrdersRepository ordersRepository;
-	@Autowired
-	private SellerEventsRepository sellerEventsRepository;
 	
 	public UserInfo getUserInfo(String userid) {
 		return userRepository.getReferenceById(userid);
@@ -59,11 +56,10 @@ public class IndiebeautyImpl implements IndiebeautyFacade {
 		return productRepository.existsByProductIdAndStockGreaterThan(workingProductId, 0);
 	}
 	
-//	@Override
-//	public Product getProduct(int workingProductId) {
-////		return productRepository.getReferenceById(workingProductId);
-//		return null;
-//	}
+	@Override
+	public Product getProduct(int workingProductId) {
+		return null;
+	}
 	
 	
 // 	review
