@@ -44,11 +44,15 @@ public class LoginController {
 			Model model) throws Exception {
 		UserInfo userinfo = indiebeauty.getUserInfo(userid, passwd);
 		logger.info("UserInfo 불러옴");
-//		if (userinfo == null) {
-//			return new ModelAndView("Error", "message",
-//					"Invalid userId or password.  login failed.");
-//		}
-//		else {
+		if (userinfo == null) {
+			// 로그인 실패 시 에러 메시지를 포함하여 login 페이지로 리다이렉트
+//	        ModelAndView modelAndView = new ModelAndView("redirect:/login");
+//	        modelAndView.addObject("error", "ID와 비밀번호가 일치하지 않습니다.");
+//	        return modelAndView;
+			return new ModelAndView("redirect:/login", "message", 
+					"Invalid username or password.  Signon failed.");
+		}
+		else {
 			UserSession userSession = new UserSession(userinfo);
 			model.addAttribute("userSession", userSession);
 			logger.info("session 저장 성공" + userSession.getUserInfo().getUserid());
@@ -59,7 +63,7 @@ public class LoginController {
 				logger.info("login 성공");
 				return new ModelAndView("redirect:/shop?pageNum=1");
 			}
-//		}
+		}
 	}
 
 //	판매자 로그인
@@ -76,11 +80,13 @@ public class LoginController {
 			Model model) throws Exception {
 		SellerInfo sellerinfo = indiebeauty.getSellerInfo(sellerid, passwd);
 		logger.info("SellerInfo 불러옴");
-//		if (sellerinfo == null) {
-//			return new ModelAndView("Error", "message",
-//					"Invalid sellerId or password.  login failed.");
-//		}
-//		else {
+		if (sellerinfo == null) {
+			// 로그인 실패 시 에러 메시지를 포함하여 login 페이지로 리다이렉트
+	        ModelAndView modelAndView = new ModelAndView("redirect:/seller/login");
+	        modelAndView.addObject("error", "ID와 비밀번호가 일치하지 않습니다.");
+	        return modelAndView;
+		}
+		else {
 			SellerSession sellerSession = new SellerSession(sellerinfo);
 			model.addAttribute("sellerSession", sellerSession);
 			logger.info("seller session 저장 성공 " + sellerSession.getSellerInfo().getSellerid());
@@ -91,7 +97,7 @@ public class LoginController {
 				logger.info("seller login 성공");
 				return new ModelAndView("redirect:/shop?pageNum=1");
 			}
-//		}
+		}
 	}
 	
 	

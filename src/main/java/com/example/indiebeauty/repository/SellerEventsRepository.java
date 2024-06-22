@@ -13,4 +13,6 @@ public interface SellerEventsRepository extends JpaRepository<SellerEvents, Inte
 	List<SellerEvents> findByOrderByDateDesc();
 
 	Page<SellerEvents> findAll(Pageable pageable);
+	
+//	void deleteBySellerId(String sellerid);
 }

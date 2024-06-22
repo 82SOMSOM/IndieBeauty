@@ -20,7 +20,13 @@
 
     <!-- Responsive CSS -->
     <link th:href="@{/css/responsive.css}" rel="stylesheet">
-
+    <script>
+	function confirmDeletion() {
+	    if(confirm("Are you sure you want to delete your account? This action cannot be undone.\n계정을 삭제하시겠습니까? 회원탈퇴를 원한다면 아래의 확인 버튼을 클릭하세요.")) {
+	        window.location.href = '/seller/deleteSeller';
+	    }
+	}
+	</script>
 </head>
 
 <body>
@@ -79,6 +85,9 @@
                 </div>
                 <div class="col-12">
 					<a th:href="@{/editSellerInfo}" class="btn karl-checkout-btn">EDIT</a>
+                </div>
+               <div class="col-12 mb-3">
+					<button type="button" class="btn btn-outline-secondary" onclick="confirmDeletion()">Delete Account 회원탈퇴</button>
                 </div>
             </div>
         </form>

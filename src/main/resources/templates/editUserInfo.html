@@ -51,7 +51,7 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
 		            <label for="userid">ID <span>*</span></label>
-		            <input type="text" class="form-control" th:field="*{userInfo.userid}" id="userid" required>
+		            <input type="text" class="form-control" th:field="*{userInfo.userid}" id="userid" readonly>
 		        </div>
 		        <div class="col-md-6 mb-3">
 		            <label for="passwd">PASSWORD <span>*</span></label>
@@ -73,7 +73,7 @@
 		        <div class="col-12 mb-4">
 		            <label for="email">Email Address <span>*</span></label>
 		            <input type="email" class="form-control" th:field="*{userInfo.email}" id="email" 
-		            	title="이메일 형식을 맞춰주세요" required>
+		            	title="이메일 형식을 맞춰주세요" readonly>
 		        </div>
 
                 <div class="col-12">

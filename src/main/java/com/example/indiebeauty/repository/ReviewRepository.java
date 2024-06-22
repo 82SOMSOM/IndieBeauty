@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
 	List<Review> findByProduct_ProductId(int productId);
 	
+	void deleteByUserId(String userid);
+	
 	@Query("SELECT AVG(r.star) FROM Review r WHERE r.product.productId = :productId")
     Double findAverageRatingByProductId(int productId);
 }

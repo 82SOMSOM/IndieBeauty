@@ -25,4 +25,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	List<Product> findByDescriptionContainingIgnoreCase(String keyword);
 	
 	boolean existsByProductIdAndStockGreaterThan(int productId, int stock);
+	
+//	void deleteBySellerid(String sellerid);
 }

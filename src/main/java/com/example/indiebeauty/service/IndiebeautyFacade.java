@@ -15,7 +15,9 @@ public interface IndiebeautyFacade {
 	void insertUserInfo(UserInfo userinfo);
 	void updateUserInfo(UserInfo userinfo);
 	boolean existsUserId(String userid);
-
+	void deleteAllUserRelatedData(String userid);
+	void deleteUserInfo(String userid);
+	
 	// Cart
 	boolean isProductInStock(int workingProductId);
 	Product getProduct(int workingProductId);
@@ -30,9 +32,6 @@ public interface IndiebeautyFacade {
 	void insertSellerInfo(SellerInfo sellerinfo);
 	void updateSellerInfo(SellerInfo sellerinfo);
 	boolean existsSellerId(String sellerid);
-	
-	
-	
-//	favorites
-//	List<String> getUserFavorites(String userId);
+//	void deleteAllSellerRelatedData(String sellerid);
+//	void deleteSellerInfo(String sellerid);
 }

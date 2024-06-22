@@ -10,5 +10,4 @@ import com.example.indiebeauty.domain.SellerInfo;
 
 public interface SellerRepository extends JpaRepository<SellerInfo, String>{
 	SellerInfo findBySelleridAndPasswd(String sellerid, String password);
-
 }
