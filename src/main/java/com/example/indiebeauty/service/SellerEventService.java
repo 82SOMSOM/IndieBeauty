@@ -39,7 +39,7 @@ private static final int PAGE_SIZE = 9;
 
 	@Transactional(readOnly = true)
 	public Map<String, Object> getEventsByEventId(int pageNum) {
-		Pageable pageable = getPageableForEvents(pageNum - 1); // pageNum은 1부터 시작하도록 변경
+		Pageable pageable = getPageableForEvents(pageNum - 1); 
 		Page<SellerEvents> result = sellerEventRepo.findAll(pageable);
 
 		int totalPages = result.getTotalPages();
@@ -47,7 +47,6 @@ private static final int PAGE_SIZE = 9;
 
 		events.forEach(event -> events.size());
 
-		// Map to store the results
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("events", events);
 		resultMap.put("totalPages", totalPages);
@@ -58,7 +57,7 @@ private static final int PAGE_SIZE = 9;
 
 	@Transactional(readOnly = true)
 	public Map<String, Object> getEventsBySellerId(String sellerId, int pageNum) {
-		Pageable pageable = getPageableForEvents(pageNum - 1); // pageNum은 1부터 시작하도록 변경
+		Pageable pageable = getPageableForEvents(pageNum - 1); 
 		Page<SellerEvents> result = sellerEventRepo.findBySellerId(sellerId, pageable);
 
 		int totalPages = result.getTotalPages();
@@ -66,7 +65,6 @@ private static final int PAGE_SIZE = 9;
 
 		events.forEach(event -> events.size());
 
-		// Map to store the results
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("events", events);
 		resultMap.put("totalPages", totalPages);
