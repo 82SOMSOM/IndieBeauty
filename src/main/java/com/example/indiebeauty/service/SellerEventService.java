@@ -3,6 +3,7 @@ package com.example.indiebeauty.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.indiebeauty.controller.EventForm;
+import com.example.indiebeauty.domain.Item;
 import com.example.indiebeauty.domain.Orders;
 import com.example.indiebeauty.domain.SellerEvents;
 import com.example.indiebeauty.domain.UserInfo;
@@ -51,6 +53,35 @@ private static final int PAGE_SIZE = 9;
 		resultMap.put("totalPages", totalPages);
 
 		return resultMap;
+	}
+	
+
+	@Transactional(readOnly = true)
+	public Map<String, Object> getEventsBySellerId(String sellerId, int pageNum) {
+		Pageable pageable = getPageableForEvents(pageNum - 1); // pageNum은 1부터 시작하도록 변경
+		Page<SellerEvents> result = sellerEventRepo.findBySellerId(sellerId, pageable);
+
+		int totalPages = result.getTotalPages();
+		List<SellerEvents> events = result.getContent();
+
+		events.forEach(event -> events.size());
+
+		// Map to store the results
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("events", events);
+		resultMap.put("totalPages", totalPages);
+
+		return resultMap;
+	}
+
+	@Transactional
+	public void deleteEvent(int eventId) {
+		Optional<SellerEvents> eventOptional = sellerEventRepo.findById(eventId);
+		if (eventOptional.isPresent()) {
+			SellerEvents event = eventOptional.get();
+
+			sellerEventRepo.delete(event);
+		}
 	}
 
 

@@ -87,8 +87,8 @@
 										<!-- Add to Cart -->
 										<span style="margin-right: 10px;"
 											th:text="${#sets.size(event.participants) + '/' + event.joinCount}"></span>
-										<a th:href="@{/joinEvent/{eventId}(eventId=${event.eventId})}"
-											class="btn  btn-info btn-sm">Join</a>
+										<a th:href="@{/deleteEvent/{eventId}(eventId=${event.eventId})}"
+											class="btn btn-danger btn-sm">delete</a>
 									</div>
 								</div>
 							</div>
