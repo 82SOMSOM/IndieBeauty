@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.example.indiebeauty.domain.Orders;
 import com.example.indiebeauty.domain.SellerEvents;
 
 public interface SellerEventsRepository extends JpaRepository<SellerEvents, Integer> {
@@ -13,4 +14,6 @@ public interface SellerEventsRepository extends JpaRepository<SellerEvents, Inte
 	List<SellerEvents> findByOrderByDateDesc();
 
 	Page<SellerEvents> findAll(Pageable pageable);
+	
+	Page<SellerEvents> findBySellerId(String sellerId, Pageable pageable);
 }
