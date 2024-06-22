@@ -56,10 +56,12 @@ public class RegistSellerController {
 	    boolean isAvailable = !indiebeauty.existsSellerId(sellerid);
 	    return ResponseEntity.ok().body(Map.of("available", isAvailable));
 	}
+	
 	@RequestMapping(value = "/sellerSignin", method = RequestMethod.GET)
     public String showSellerRegistrationForm() {
         return "sellerSignin";  // 회원가입 페이지로 이동
     }
+	
 	@RequestMapping(value = "/seller/registerSeller", method = RequestMethod.POST)
 	public String registerSeller(@ModelAttribute("sellerForm") SellerForm sellerForm, BindingResult result, HttpSession session) {
 		validator.validate(sellerForm, result);
@@ -87,10 +89,12 @@ public class RegistSellerController {
 	        return "redirect:/login";  // 세션이 없으면 회원 가입 페이지로 리다이렉트
         }
 	}
+	
 	@GetMapping("/editSellerInfo")
 	public String editSellerInfo() {
         return "editSellerInfo";  // 회원가입 페이지로 이동
     }
+	
 	@PostMapping("/seller/editSeller")
 	public String editSeller(@ModelAttribute("sellerForm") SellerForm sellerForm, BindingResult result, HttpSession session) {
         validator.validate(sellerForm, result);
