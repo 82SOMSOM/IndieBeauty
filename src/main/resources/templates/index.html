@@ -9,7 +9,7 @@
 	<!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 	<!-- Title  -->
-	<title>Karl - Fashion Ecommerce Template | Home</title>
+	<title>Indie Beauty | Home</title>
 
 	<!-- Favicon  -->
 	<link rel="icon" th:href="@{/img/core-img/favicon.ico}">
@@ -121,11 +121,10 @@
 													role="button" data-toggle="dropdown" aria-haspopup="true"
 													aria-expanded="false">Pages</a>
 												<div class="dropdown-menu" aria-labelledby="karlDropdown">
-													<a class="dropdown-item" href="index.html">Home</a>
+													<a class="dropdown-item" th:href="@{/}">Home</a>
 													<a class="dropdown-item" th:href="@{/shop?pageNum=1}">Shop</a>
 													<!-- <a class="dropdown-item" href="product-details.html">Product Details</a> -->
 													<a class="dropdown-item" th:href="@{/shop/viewCart.do}">Cart</a>
-													<a class="dropdown-item" href="checkout.html">Checkout</a>
 												</div>
 											</li>
 											<li class="nav-item dropdown">
@@ -163,27 +162,25 @@
 		</header>
 		<!-- ****** Header Area End ****** -->
 
-		<!-- ****** Top Discount Area Start ****** -->
+		<!-- ****** Top Hero Area Start ****** -->
 		<section th:fragment="top-discount-area" class="top-discount-area d-md-flex align-items-center">
 			<!-- Single Discount Area -->
 			<div class="single-discount-area">
-				<a th:href="@{/shop?pageNum=1}">
-					<h5>Free Shipping &amp; Returns</h5>
-				</a>
-				<h6><a href="#">BUY NOW</a></h6>
+				<h5>Free Shipping &amp; Returns</h5>
+				<h6><a th:href="@{/shop?pageNum=1}">BUY NOW</a></h6>
 			</div>
 			<!-- Single Discount Area -->
 			<div class="single-discount-area">
-				<h5>Check the rankings to get useful information</h5>
+					<h5>Check the rankings to get useful information</h5>
 				<h6><a th:href="@{/rank?pageNum=1}">CHECK NOW</a></h6>
 			</div>
 			<!-- Single Discount Area -->
 			<div class="single-discount-area">
 				<h5>Check the seller's news</h5>
-				<h6><a href="#">CHECK NOW</a></h6>
+				<h6><a th:href="@{/viewAllEvents}">CHECK NOW</a></h6>
 			</div>
 		</section>
-		<!-- ****** Top Discount Area End ****** -->
+		<!-- ****** Top Hero Area End ****** -->
 
 		<!-- ****** Welcome Slides Area Start ****** -->
 		<section class="welcome_area">

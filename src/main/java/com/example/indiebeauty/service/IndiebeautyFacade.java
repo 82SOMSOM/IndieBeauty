@@ -1,8 +1,5 @@
 package com.example.indiebeauty.service;
 
-import java.util.List;
-
-import com.example.indiebeauty.domain.Item;
 import com.example.indiebeauty.domain.Product;
 import com.example.indiebeauty.domain.Review;
 import com.example.indiebeauty.domain.SellerInfo;
@@ -32,6 +29,4 @@ public interface IndiebeautyFacade {
 	void insertSellerInfo(SellerInfo sellerinfo);
 	void updateSellerInfo(SellerInfo sellerinfo);
 	boolean existsSellerId(String sellerid);
-//	void deleteAllSellerRelatedData(String sellerid);
-//	void deleteSellerInfo(String sellerid);
 }
