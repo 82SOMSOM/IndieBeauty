@@ -47,7 +47,7 @@ public class LoginController {
 		if (userinfo == null) {
 			// 로그인 실패 시 에러 메시지를 포함하여 login 페이지로
 			return new ModelAndView("/login", "message", 
-					"Invalid username or password.  Login failed.");
+					"Invalid userid or password.  Login failed.");
 		}
 		else {
 			UserSession userSession = new UserSession(userinfo);
@@ -80,7 +80,7 @@ public class LoginController {
 		if (sellerinfo == null) {
 			// 로그인 실패 시 에러 메시지를 포함하여 login 페이지로 
 			return new ModelAndView("/sellerLogin", "message", 
-					"Invalid username or password.  Login failed.");
+					"Invalid sellerid or password.  Login failed.");
 		}
 		else {
 			SellerSession sellerSession = new SellerSession(sellerinfo);
