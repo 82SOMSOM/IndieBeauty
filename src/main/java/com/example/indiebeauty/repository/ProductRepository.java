@@ -26,5 +26,4 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	
 	boolean existsByProductIdAndStockGreaterThan(int productId, int stock);
 	
-//	void deleteBySellerid(String sellerid);
 }
