@@ -50,6 +50,9 @@
                                     <input type="hidden" name="forwardAction" th:value="@{${loginForwardAction}}" />
                                 </div>
                                 <div class="row">
+									<div class="col-12">
+                                        <h4 th:text="${message}"></h4>
+                                    </div>
                                     <div class="col-12 mb-3">
                                         <label for="sellerid">ID <span>*</span></label>
                                         <input type="text" class="form-control" id="sellerid" name="sellerid" required>

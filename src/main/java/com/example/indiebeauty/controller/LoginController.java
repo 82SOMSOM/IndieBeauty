@@ -45,12 +45,9 @@ public class LoginController {
 		UserInfo userinfo = indiebeauty.getUserInfo(userid, passwd);
 		logger.info("UserInfo 불러옴");
 		if (userinfo == null) {
-			// 로그인 실패 시 에러 메시지를 포함하여 login 페이지로 리다이렉트
-//	        ModelAndView modelAndView = new ModelAndView("redirect:/login");
-//	        modelAndView.addObject("error", "ID와 비밀번호가 일치하지 않습니다.");
-//	        return modelAndView;
-			return new ModelAndView("redirect:/login", "message", 
-					"Invalid username or password.  Signon failed.");
+			// 로그인 실패 시 에러 메시지를 포함하여 login 페이지로
+			return new ModelAndView("/login", "message", 
+					"Invalid username or password.  Login failed.");
 		}
 		else {
 			UserSession userSession = new UserSession(userinfo);
@@ -81,10 +78,9 @@ public class LoginController {
 		SellerInfo sellerinfo = indiebeauty.getSellerInfo(sellerid, passwd);
 		logger.info("SellerInfo 불러옴");
 		if (sellerinfo == null) {
-			// 로그인 실패 시 에러 메시지를 포함하여 login 페이지로 리다이렉트
-	        ModelAndView modelAndView = new ModelAndView("redirect:/seller/login");
-	        modelAndView.addObject("error", "ID와 비밀번호가 일치하지 않습니다.");
-	        return modelAndView;
+			// 로그인 실패 시 에러 메시지를 포함하여 login 페이지로 
+			return new ModelAndView("/sellerLogin", "message", 
+					"Invalid username or password.  Login failed.");
 		}
 		else {
 			SellerSession sellerSession = new SellerSession(sellerinfo);
