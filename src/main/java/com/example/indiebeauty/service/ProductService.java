@@ -103,7 +103,6 @@ public class ProductService {
 	                       .filter(img -> img.getIsTitleImg() == 1)
 	                       .collect(Collectors.toList());
 			} else {
-				System.out.println("Singleton 처리");
 				List<ProductImage> noImageList = Collections.singletonList(new ProductImage(0, 0, "no-image.png", 0));
 				product.setImageList(noImageList); 
 			}
@@ -249,10 +248,6 @@ public class ProductService {
 		
 		for (ProductImage pi : productImageList) {
 			prodImgRepo.save(pi);
-		}
-		
-		for (ProductImage pi : productImageList) {
-			System.out.println(pi);
 		}
 		
 		return newProductId;
