@@ -14,22 +14,24 @@
 - IDE: Eclipse
 - Database: Oracle
 - ORM: Spring Data JPA
-- Back-end : Spring Framework, SpringBoot, Thymeleaf
+- Back-end : Spring Framework, SpringBoot
 - Front-end : HTML, CSS, JavaScripts, BootStrap
+- Template Engines : Thymeleaf
 - Others : Github, Notion
 
 ### 주요 기능
 1. 사용자
-   -회원가입, 로그인, 로그아웃, 회원탈퇴
-   -마이페이지: 조회 / 수정
-   -상품: 상세정보 조회
-   -장바구니: 상품 담기 / 삭제 / 수량 변경
-   -주문: 주문 확인 / 취소
-   -리뷰: 조회 / 등록 / 별점 통계
-   -체험단: 피드 조회 / 신청
+  <br> -회원가입, 로그인, 로그아웃, 회원탈퇴
+  <br> -마이페이지: 조회 / 수정
+  <br> -상품: 상세정보 조회
+  <br> -장바구니: 상품 담기 / 삭제 / 수량 변경
+  <br> -주문: 주문 확인 / 취소
+  <br> -리뷰: 조회 / 등록 / 별점 통계
+  <br> -체험단: 피드 조회 / 신청
    
 2. 판매자
-   -회원가입, 로그인, 로그아웃
-   -마이페이지: 조회 /  수정
-   -체험단 모집 피드 작성 / 삭제
-   -상품: 상품 상세정보 등록
+  <br> -회원가입, 로그인, 로그아웃
+  <br> -마이페이지: 조회 / 수정
+  <br> -상품: 상품 상세정보 등록
+  <br> -체험단: 모집 피드 작성 / 삭제
+  
